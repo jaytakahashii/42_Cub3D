@@ -1,98 +1,98 @@
-// // #include "cub3D.h"
-// // #include <math.h>
+#include <mlx.h>
+#include <stdio.h>
+#include <math.h>
 
-// // int main(void)
-// // {
-// // 	 void	*mlx_ptr;
-// // 	 void	*win_ptr;
-// // 	 void	*img_ptr;
-// // 	 char	*img_data;
-// // 	 int	 bpp;
-// // 	 int	 size_line;
-// // 	 int	 endian;
-// // 	 int	 x, y;
+#define BG_COLOR 0x02A630  // 背景の緑色
+#define SHEAR_FACTOR 0.5   // シアー変換の係数（平行四辺形の傾き）
 
-// // 	 // MiniLibX 初期化
-// // 	 mlx_ptr = mlx_init();
+// 画像を平行四辺形に変形してウィンドウに表示する関数
+void render_sheared_image_with_xpm(void *mlx_ptr, void *win_ptr, char *xpm_file)
+{
+    int win_width = 800;
+    int win_height = 600;
+    int img_width, img_height;
+    void *bg_img_ptr;
+    void *xpm_img_ptr;
+    char *bg_img_data;
+    char *xpm_img_data;
+    int bpp, size_line, endian;
+    int x, y;
 
-// // 	 // ウィンドウの作成（幅800、高さ600）
-// // 	 win_ptr = mlx_new_window(mlx_ptr, 800, 600, "New Image Example");
+    // 背景用の画像を作成（800x600）
+    bg_img_ptr = mlx_new_image(mlx_ptr, win_width, win_height);
+    bg_img_data = mlx_get_data_addr(bg_img_ptr, &bpp, &size_line, &endian);
 
-// // 	 // 新しい画像を作成（幅800、高さ600）
-// // 	 img_ptr = mlx_new_image(mlx_ptr, 800, 600);
+    // 背景画像を緑色で塗りつぶす
+    for (y = 0; y < win_height; y++)
+    {
+        for (x = 0; x < win_width; x++)
+        {
+            *(int *)(bg_img_data + (y * size_line + x * (bpp / 8))) = BG_COLOR;
+        }
+    }
 
-// // 	 // 画像データにアクセス
-// // 	 img_data = mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
-// // 	// ft_printf("bpp: %d\n", bpp);
-// // 	// ft_printf("size_line: %d\n", size_line);
-// // 	// ft_printf("endian: %d\n", endian);
-// // 	 // 画像にピクセルを描画（緑のピクセル）
-// // 	 for (y = 0; y < 600; y++)
-// // 	 {
-// // 		 for (x = 0; x < 800; x++)
-// // 		 {
-// // 			 // 座標 (x, y) に色を設定（16進数で #02A630 → RGB(2, 166, 48)）
-// // 			 int color = (2 << 16) | (166 << 8) | 48; // RGB値を結合して24ビットカラーにする
-// // 			 // ピクセルを img_data に設定
-// // 			 *(int *)(img_data + (y * size_line + x * (bpp / 8))) = color;
-// // 		 }
-// // 	 }
+    // XPM画像を読み込む
+    xpm_img_ptr = mlx_xpm_file_to_image(mlx_ptr, xpm_file, &img_width, &img_height);
+    if (!xpm_img_ptr)
+    {
+        printf("Failed to load XPM file: %s\n", xpm_file);
+        return;
+    }
+	int bpp_xpm, size_line_xpm, endian_xpm;
+    xpm_img_data = mlx_get_data_addr(xpm_img_ptr, &bpp_xpm, &size_line_xpm, &endian_xpm);
 
-// // 	 // 画像をウィンドウに表示
-// // 	 mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, 0, 0);
+    // 平行四辺形にするための座標変換
+    int offset_x = (win_width - img_width) / 2;
+    int offset_y = (win_height - img_height) / 2;
 
-// // 	 // イベントループ
-// // 	 mlx_loop(mlx_ptr);
+    for (y = 0; y < img_height; y++)
+    {
+        for (x = 0; x < img_width; x++)
+        {
+            int color = *(int *)(xpm_img_data + (y * size_line_xpm + x * (bpp_xpm / 8)));
 
-// // 	 return 0;
-// // }
+            // シアー変換を使って座標を変換（平行四辺形に変形）
+            int new_x = x + y * SHEAR_FACTOR;
+            int new_y = y;
 
+            // 新しい座標がウィンドウ内に収まるか確認
+            if (new_x + offset_x >= 0 && new_x + offset_x < win_width &&
+                new_y + offset_y >= 0 && new_y + offset_y < win_height)
+            {
+                // 変形後の画像を背景に描画
+                *(int *)(bg_img_data + ((new_y + offset_y) * size_line + (new_x + offset_x) * (bpp / 8))) = color;
+            }
+        }
+    }
 
-// // #define PI 3.14159265
+    // 最後に背景画像をウィンドウに一度だけ表示
+    mlx_put_image_to_window(mlx_ptr, win_ptr, bg_img_ptr, 0, 0);
+}
 
-// // // 回転させる角度（ラジアンで指定）
-// // #define ANGLE 45 * (PI / 180)
+int main(void)
+{
+    void *mlx_ptr;
+    void *win_ptr;
 
-// // int rotate_image(void *mlx_ptr, void *win_ptr, void *img_ptr, int img_width, int img_height)
-// // {
-// // 	 int x, y;
-// // 	 int new_x, new_y;
-// // 	 int color;
-// // 	 void *new_img_ptr;
-// // 	 char *new_img_data;
-// // 	 int bpp, size_line, endian;
-// // 	 int new_img_width = img_width;
-// // 	 int new_img_height = img_height;
+    // MiniLibX 初期化
+    mlx_ptr = mlx_init();
+    if (!mlx_ptr)
+    {
+        printf("Failed to initialize MiniLibX\n");
+        return 1;
+    }
 
-// // 	 // 新しい画像を作成
-// // 	 new_img_ptr = mlx_new_image(mlx_ptr, new_img_width, new_img_height);
-// // 	 new_img_data = mlx_get_data_addr(new_img_ptr, &bpp, &size_line, &endian);
+    // ウィンドウの作成（幅800、高さ600）
+    win_ptr = mlx_new_window(mlx_ptr, 800, 600, "Sheared XPM Image");
 
-// // 	 // 元の画像のピクセルデータを取得
-// // 	 char *img_data = mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
+    // 背景に緑色を塗りつぶして平行四辺形に変形されたXPM画像を貼り付け
+    render_sheared_image_with_xpm(mlx_ptr, win_ptr, "./img/eagle.xpm");
 
-// // 	 // ピクセルごとに新しい座標に配置
-// // 	 for (y = 0; y < img_height; y++)
-// // 	 {
-// // 		 for (x = 0; x < img_width; x++)
-// // 		 {
-// // 			 // 元の画像のピクセルカラーを取得
-// // 			 color = *(int *)(img_data + (y * size_line + x * (bpp / 8)));
+    // イベントループ
+    mlx_loop(mlx_ptr);
 
-// // 			 // 回転後の座標を計算
-// // 			 new_x = (int)(cos(ANGLE) * x - sin(ANGLE) * y);
-// // 			 new_y = (int)(sin(ANGLE) * x + cos(ANGLE) * y);
-
-// // 			 // 新しい座標が画像の範囲内にあるか確認
-// // 			 if (new_x >= 0 && new_x < new_img_width && new_y >= 0 && new_y < new_img_height)
-// // 			 {
-// // 				 // 新しい画像にピクセルを設定
-// // 				 *(int *)(new_img_data + (new_y * size_line + new_x * (bpp / 8))) = color;
-// // 			 }
-// // 		 }
-// // 	 }
-// // 	 // 新しい画像をウィンドウに表示
-// // 	 mlx_put_image_to_window(mlx_ptr, win_ptr, new_img_ptr, 400, 400);
+    return 0;
+}
 // // 	 return 0;
 // // }
 
