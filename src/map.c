@@ -10,8 +10,14 @@ int	check_map_spell(char **argv)
 
 int	set_path(char **target, char *map)
 {
+	int i;
+
+	i = -1;
 	pass_space(&map);
 	*target = ft_strdup(map);
+	while ((*target)[i] != '\n')
+		i++;
+	(*target)[i] = '\0';
 	return (0);
 }
 
