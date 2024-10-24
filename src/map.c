@@ -16,7 +16,14 @@ int	set_path(char **target, char *map)
 	pass_space(&map);
 	*target = ft_strdup(map);
 	while ((*target)[i] != '\n')
+	{
+		if ((*target)[i] == '\0')
+		{
+			free(*target);
+			return (1);
+		}
 		i++;
+	}
 	(*target)[i] = '\0';
 	return (0);
 }
