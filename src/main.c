@@ -58,15 +58,18 @@ int	game_update(t_game *game)
 	return (0);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	t_game	game;
+int	main(int argc, char **argv)
+{
+	t_game	game;
 
-// 	if (argc != 2 || check_map(argv))
-// 		exit(0);
-// 	if (map_scan(game.map_info, argv[1]))
-// 		exit(0);
-// 	game_init(&game);
-// 	game_loop(&game);
-// 	return (0);
-// }
+	if (argc != 2 || check_map(argv) || map_scan(&game, argv[1]))
+		exit(0);
+	if (set_img(&game))
+	{
+		ft_printf("Error\n");
+		exit(0);
+	}
+	game_init(&game);
+	game_loop(&game);
+	return (0);
+}

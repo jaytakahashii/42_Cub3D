@@ -92,7 +92,6 @@ typedef struct s_img
 	void	*img;
 	char	*xpm_data;
 	void	*xpm_img;
-	char	*relative_path;
 	int		img_width;
 	int		img_height;
 	int		bpp;
@@ -163,7 +162,10 @@ int				game_update(t_game *game);
 /* map.c (マップの計算) */
 
 int	check_map_spell(char **argv);
-int	map_scan(t_map *map_info, char *argv);
+int	map_scan(t_game *game, char *argv);
+
+/* img.c (画像の計算) */
+int				set_img(t_game *game);
 
 /* vector.c (ベクトルの計算) */
 

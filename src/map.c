@@ -10,7 +10,7 @@ int	check_map_spell(char **argv)
 
 int	set_path(char **target, char *map)
 {
-	pass_space(map);
+	pass_space(&map);
 	*target = ft_strdup(map);
 	return (0);
 }
@@ -125,8 +125,8 @@ void	set_player_info(t_map *map_info, char spell, int x, int y)
 	if (spell == 'N')
 	{
 		map_info->p_angle = NORTH;
-		// NORTHをdoubule型入れてるけどうまく行かないよ泣
-		ft_printf("angle: %f\n", NORTH);
+		// todo p_angleという変数に入れられない
+		// ft_printf("angle: %f\n", NORTH);
 	}
 	else if (spell == 'S')
 		map_info->p_angle = SOUTH;
@@ -199,7 +199,7 @@ int	map_check(t_map *map_info)
 	return (0);
 }
 
-int	map_scan(t_map *map_info, char *argv)
+int	map_scan(t_game *game, char *argv)
 {
 	int		y;
 	int		fd;
@@ -207,25 +207,25 @@ int	map_scan(t_map *map_info, char *argv)
 
 	y = 0;
 	fd = open(argv, O_RDONLY);
-	if (fd == -1 || map_info_init(&map_info, argv))
+	if (fd == -1 || map_info_init(&(game->map_info), argv))
 		return (1);
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (line[0] == '\n' || set_map_info(map_info, line) == 0)
+		if (line[0] == '\n' || set_map_info(game->map_info, line) == 0)
 		{
 			free(line);
 			continue ;
 		}
-		map_info->map[y] = ft_strdup(line);
-		map_info->map_tmp[y] = ft_strdup(line);
+		game->map_info->map[y] = ft_strdup(line);
+		game->map_info->map_tmp[y] = ft_strdup(line);
 		free(line);
 		y++;
 	}
-	map_info->map[y] = NULL;
-	map_info->map_tmp[y] = NULL;
+	game->map_info->map[y] = NULL;
+	game->map_info->map_tmp[y] = NULL;
 	close(fd);
-	return (map_check(map_info));
+	return (map_check(game->map_info));
 }
