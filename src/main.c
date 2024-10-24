@@ -16,7 +16,7 @@ int check_map(char **argv)
 */
 void	game_init(t_game *game)
 {
-	window_init(game);
+	// window_init(game);これset_imgに移しました。
 	game->player = player_init(200, 250, NORTH, 5);
 	// mapの表示(下のやつコメント解除したらセグフォになる)
 	// printf("map\n");
