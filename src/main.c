@@ -1,6 +1,6 @@
 #include "cub3D.h"
 
-int check_map(char **argv)
+int cub_check(char **argv)
 {
 	if (ft_strrchr(argv[1], '.') == 0
 		|| ft_strncmp(ft_strrchr(argv[1], '.'), ".cub", 4) != 0)
@@ -16,7 +16,7 @@ int check_map(char **argv)
 */
 void	game_init(t_game *game)
 {
-	// window_init(game);これset_imgに移しました。
+	// window_init(game);<---set_imgに移しました。
 	game->player = player_init(200, 250, NORTH, 5);
 	// mapの表示(下のやつコメント解除したらセグフォになる)
 	// printf("map\n");
@@ -26,6 +26,7 @@ void	game_init(t_game *game)
 	mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
 	mlx_line_put(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
 	mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(-1, 1)), 500, MGREEN);
+	
 	draw_player(game, &game->player);
 	raycasting(game, &game->player);
 }
@@ -62,7 +63,7 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (argc != 2 || check_map(argv) || map_scan(&game, argv[1]))
+	if (argc != 2 || cub_check(argv) || map_scan(&game, argv[1]))
 		exit(0);
 	if (set_img(&game))
 	{

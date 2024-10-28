@@ -152,8 +152,7 @@ typedef struct s_game
 	t_texture	south;
 	t_texture	west;
 	t_texture	east;
-	t_texture	ceiling;
-	t_texture	floor;
+	t_texture	canvas;
 	t_map		*map_info;
 	t_img		*img;
 }	t_game;

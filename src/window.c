@@ -10,6 +10,8 @@ void	window_init(t_game *game)
 {
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
+	game->canvas.img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
+	game->canvas.data = (int *)mlx_get_data_addr(game->canvas.img, &game->canvas.bpp, &game->canvas.size_line, &game->canvas.endian);
 }
 
 /*
