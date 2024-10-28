@@ -12,19 +12,18 @@ int	set_path(char **target, char *map)
 {
 	int i;
 
-	i = -1;
+	i = 0;
 	pass_space(&map);
 	*target = ft_strdup(map);
-	while ((*target)[i] != '\n')
+	while (1)
 	{
-		if ((*target)[i] == '\0')
+		if ((*target)[i] == '\n' || (*target)[i] == 0)
 		{
-			free(*target);
-			return (1);
+			(*target)[i] = 0;
+			break ;
 		}
 		i++;
 	}
-	(*target)[i] = '\0';
 	return (0);
 }
 
