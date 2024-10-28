@@ -163,8 +163,8 @@ int				game_update(t_game *game);
 
 /* map.c (マップの計算) */
 
-int	check_map_spell(char **argv);
-int	map_scan(t_game *game, char *argv);
+int				check_map_spell(char **argv);
+int				map_scan(t_game *game, char *argv);
 
 /* img.c (画像の計算) */
 int				set_img(t_game *game);

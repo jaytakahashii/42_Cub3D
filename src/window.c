@@ -45,7 +45,8 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 		{
 			while (ray.pos.x < end.x)
 			{
-				mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y(line, ray.pos.x), color);
+				// mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y(line, ray.pos.x), color);
+				game->canvas.data[(int)line_calc_y(line, ray.pos.x) * WIN_WIDTH + (int)ray.pos.x] = color;
 				ray.pos.x++;
 			}
 		}
@@ -53,7 +54,8 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 		{
 			while (ray.pos.x > end.x)
 			{
-				mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y(line, ray.pos.x), color);
+				// mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y(line, ray.pos.x), color);
+				game->canvas.data[(int)line_calc_y(line, ray.pos.x) * WIN_WIDTH + (int)ray.pos.x] = color;
 				ray.pos.x--;
 			}
 		}
@@ -64,7 +66,8 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 		{
 			while (ray.pos.y < end.y)
 			{
-				mlx_pixel_put(game->mlx, game->win, line_calc_x(line, ray.pos.y), ray.pos.y, color);
+				// mlx_pixel_put(game->mlx, game->win, line_calc_x(line, ray.pos.y), ray.pos.y, color);
+				game->canvas.data[(int)ray.pos.y * WIN_WIDTH + (int)line_calc_x(line, ray.pos.y)] = color;
 				ray.pos.y++;
 			}
 		}
@@ -72,7 +75,9 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 		{
 			while (ray.pos.y > end.y)
 			{
-				mlx_pixel_put(game->mlx, game->win, line_calc_x(line, ray.pos.y), ray.pos.y, color);
+				// mlx_pixel_put(game->mlx, game->win, line_calc_x(line, ray.pos.y), ray.pos.y, color);
+				// ray.pos.yが一定のところで-1となり、セグフォが起こる
+				game->canvas.data[(int)ray.pos.y * WIN_WIDTH + (int)line_calc_x(line, ray.pos.y)] = color;
 				ray.pos.y--;
 			}
 		}

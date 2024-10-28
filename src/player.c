@@ -37,8 +37,10 @@ void	draw_player(t_game *game, t_player *player)
 	x = -5;
 	while (x < 6)
 	{
-		mlx_pixel_put(game->mlx, game->win, player->pos.x + x, player->pos.y, MRED);
-		mlx_pixel_put(game->mlx, game->win, player->pos.x, player->pos.y + x, MRED);
+		// mlx_pixel_put(game->mlx, game->win, player->pos.x + x, player->pos.y, MRED);
+		game->canvas.data[(int)player->pos.y * WIN_WIDTH + (int)player->pos.x + x] = MRED;
+		// mlx_pixel_put(game->mlx, game->win, player->pos.x, player->pos.y + x, MRED);
+		game->canvas.data[(int)(player->pos.y + x) * WIN_WIDTH + (int)player->pos.x] = MRED;
 		x++;
 	}
 	mlx_line_put(game, ray_init(player->pos, player->dir), VIEW_DISTANCE, MRED);
