@@ -71,12 +71,10 @@ void	raycasting(t_game *game, t_player *player)
 void	draw_wall(t_game *game, int num, double angle, double distance)
 {
 	t_vector	start;
-	t_vector	size;
 	double		rate;
 
 	rate = 10000 / (distance * cos(angle));
 	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	size = vector_init(1, rate);
 	start.x += num;
-	draw_rect(game, start, size, MBLUE);
+	draw_rect(game, start, rate, MBLUE);
 }
