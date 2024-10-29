@@ -44,16 +44,21 @@ void	draw_player(t_game *game, t_player *player)
 		x++;
 	}
 	mlx_line_put(game, ray_init(player->pos, player->dir), VIEW_DISTANCE, MRED);
-	x = 1;
+	// x = 1;
 	angle_step = FOV_ANGLE_HALF / NUM_RAYS;
-	while (x <= NUM_RAYS)
-	{
-		dir = vector_rotate(player->dir, x * angle_step);
-		mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-		dir = vector_rotate(player->dir, -x * angle_step);
-		mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-		x++;
-	}
+	// while (x <= NUM_RAYS)
+	// {
+	// 	dir = vector_rotate(player->dir, x * angle_step);
+	// 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	// 	dir = vector_rotate(player->dir, -x * angle_step);
+	// 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	// 	x++;
+	// }
+	x = NUM_RAYS;
+	dir = vector_rotate(player->dir, x * angle_step);
+	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	dir = vector_rotate(player->dir, -x * angle_step);
+	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 }
 
 /*

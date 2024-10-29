@@ -15,19 +15,19 @@ void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 	intersection = line_intersection(ray, segment_1);
 	if (intersection.x != -1 && intersection.y != -1)
 	{
-		draw_circle(game, intersection, 3, MWHITE);
+		// draw_circle(game, intersection, 3, MWHITE);
 		draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, intersection)));
 	}
 	intersection = line_intersection(ray, segment_2);
 	if (intersection.x != -1 && intersection.y != -1)
 	{
-		draw_circle(game, intersection, 3, MWHITE);
+		// draw_circle(game, intersection, 3, MWHITE);
 		draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, intersection)));
 	}
 	intersection = line_intersection(ray, segment_3);
 	if (intersection.x != -1 && intersection.y != -1)
 	{
-		draw_circle(game, intersection, 3, MWHITE);
+		// draw_circle(game, intersection, 3, MWHITE);
 		draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, intersection)));
 	}
 }
@@ -75,8 +75,8 @@ void	draw_wall(t_game *game, int num, double angle, double distance)
 	double		rate;
 
 	rate = 10000 / (distance * cos(angle));
-	start = vector_init(1000, 300);
-	size = vector_init(10, rate);
-	start.x += num * 20;
+	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	size = vector_init(1, rate);
+	start.x += num;
 	draw_rect(game, start, size, MBLUE);
 }
