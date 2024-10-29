@@ -48,7 +48,6 @@ int	game_update(t_game *game)
 	int	x;
 
 	x = -1;
-	// mlx_clear_window(game->mlx, game->win);
 	while (++x < WIN_WIDTH * WIN_HEIGHT)
 		game->canvas.data[x] = 0;
 	x = -1;
