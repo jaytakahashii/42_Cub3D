@@ -36,6 +36,14 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 
 	end.x = ray.pos.x + ray.dir.x * length;
 	end.y = ray.pos.y + ray.dir.y * length;
+	// if (end.x < 0)
+	// 	end.x = 0;
+	// if (end.x >= WIN_WIDTH)
+	// 	end.x = WIN_WIDTH - 1;
+	// if (end.y < 0)
+	// 	end.y = 0;
+	// if (end.y >= WIN_HEIGHT)
+	// 	end.y = WIN_HEIGHT - 1;
 	line = line_from_points(ray.pos, end);
 	if (fabs(ray.dir.x) > fabs(ray.dir.y))
 	{
