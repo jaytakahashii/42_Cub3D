@@ -10,7 +10,7 @@ int	check_map_spell(char **argv)
 
 int	set_path(char **target, char *map)
 {
-	pass_space(map);
+	pass_space(&map);
 	*target = ft_strdup(map);
 	return (0);
 }
