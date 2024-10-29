@@ -125,7 +125,7 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 ** size: 長方形の大きさ (t_vector.x: 幅, t_vector.y: 高さ)
 ** color: 色
 */
-void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
+void	draw_rect(t_game *game, t_vector pos, double size, int color)
 {
 	int		j;
 
@@ -137,8 +137,8 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 		pos.y = 0;
 	if (pos.y >= WIN_HEIGHT)
 		pos.y = WIN_HEIGHT - 1;
-	j = -size.y / 2;
-	while (j < size.y / 2)
+	j = -size / 2;
+	while (j < size / 2)
 	{
 		if (pos.y + j < 0 || pos.y + j >= WIN_HEIGHT)
 		{
