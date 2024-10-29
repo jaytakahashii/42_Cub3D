@@ -66,13 +66,8 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (argc != 2 || cub_check(argv) || map_scan(&game, argv[1]))
+	if (argc != 2 || cub_check(argv) || map_scan(&game, argv[1]) || set_img(&game))
 		exit(0);
-	if (set_img(&game))
-	{
-		ft_printf("Error\n");
-		exit(0);
-	}
 	game_init(&game);
 	game_loop(&game);
 	return (0);
