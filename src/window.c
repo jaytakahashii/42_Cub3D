@@ -127,18 +127,25 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 */
 void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 {
-	int		i;
 	int		j;
 
-	i = -size.x / 2;
-	while (i < size.x / 2)
+	if (pos.x < 0)
+		pos.x = 0;
+	if (pos.x >= WIN_WIDTH)
+		pos.x = WIN_WIDTH - 1;
+	if (pos.y < 0)
+		pos.y = 0;
+	if (pos.y >= WIN_HEIGHT)
+		pos.y = WIN_HEIGHT - 1;
+	j = -size.y / 2;
+	while (j < size.y / 2)
 	{
-		j = -size.y / 2;
-		while (j < size.y / 2)
+		if (pos.y + j < 0 || pos.y + j >= WIN_HEIGHT)
 		{
-			mlx_pixel_put(game->mlx, game->win, pos.x + i, pos.y + j, color);
 			j++;
+			continue ;
 		}
-		i++;
+		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
+		j++;
 	}
 }
