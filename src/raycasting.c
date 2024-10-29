@@ -4,32 +4,30 @@
 
 void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 {
-	t_line_segment	segment_1;
-	t_line_segment	segment_2;
-	t_line_segment	segment_3;
-	t_vector		intersection;
-
-	segment_1 = line_segment_init(vector_init(300, 0), vector_init(300, 300));
-	segment_2 = line_segment_init(vector_init(0, 300), vector_init(300, 300));
-	segment_3 = line_segment_init(vector_init(300, 0), vector_init(0, 300));
-	intersection = line_intersection(ray, segment_1);
-	if (intersection.x != -1 && intersection.y != -1)
+	printf("ray.start.x: %f, ray.start.y: %f\n", ray.start.x, ray.start.y);
+	printf("ray.end.x: %f, ray.end.y: %f\n", ray.end.x, ray.end.y);
+	printf("ray.line.inclination: %f\n", ray.line.inclination);
+	if (-1 <= ray.line.inclination && ray.line.inclination <= 1
+		&& ray.start.x <= ray.end.x)
 	{
-		// draw_circle(game, intersection, 3, MWHITE);
-		draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, intersection)));
+		printf("%d\n", 1);
 	}
-	intersection = line_intersection(ray, segment_2);
-	if (intersection.x != -1 && intersection.y != -1)
+	else if (-1 <= ray.line.inclination && ray.line.inclination <= 1
+		&& ray.start.x > ray.end.x)
 	{
-		// draw_circle(game, intersection, 3, MWHITE);
-		draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, intersection)));
+		printf("%d\n", 3);
 	}
-	intersection = line_intersection(ray, segment_3);
-	if (intersection.x != -1 && intersection.y != -1)
+	else if (ray.start.y <= ray.end.y)
 	{
-		// draw_circle(game, intersection, 3, MWHITE);
-		draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, intersection)));
+		printf("%d\n", 4);
 	}
+	else
+	{
+		printf("%d\n", 2);
+	}
+	(void)game;
+	(void)num;
+	(void)angle;
 }
 
 /*
