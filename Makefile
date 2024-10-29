@@ -28,7 +28,7 @@ MLX_INCLUDE		= -I$(MLX_DIR)$(INCLUDE_DIR)
 HEADERS			= $(shell find $(INCLUDE_DIR) $(LIBFT_DIR)$(INCLUDE_DIR) $(MLX_DIR)$(INCLUDE_DIR) -name "*.h")
 
 # 依存ファイル
-DEPS			= $(HEADERS) $(MAKEFILE) $(LIBFT_DIR)$(LIBFT_NAME) $(MLX_DIR)$(MLX_NAME)
+DEPS			= $(HEADERS) $(MAKEFILE)
 
 # コンパイル設定
 CC				= cc
@@ -63,7 +63,7 @@ CUT				= "\033[K"
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJS)
+$(NAME): $(OBJ_DIR) $(OBJS) $(DEPS)
 	@echo $(Y) "$(NAME) src files successfully compiled\n" $(X)
 	@echo $(B) "--> Into $(LIBFT_DIR)" $(X)
 	@$(MAKE) -C $(LIBFT_DIR)

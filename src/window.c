@@ -38,12 +38,20 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 
 	end.x = ray.pos.x + ray.dir.x * length;
 	end.y = ray.pos.y + ray.dir.y * length;
+	if (end.x < 0)
+		end.x = 0;
+	if (end.x >= WIN_WIDTH)
+		end.x = WIN_WIDTH - 1;
+	if (end.y < 0)
+		end.y = 0;
+	if (end.y >= WIN_HEIGHT)
+		end.y = WIN_HEIGHT - 1;
 	line = line_from_points(ray.pos, end);
 	if (fabs(ray.dir.x) > fabs(ray.dir.y))
 	{
 		if (ray.dir.x > 0)
 		{
-			while (ray.pos.x < end.x && (int)line_calc_y(line, ray.pos.x) >= 0)
+			while (ray.pos.x < end.x)
 			{
 				// mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y(line, ray.pos.x), color);
 				game->canvas.data[(int)line_calc_y(line, ray.pos.x) * WIN_WIDTH + (int)ray.pos.x] = color;
@@ -73,7 +81,7 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 		}
 		else
 		{
-			while (ray.pos.y > end.y && ray.pos.y >= 0)
+			while (ray.pos.y > end.y)
 			{
 				// mlx_pixel_put(game->mlx, game->win, line_calc_x(line, ray.pos.y), ray.pos.y, color);
 				// ray.pos.yが一定のところで-1となり、セグフォが起こる
