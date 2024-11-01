@@ -1,5 +1,23 @@
 #include "cub3D.h"
 
+/*
+** 壁を描画する関数
+** game: ゲーム構造体
+** num: レイの番号
+** angle: レイの角度
+** distance: 壁までの距離
+*/
+void	draw_wall(t_game *game, int num, double angle, double distance, int y)
+{
+	t_vector	start;
+	double		rate;
+
+	rate = 10000 / (distance * cos(angle));
+	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	start.x += num;
+	draw_rect(game, start, rate, MBLUE, y);
+}
+
 // raycasting.c
 
 void	check_wall(t_game *game, t_line_segment ray, int num, double angle, int y)
@@ -50,9 +68,10 @@ void	raycasting(t_game *game, t_player *player)
 	angle_step = FOV_ANGLE_HALF / NUM_RAYS;
 	ray = ray_to_segment(ray_init(player->pos, player->dir), VIEW_DISTANCE);
 	check_wall(game, ray, 0, 0, y);
-	y++;
 	while (x <= NUM_RAYS)
 	{
+		if (y == TILE_SIZE)
+			y = 0;
 		dir = vector_rotate(player->dir, x * angle_step);
 		ray = ray_to_segment(ray_init(player->pos, dir), VIEW_DISTANCE);
 		check_wall(game, ray, x, x * angle_step, y);
@@ -61,25 +80,5 @@ void	raycasting(t_game *game, t_player *player)
 		check_wall(game, ray, x * -1, x * -angle_step, y);
 		x++;
 		y++;
-		if (y == 65)
-			y = 0;
 	}
-}
-
-/*
-** 壁を描画する関数
-** game: ゲーム構造体
-** num: レイの番号
-** angle: レイの角度
-** distance: 壁までの距離
-*/
-void	draw_wall(t_game *game, int num, double angle, double distance, int y)
-{
-	t_vector	start;
-	double		rate;
-
-	rate = 10000 / (distance * cos(angle));
-	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	start.x += num;
-	draw_rect(game, start, rate, MBLUE, y);
 }

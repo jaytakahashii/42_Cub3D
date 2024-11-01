@@ -18,7 +18,7 @@ void	window_init(t_game *game)
 ** ウィンドウの削除
 ** game: ゲーム構造体
 */
-void	window_exit(t_game *game)
+int	window_exit(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	exit(0);
@@ -152,6 +152,8 @@ void	draw_rect(t_game *game, t_vector pos, double size, int kolor, int y)
 		pos.y = WIN_HEIGHT - 1;
 	j = -size / 2;
 	double scale_x = (double)size / TILE_SIZE;
+	// double scale_y = (double)size / TILE_SIZE;
+	// ft_printf("scale_x: %d\n", (int)scale_x);
 	while (j < size / 2)
 	{
 		if (pos.y + j < 0 || pos.y + j >= WIN_HEIGHT)
@@ -160,7 +162,10 @@ void	draw_rect(t_game *game, t_vector pos, double size, int kolor, int y)
 			continue ;
 		}
 		int src_x = (int)(j / scale_x);
-		int color = game->north.data[y * game->north.width + src_x];
+		// int src_y = (int)(y / scale_y);
+		// ft_printf("src_x: %d\n", src_x);
+		// ft_printf("src_x * game->north.width + y: %d\n", src_x * game->north.width + y);
+		int color = game->north.data[src_x * (game->north.width) + y];
 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
 		j++;
 	}

@@ -17,7 +17,13 @@ int cub_check(char **argv)
 void	game_init(t_game *game)
 {
 	// window_init(game);<---set_imgに移しました。
-	game->player = player_init(200, 250, NORTH, 5);
+	game->player = player_init(200, 250, NORTH, 1);
+	game->player.up = 0;
+	game->player.back = 0;
+	game->player.left = 0;
+	game->player.right = 0;
+	game->player.turn_left = 0;
+	game->player.turn_right = 0;
 	// 疑似的な壁
 	mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
 	mlx_line_put(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
@@ -34,7 +40,10 @@ void	game_init(t_game *game)
 */
 void	game_loop(t_game *game)
 {
-	mlx_hook(game->win, 2, 1L << 0, key_hook, game);
+	mlx_hook(game->win, 17, 0, window_exit, game);
+	mlx_hook(game->win, 2, 1L << 0, key_press, game);
+	mlx_loop_hook(game->mlx, key_hook, game);
+	mlx_hook(game->win, 3, 1L << 1, key_release, game);
 	mlx_loop(game->mlx);
 }
 

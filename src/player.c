@@ -72,37 +72,106 @@ void	draw_player(t_game *game, t_player *player)
 ** player: プレイヤー構造体
 ** keycode: キーコード
 */
-int	key_hook(int keycode, t_game *game)
+// int	key_hook(int keycode, t_game *game)
+// {
+// 	t_player	*player;
+
+// 	player = &game->player;
+// 	if (keycode == ESC)
+// 		window_exit(game);
+// 	if (keycode == UP)
+// 	{
+// 		player->pos.x += player->dir.x * player->speed;
+// 		player->pos.y += player->dir.y * player->speed;
+// 	}
+// 	if (keycode == DOWN)
+// 	{
+// 		player->pos.x -= player->dir.x * player->speed;
+// 		player->pos.y -= player->dir.y * player->speed;
+// 	}
+// 	if (keycode == LEFT)
+// 	{
+// 		player->pos.x += player->dir.y * player->speed;
+// 		player->pos.y -= player->dir.x * player->speed;
+// 	}
+// 	if (keycode == RIGHT)
+// 	{
+// 		player->pos.x -= player->dir.y * player->speed;
+// 		player->pos.y += player->dir.x * player->speed;
+// 	}
+// 	if (keycode == RIGHT_ARROW)
+// 		player->dir = vector_rotate(player->dir, 0.09);
+// 	if (keycode == LEFT_ARROW)
+// 		player->dir = vector_rotate(player->dir, -0.09);
+// 	game_update(game);
+// 	return (0);
+// }
+
+int	key_hook(t_game *game)
 {
 	t_player	*player;
 
 	player = &game->player;
-	if (keycode == ESC)
-		window_exit(game);
-	if (keycode == UP)
+	if (player->up)
 	{
 		player->pos.x += player->dir.x * player->speed;
 		player->pos.y += player->dir.y * player->speed;
 	}
-	if (keycode == DOWN)
+	if (player->back)
 	{
 		player->pos.x -= player->dir.x * player->speed;
 		player->pos.y -= player->dir.y * player->speed;
 	}
-	if (keycode == LEFT)
+	if (player->left)
 	{
 		player->pos.x += player->dir.y * player->speed;
 		player->pos.y -= player->dir.x * player->speed;
 	}
-	if (keycode == RIGHT)
+	if (player->right)
 	{
 		player->pos.x -= player->dir.y * player->speed;
 		player->pos.y += player->dir.x * player->speed;
 	}
-	if (keycode == RIGHT_ARROW)
-		player->dir = vector_rotate(player->dir, 0.09);
-	if (keycode == LEFT_ARROW)
-		player->dir = vector_rotate(player->dir, -0.09);
+	if (player->turn_right)
+		player->dir = vector_rotate(player->dir, 0.01);
+	if (player->turn_left)
+		player->dir = vector_rotate(player->dir, -0.01);
 	game_update(game);
+	return (0);
+}
+
+int		key_press(int keycode, t_game *game)
+{
+	if (keycode == ESC)
+		window_exit(game);
+	else if (keycode == UP)
+		game->player.up = 1;
+	else if (keycode == DOWN)
+		game->player.back = 1;
+	else if (keycode == LEFT)
+		game->player.left = 1;
+	else if (keycode == RIGHT)
+		game->player.right = 1;
+	else if (keycode == RIGHT_ARROW)
+		game->player.turn_right = 1;
+	else if (keycode == LEFT_ARROW)
+		game->player.turn_left = 1;
+	return (0);
+}
+
+int		key_release(int keycode, t_game *game)
+{
+	if (keycode == UP)
+		game->player.up = 0;
+	else if (keycode == DOWN)
+		game->player.back = 0;
+	else if (keycode == LEFT)
+		game->player.left = 0;
+	else if (keycode == RIGHT)
+		game->player.right = 0;
+	else if (keycode == RIGHT_ARROW)
+		game->player.turn_right = 0;
+	else if (keycode == LEFT_ARROW)
+		game->player.turn_left = 0;
 	return (0);
 }

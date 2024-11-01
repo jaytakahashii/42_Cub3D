@@ -131,6 +131,12 @@ typedef struct s_player
 	t_vector	dir;
 	double		angle; // radian
 	double		speed;
+	int			up;
+	int			back;
+	int			left;
+	int			right;
+	int		turn_left;
+	int		turn_right;
 }	t_player;
 
 typedef struct s_texture
@@ -197,12 +203,15 @@ t_line_segment	ray_to_segment(t_ray ray, double length);
 
 t_player		player_init(double x, double y, double angle, double speed);
 void			draw_player(t_game *game, t_player *player);
-int				key_hook(int keycode, t_game *game);
+int				key_hook(t_game *game);
+// int		key_hook(int keycode, t_game *game);
+int			key_press(int keycode, t_game *game);
+int			key_release(int keycode, t_game *game);
 
 /* window.c (ウィンドウの計算) */
 
 void			window_init(t_game *game);
-void			window_exit(t_game *game);
+int			window_exit(t_game *game);
 void			mlx_line_put(t_game *game, t_ray ray, double length, int color);
 void			draw_circle(t_game *game, t_vector point, int radius, int color);
 void			draw_rect(t_game *game, t_vector pos, double size, int color, int y);
