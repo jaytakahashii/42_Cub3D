@@ -72,8 +72,6 @@ int	map_info_init(t_map **map_info, char *argv)
 	(*map_info)->ea = NULL;
 	(*map_info)->f = -1;
 	(*map_info)->c = -1;
-	(*map_info)->p_x = -1;
-	(*map_info)->p_y = -1;
 	return (0);
 }
 
@@ -130,22 +128,25 @@ int	set_map_info(t_map *map_info, char *map)
 	return (2);
 }
 
-void	set_player_info(t_map *map_info, char spell, int x, int y)
+void	set_player_info(t_game *game, char spell, t_vector p_pos)
 {
-	map_info->p_x = x;
-	map_info->p_y = y;
+	double	p_angle;
+
+	p_angle = 0;
 	if (spell == 'N')
 	{
-		map_info->p_angle = NORTH;
+		p_angle = NORTH;
 		// todo p_angleという変数に入れられない
 		// ft_printf("angle: %f\n", NORTH);
 	}
 	else if (spell == 'S')
-		map_info->p_angle = SOUTH;
+		p_angle = SOUTH;
 	else if (spell == 'W')
-		map_info->p_angle = WEST;
+		p_angle = WEST;
 	else if (spell == 'E')
-		map_info->p_angle = EAST;
+		p_angle = EAST;
+	game->player = player_init(p_pos.x * TILE_SIZE + TILE_SIZE / 2,
+		p_pos.y * TILE_SIZE + TILE_SIZE / 2, p_angle, 5);
 }
 
 int	spell_check(char spell, int mode)
@@ -165,7 +166,7 @@ int	spell_check(char spell, int mode)
 	return (0);
 }
 
-int	map_spell_check(t_map *map_info, char **map)
+int	map_spell_check(t_game *game, char **map)
 {
 	int	y;
 	int	x;
@@ -178,20 +179,18 @@ int	map_spell_check(t_map *map_info, char **map)
 		{
 			if (spell_check(map[y][x], 1) == 1)
 			{
-				if (map_info->p_x != -1)
-					return (1);
-				set_player_info(map_info, map[y][x], x, y);
+				set_player_info(game, map[y][x], vector_init(x, y));
 			}
 			else if (spell_check(map[y][x], 1) == 0)
 				return (1);
 		}
 	}
-	if (map_info->p_x == -1)
-		return (1);
+	// if (map_info->p_x == -1)
+	// 	return (1);
 	return (0);
 }
 
-int	map_check(t_map *map_info)
+int	map_check(t_game *game, t_map *map_info)
 {
 	unsigned int	i;
 	int				flag;
@@ -203,9 +202,9 @@ int	map_check(t_map *map_info)
 	if (!map_info->no || !map_info->so || !map_info->we || !map_info->ea
 		|| map_info->f == -1 || map_info->c == -1)
 		return (1);
-	if (map_spell_check(map_info, map_info->map))
+	if (map_spell_check(game, map_info->map))
 		return (1);
-	wall_check(map_info->map_tmp, map_info->p_y, map_info->p_x, &i, &flag);
+	// wall_check(map_info->map_tmp, map_info->p_y, map_info->p_x, &i, &flag);
 	if (flag)
 		return (1);
 	return (0);
@@ -239,5 +238,5 @@ int	map_scan(t_game *game, char *argv)
 	game->map_info->map[y] = NULL;
 	game->map_info->map_tmp[y] = NULL;
 	close(fd);
-	return (map_check(game->map_info));
+	return (map_check(game, game->map_info));
 }
