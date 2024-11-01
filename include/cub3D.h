@@ -67,6 +67,7 @@
 # define MRED 0x00FF0000
 # define MGREEN 0x0000FF00
 # define MBLUE 0x000000FF
+# define MYELLOW 0x00FFFF00
 # define MWHITE 0x00FFFFFF
 # define MBLACK 0x00000000
 
@@ -217,6 +218,6 @@ t_vector		line_intersection(t_line_segment line1, t_line_segment line2);
 /* raycasting.c (レイキャスティング) */
 
 void			raycasting(t_game *game, t_player *player);
-void			draw_wall(t_game *game, int num, double angle, double distance);
+void			draw_wall(t_game *game, int num, double angle, double distance, int color);
 
 #endif
