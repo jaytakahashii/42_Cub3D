@@ -54,7 +54,7 @@
 # define WIN_WIDTH 2048
 # define WIN_HEIGHT 1024
 
-# define FOV_ANGLE M_PI * 2
+# define FOV_ANGLE M_PI * 4 / 3
 # define FOV_ANGLE_HALF FOV_ANGLE / 2
 # define NUM_RAYS WIN_WIDTH / 2
 # define VIEW_DISTANCE WIN_WIDTH > WIN_HEIGHT ? WIN_WIDTH : WIN_HEIGHT
@@ -78,9 +78,6 @@ typedef struct s_map
 	char	*ea;
 	int		f;
 	int		c;
-	int		p_x;
-	int		p_y;
-	double		p_angle;
 	char	**map;
 	char	**map_tmp;
 }	t_map;

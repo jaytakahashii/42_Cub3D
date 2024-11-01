@@ -17,11 +17,10 @@ int cub_check(char **argv)
 void	game_init(t_game *game)
 {
 	// window_init(game);<---set_imgに移しました。
-	game->player = player_init(200, 250, NORTH, 5);
 	// 疑似的な壁
-	mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
-	mlx_line_put(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
-	mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(-1, 1)), 500, MGREEN);
+	// mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
+	// mlx_line_put(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
+	// mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(-1, 1)), 500, MGREEN);
 	draw_player(game, &game->player);
 	mlx_put_image_to_window(game->mlx, game->win, game->canvas.img, 0, 0);
 	raycasting(game, &game->player);
@@ -52,9 +51,9 @@ int	game_update(t_game *game)
 		game->canvas.data[x] = 0;
 	x = -1;
 	// 疑似的な壁
-	mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
-	mlx_line_put(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
-	mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(-1, 1)), 500, MGREEN);
+	// mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
+	// mlx_line_put(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
+	// mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(-1, 1)), 500, MGREEN);
 	draw_player(game, &game->player);
 	mlx_put_image_to_window(game->mlx, game->win, game->canvas.img, 0, 0);
 	raycasting(game, &game->player);

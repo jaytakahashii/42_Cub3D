@@ -42,8 +42,8 @@ void	draw_player(t_game *game, t_player *player)
 		x++;
 	}
 	// mlx_line_put(game, ray_init(player->pos, player->dir), VIEW_DISTANCE, MRED);
-	// x = 1;
 	angle_step = FOV_ANGLE / NUM_RAYS; // 視野角をレイの数で分割
+	// x = 1;
 	// while (x <= NUM_RAYS)
 	// {
 	// 	dir = vector_rotate(player->dir, x * angle_step);
