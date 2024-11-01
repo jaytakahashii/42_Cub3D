@@ -37,15 +37,13 @@ void	draw_player(t_game *game, t_player *player)
 	x = -5;
 	while (x < 6)
 	{
-		// mlx_pixel_put(game->mlx, game->win, player->pos.x + x, player->pos.y, MRED);
 		game->canvas.data[(int)player->pos.y * WIN_WIDTH + (int)player->pos.x + x] = MRED;
-		// mlx_pixel_put(game->mlx, game->win, player->pos.x, player->pos.y + x, MRED);
 		game->canvas.data[(int)(player->pos.y + x) * WIN_WIDTH + (int)player->pos.x] = MRED;
 		x++;
 	}
-	mlx_line_put(game, ray_init(player->pos, player->dir), VIEW_DISTANCE, MRED);
+	// mlx_line_put(game, ray_init(player->pos, player->dir), VIEW_DISTANCE, MRED);
 	// x = 1;
-	angle_step = FOV_ANGLE_HALF / NUM_RAYS;
+	angle_step = FOV_ANGLE / NUM_RAYS; // 視野角をレイの数で分割
 	// while (x <= NUM_RAYS)
 	// {
 	// 	dir = vector_rotate(player->dir, x * angle_step);
@@ -55,8 +53,6 @@ void	draw_player(t_game *game, t_player *player)
 	// 	x++;
 	// }
 	x = NUM_RAYS;
-	printf("x: %d\n", x);
-	printf("angle_step: %f\n", angle_step);
 	dir = vector_rotate(player->dir, x * angle_step);
 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 	dir = vector_rotate(player->dir, -x * angle_step);

@@ -4,9 +4,9 @@
 
 void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 {
-	printf("ray.start.x: %f, ray.start.y: %f\n", ray.start.x, ray.start.y);
-	printf("ray.end.x: %f, ray.end.y: %f\n", ray.end.x, ray.end.y);
-	printf("ray.line.inclination: %f\n", ray.line.inclination);
+	// printf("ray.start.x: %f, ray.start.y: %f\n", ray.start.x, ray.start.y);
+	// printf("ray.end.x: %f, ray.end.y: %f\n", ray.end.x, ray.end.y);
+	// printf("ray.line.inclination: %f\n", ray.line.inclination);
 	if (-1 <= ray.line.inclination && ray.line.inclination <= 1
 		&& ray.start.x <= ray.end.x)
 	{
@@ -44,10 +44,10 @@ void	raycasting(t_game *game, t_player *player)
 	int				x;
 
 	x = 1;
-	angle_step = FOV_ANGLE_HALF / NUM_RAYS;
+	angle_step = FOV_ANGLE / NUM_RAYS;
 	ray = ray_to_segment(ray_init(player->pos, player->dir), VIEW_DISTANCE);
 	check_wall(game, ray, 0, 0);
-	while (x <= NUM_RAYS)
+	while (x <= NUM_RAYS / 2)
 	{
 		dir = vector_rotate(player->dir, x * angle_step);
 		ray = ray_to_segment(ray_init(player->pos, dir), VIEW_DISTANCE);
