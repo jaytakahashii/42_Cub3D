@@ -56,9 +56,6 @@ void	raycasting(t_game *game, t_player *player)
 		dir = vector_rotate(player->dir, x * angle_step);
 		ray = ray_to_segment(ray_init(player->pos, dir), VIEW_DISTANCE);
 		check_wall(game, ray, x, x * angle_step, y);
-		y++;
-		if (y == 65)
-			y = 0;
 		dir = vector_rotate(player->dir, -x * angle_step);
 		ray = ray_to_segment(ray_init(player->pos, dir), VIEW_DISTANCE);
 		check_wall(game, ray, x * -1, x * -angle_step, y);

@@ -43,7 +43,7 @@ void	draw_player(t_game *game, t_player *player)
 		game->canvas.data[(int)(player->pos.y + x) * WIN_WIDTH + (int)player->pos.x] = MRED;
 		x++;
 	}
-	mlx_line_put(game, ray_init(player->pos, player->dir), VIEW_DISTANCE, MRED);
+	// mlx_line_put(game, ray_init(player->pos, player->dir), VIEW_DISTANCE, MRED);
 	// x = 1;
 	angle_step = FOV_ANGLE_HALF / NUM_RAYS;
 	// while (x <= NUM_RAYS)

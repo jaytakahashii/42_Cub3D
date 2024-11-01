@@ -57,6 +57,7 @@
 # define FOV_ANGLE M_PI * 2
 # define FOV_ANGLE_HALF FOV_ANGLE / 2
 # define NUM_RAYS WIN_WIDTH / 2
+// # define NUM_RAYS 5
 # define VIEW_DISTANCE WIN_WIDTH > WIN_HEIGHT ? WIN_WIDTH : WIN_HEIGHT
 
 # define NORTH 3 * M_PI / 2
