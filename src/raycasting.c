@@ -10,9 +10,9 @@
 void	draw_wall(t_game *game, int num, double angle, double distance, int y)
 {
 	t_vector	start;
-	double		rate;
+	t_vector		rate;
 
-	rate = 10000 / (distance * cos(angle));
+	rate.y = 10000 / (distance * cos(angle));
 	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	start.x += num;
 	draw_rect(game, start, rate, MBLUE, y);
