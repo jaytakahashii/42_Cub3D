@@ -204,7 +204,7 @@ void			window_init(t_game *game);
 void			window_exit(t_game *game);
 void			mlx_line_put(t_game *game, t_ray ray, double length, int color);
 void			draw_circle(t_game *game, t_vector point, int radius, int color);
-void			draw_rect(t_game *game, t_vector pos, double size, int color);
+void			draw_rect(t_game *game, t_vector pos, double size, int color, int y);
 
 /* line.c (直線の計算) */
 
@@ -220,6 +220,6 @@ t_vector		line_intersection(t_line_segment line1, t_line_segment line2);
 /* raycasting.c (レイキャスティング) */
 
 void			raycasting(t_game *game, t_player *player);
-void			draw_wall(t_game *game, int num, double angle, double distance);
+void			draw_wall(t_game *game, int num, double angle, double distance, int y);
 
 #endif

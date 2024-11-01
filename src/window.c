@@ -125,7 +125,7 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 ** size: 長方形の大きさ (t_vector.x: 幅, t_vector.y: 高さ)
 ** color: 色
 */
-void	draw_rect(t_game *game, t_vector pos, double size, int kolor)
+void	draw_rect(t_game *game, t_vector pos, double size, int kolor, int y)
 {
 	int		j;
 
@@ -148,7 +148,7 @@ void	draw_rect(t_game *game, t_vector pos, double size, int kolor)
 			continue ;
 		}
 		int src_x = (int)(j / scale_x);
-		int color = game->north.data[src_x * game->north.width + src_x];
+		int color = game->north.data[y * game->north.width + src_x];
 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
 		j++;
 	}
