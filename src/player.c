@@ -55,6 +55,8 @@ void	draw_player(t_game *game, t_player *player)
 	// 	x++;
 	// }
 	x = NUM_RAYS;
+	printf("x: %d\n", x);
+	printf("angle_step: %f\n", angle_step);
 	dir = vector_rotate(player->dir, x * angle_step);
 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 	dir = vector_rotate(player->dir, -x * angle_step);
