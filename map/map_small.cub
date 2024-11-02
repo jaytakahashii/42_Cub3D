@@ -1,10 +1,10 @@
-NO ./textures/water.xpm
-SO ./textures/wood_vertical.xpm
-WE ./textures/grass.xpm
-EA ./textures/dirt.xpm
+SO ./img/eagle.xpm
+NO ./img/eagle.xpm
+WE ./img/eagle.xpm
+EA ./img/eagle.xpm
 
-F 65,100,0
-C 0,30,120
+F 2,166,48
+C 10,241,245
 
 111111
 100001
