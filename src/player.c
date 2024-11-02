@@ -61,6 +61,23 @@ void	draw_player(t_game *game, t_player *player)
 }
 
 /*
+** プレイヤーと壁の衝突判定
+** game: ゲーム構造体
+** delta: プレイヤーの移動量
+*/
+void	player_collision(t_game *game, t_vector delta)
+{
+	t_player	*player;
+	t_vector	new_pos;
+
+	player = &game->player;
+	new_pos = vector_add(player->pos, delta);
+	if (game->map_info->map[(int)(new_pos.y / TILE_SIZE)][(int)(new_pos.x / TILE_SIZE)] == '1')
+		return ;
+	player->pos = new_pos;
+}
+
+/*
 ** プレイヤーを動かす関数
 ** UP: プレイヤーを前進させる
 ** DOWN: プレイヤーを後退させる
@@ -74,34 +91,30 @@ void	draw_player(t_game *game, t_player *player)
 int	key_hook(int keycode, t_game *game)
 {
 	t_player	*player;
+	t_vector	delta;
 
 	player = &game->player;
 	if (keycode == ESC)
 		window_exit(game);
 	if (keycode == UP)
-	{
-		player->pos.x += player->dir.x * player->speed;
-		player->pos.y += player->dir.y * player->speed;
-	}
+		delta = vector_mul(player->dir, player->speed);
 	if (keycode == DOWN)
-	{
-		player->pos.x -= player->dir.x * player->speed;
-		player->pos.y -= player->dir.y * player->speed;
-	}
+		delta = vector_mul(player->dir, -player->speed);
 	if (keycode == LEFT)
 	{
-		player->pos.x += player->dir.y * player->speed;
-		player->pos.y -= player->dir.x * player->speed;
+		delta.x = player->dir.y * player->speed;
+		delta.y = -player->dir.x * player->speed;
 	}
 	if (keycode == RIGHT)
 	{
-		player->pos.x -= player->dir.y * player->speed;
-		player->pos.y += player->dir.x * player->speed;
+		delta.x = -player->dir.y * player->speed;
+		delta.y = player->dir.x * player->speed;
 	}
 	if (keycode == RIGHT_ARROW)
 		player->dir = vector_rotate(player->dir, 0.09);
 	if (keycode == LEFT_ARROW)
 		player->dir = vector_rotate(player->dir, -0.09);
+	player_collision(game, delta);
 	game_update(game);
 	return (0);
 }
