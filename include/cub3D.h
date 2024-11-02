@@ -74,7 +74,7 @@
 
 # define WALL_EAST MGREEN
 # define WALL_NORTH MYELLOW
-# define WALL_WEST MWHITE
+# define WALL_WEST MRED
 # define WALL_SOUTH MBLUE
 
 typedef struct s_map
@@ -117,8 +117,8 @@ typedef struct s_ray
 
 typedef struct s_line
 {
-	double	inclination;
-	double	intercept;
+	double	inclination; // 傾き
+	double	intercept; // 切片
 }	t_line;
 
 typedef struct line_segment
