@@ -51,13 +51,13 @@
 # define M_PI 3.14159265358979323846
 # define M_PI_2 1.57079632679489661923
 
-# define WIN_WIDTH 2048
+# define WIN_WIDTH 1280
 # define WIN_HEIGHT 1024
 
-# define FOV_ANGLE M_PI / 2
+# define FOV_ANGLE M_PI / 3
 # define FOV_ANGLE_HALF FOV_ANGLE / 2
 # define NUM_RAYS WIN_WIDTH
-// # define NUM_RAYS 100
+// # define NUM_RAYS 10
 # define VIEW_DISTANCE WIN_WIDTH > WIN_HEIGHT ? WIN_WIDTH : WIN_HEIGHT
 
 # define NORTH 3 * M_PI / 2
@@ -71,6 +71,11 @@
 # define MYELLOW 0x00FFFF00
 # define MWHITE 0x00FFFFFF
 # define MBLACK 0x00000000
+
+# define WALL_EAST MGREEN
+# define WALL_NORTH MYELLOW
+# define WALL_WEST MWHITE
+# define WALL_SOUTH MBLUE
 
 typedef struct s_map
 {

@@ -42,20 +42,22 @@ void	draw_player(t_game *game, t_player *player)
 		game->canvas.data[(int)(player->pos.y + x) * WIN_WIDTH + (int)player->pos.x] = MRED;
 		x++;
 	}
-	x = 0;
-	while (x < NUM_RAYS / 2)
-	{
-		dir = vector_rotate(player->dir, x * angle_step);
-		mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-		if (x == 0)
-		{
-			x++;
-			continue;
-		}
-		dir = vector_rotate(player->dir, -x * angle_step);
-		mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-		x++;
-	}
+	(void)angle_step;
+	(void)dir;
+	// x = 0;
+	// while (x < NUM_RAYS / 2)
+	// {
+	// 	dir = vector_rotate(player->dir, x * angle_step);
+	// 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	// 	if (x == 0)
+	// 	{
+	// 		x++;
+	// 		continue;
+	// 	}
+	// 	dir = vector_rotate(player->dir, -x * angle_step);
+	// 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	// 	x++;
+	// }
 	// x = NUM_RAYS / 2;
 	// dir = vector_rotate(player->dir, x * angle_step);
 	// mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);

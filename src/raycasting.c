@@ -15,16 +15,16 @@ int	segment_direction(t_line_segment line)
 
 	delta_x = fabs(line.end.x - line.start.x);
 	delta_y = fabs(line.end.y - line.start.y);
-	if (delta_x > delta_y)
+	if (delta_y < delta_x) // 水平の方が長い
 	{
-		if (line.start.x < line.end.x)
+		if (line.start.x < line.end.x) // 右向き
 			return (1);
 		else
 			return (3);
 	}
-	else
+	else // 垂直の方が長い
 	{
-		if (line.start.y < line.end.y)
+		if (line.end.y < line.start.y) // 上向き
 			return (0);
 		else
 			return (2);
@@ -41,30 +41,29 @@ int	segment_direction(t_line_segment line)
 */
 void	dda_0(t_game *game, t_line_segment ray, int num, double angle)
 {
-	int			map_x;
 	int			map_y;
+	double		x;
 	t_vector	wall;
 
 	map_y = (int)(ray.start.y / TILE_SIZE);
 	while (1)
 	{
-		map_x = (int)(line_calc_x(ray.line, map_y * TILE_SIZE) / TILE_SIZE);
-		if (game->map_info->map[map_y][map_x] == '1')
+		x = (line_calc_x(ray.line, map_y * TILE_SIZE) / TILE_SIZE);
+		if (game->map_info->map[map_y][(int)x] == '1')
 		{
-			map_x++;
-			wall.y = line_calc_y(ray.line, map_x * TILE_SIZE);
-			wall.x = map_x * TILE_SIZE;
+			wall.x = ((int)x + 1) * TILE_SIZE;
+			wall.y = line_calc_y(ray.line, wall.x);
 			if (ray.start.x < wall.x) // 西の壁
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MGREEN);
+				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_WEST);
 			else // 東の壁
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MBLUE);
+				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_EAST);
 			return;
 		}
-		if (game->map_info->map[map_y - 1][map_x] == '1') // 南の壁
+		if (game->map_info->map[map_y - 1][(int)x] == '1') // 南の壁
 		{
 			wall.y = map_y * TILE_SIZE;
-			wall.x = line_calc_x(ray.line, map_y * TILE_SIZE);
-			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MWHITE);
+			wall.x = line_calc_x(ray.line, wall.y);
+			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_SOUTH);
 			return;
 		}
 		map_y--;
@@ -82,29 +81,28 @@ void	dda_0(t_game *game, t_line_segment ray, int num, double angle)
 void	dda_1(t_game *game, t_line_segment ray, int num, double angle)
 {
 	int			map_x;
-	int			map_y;
+	double		y;
 	t_vector	wall;
 
 	map_x = (int)(ray.start.x / TILE_SIZE);
 	while (1)
 	{
-		map_y = (int)(line_calc_y(ray.line, map_x * TILE_SIZE) / TILE_SIZE);
-		if (game->map_info->map[map_y][map_x] == '1')
+		y = line_calc_y(ray.line, (map_x + 1) * TILE_SIZE) / TILE_SIZE;
+		if (game->map_info->map[(int)y][map_x] == '1')
 		{
-			map_y++;
-			wall.y = map_y * TILE_SIZE;
-			wall.x = line_calc_x(ray.line, map_y * TILE_SIZE);
+			wall.y = ((int)y + 1) * TILE_SIZE;
+			wall.x = line_calc_x(ray.line, wall.y);
 			if (ray.start.y < wall.y) // 北の壁
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MYELLOW);
+				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_NORTH);
 			else // 南の壁
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MWHITE);
+				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_SOUTH);
 			return;
 		}
-		if (game->map_info->map[map_y][map_x + 1] == '1') // 西の壁
+		if (game->map_info->map[(int)y][map_x + 1] == '1') // 西の壁
 		{
-			wall.y = line_calc_y(ray.line, (map_x + 1) * TILE_SIZE);
 			wall.x = (map_x + 1) * TILE_SIZE;
-			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MGREEN);
+			wall.y = line_calc_y(ray.line, wall.x);
+			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_WEST);
 			return;
 		}
 		map_x++;
@@ -121,30 +119,29 @@ void	dda_1(t_game *game, t_line_segment ray, int num, double angle)
 */
 void	dda_2(t_game *game, t_line_segment ray, int num, double angle)
 {
-	int			map_x;
 	int			map_y;
+	double		x;
 	t_vector	wall;
 
 	map_y = (int)(ray.start.y / TILE_SIZE);
 	while (1)
 	{
-		map_x = (int)(line_calc_x(ray.line, map_y * TILE_SIZE) / TILE_SIZE);
-		if (game->map_info->map[map_y][map_x] == '1')
+		x = line_calc_x(ray.line, (map_y + 1) * TILE_SIZE) / TILE_SIZE;
+		if (game->map_info->map[map_y][(int)x] == '1')
 		{
-			map_x++;
-			wall.y = line_calc_y(ray.line, map_x * TILE_SIZE);
-			wall.x = map_x * TILE_SIZE;
+			wall.x = ((int)x + 1) * TILE_SIZE;
+			wall.y = line_calc_y(ray.line, wall.x);
 			if (ray.start.x < wall.x) // 西の壁
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MGREEN);
+				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_WEST);
 			else // 東の壁
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MBLUE);
+				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_EAST);
 			return;
 		}
-		if (game->map_info->map[map_y + 1][map_x] == '1') // 北の壁
+		if (game->map_info->map[map_y + 1][(int)x] == '1') // 北の壁
 		{
-			wall.y = map_y * TILE_SIZE;
-			wall.x = line_calc_x(ray.line, map_y * TILE_SIZE);
-			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MYELLOW);
+			wall.y = (map_y + 1) * TILE_SIZE;
+			wall.x = line_calc_x(ray.line, wall.y);
+			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_NORTH);
 			return;
 		}
 		map_y++;
@@ -162,29 +159,28 @@ void	dda_2(t_game *game, t_line_segment ray, int num, double angle)
 void	dda_3(t_game *game, t_line_segment ray, int num, double angle)
 {
 	int			map_x;
-	int			map_y;
+	double		y;
 	t_vector	wall;
 
 	map_x = (int)(ray.start.x / TILE_SIZE);
 	while (1)
 	{
-		map_y = (int)(line_calc_y(ray.line, map_x * TILE_SIZE) / TILE_SIZE);
-		if (game->map_info->map[map_y][map_x] == '1')
+		y = line_calc_y(ray.line, map_x * TILE_SIZE) / TILE_SIZE;
+		if (game->map_info->map[(int)y][map_x] == '1')
 		{
-			map_y++;
-			wall.y = map_y * TILE_SIZE;
-			wall.x = line_calc_x(ray.line, map_y * TILE_SIZE);
+			wall.y = ((int)y + 1) * TILE_SIZE;
+			wall.x = line_calc_x(ray.line, wall.y);
 			if (ray.start.y < wall.y) // 北の壁
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MYELLOW);
+				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_NORTH);
 			else // 南の壁
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MWHITE);
+				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_SOUTH);
 			return;
 		}
-		if (game->map_info->map[map_y][map_x - 1] == '1') // 東の壁
+		if (game->map_info->map[(int)y][map_x - 1] == '1') // 東の壁
 		{
-			wall.y = line_calc_y(ray.line, (map_x - 1) * TILE_SIZE);
-			wall.x = (map_x - 1) * TILE_SIZE;
-			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), MBLUE);
+			wall.x = map_x * TILE_SIZE;
+			wall.y = line_calc_y(ray.line, wall.x);
+			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_EAST);
 			return;
 		}
 		map_x--;
@@ -235,14 +231,17 @@ void	raycasting(t_game *game, t_player *player)
 	t_vector	dir;
 
 	angle_step = FOV_ANGLE / NUM_RAYS;
-	ray = ray_to_segment(ray_init(player->pos, player->dir), VIEW_DISTANCE);
-	check_wall(game, ray, 0, 0);
-	x = 1;
+	x = 0;
 	while (x <= NUM_RAYS / 2)
 	{
 		dir = vector_rotate(player->dir, x * angle_step);
 		ray = ray_to_segment(ray_init(player->pos, dir), VIEW_DISTANCE);
 		check_wall(game, ray, x, x * angle_step);
+		if (x == 0)
+		{
+			x++;
+			continue;
+		}
 		dir = vector_rotate(player->dir, -x * angle_step);
 		ray = ray_to_segment(ray_init(player->pos, dir), VIEW_DISTANCE);
 		check_wall(game, ray, x * -1, x * -angle_step);
