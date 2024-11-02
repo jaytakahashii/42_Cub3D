@@ -47,8 +47,10 @@ int	game_update(t_game *game)
 	int	x;
 
 	x = -1;
-	while (++x < WIN_WIDTH * WIN_HEIGHT)
-		game->canvas.data[x] = 0;
+	while (++x < (WIN_WIDTH * (WIN_HEIGHT / 2)))
+		game->canvas.data[x] = MWHITE;
+	while (x < WIN_WIDTH * WIN_HEIGHT)
+		game->canvas.data[x++] = MBLACK;
 	x = -1;
 	// 疑似的な壁
 	// mlx_line_put(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
