@@ -10,17 +10,25 @@
 */
 int	segment_direction(t_line_segment line)
 {
-	double	angle;
+	double	delta_x;
+	double	delta_y;
 
-	angle = atan2(line.end.y - line.start.y, line.end.x - line.start.x);
-	if (angle >= -M_PI / 4 && angle < M_PI / 4)
-		return (1);
-	else if (angle >= M_PI / 4 && angle < 3 * M_PI / 4)
-		return (0);
-	else if (angle >= 3 * M_PI / 4 || angle < -3 * M_PI / 4)
-		return (3);
+	delta_x = fabs(line.end.x - line.start.x);
+	delta_y = fabs(line.end.y - line.start.y);
+	if (delta_x > delta_y)
+	{
+		if (line.start.x < line.end.x)
+			return (1);
+		else
+			return (3);
+	}
 	else
-		return (2);
+	{
+		if (line.start.y < line.end.y)
+			return (0);
+		else
+			return (2);
+	}
 }
 
 /*
