@@ -145,10 +145,6 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 		pos.x = 0;
 	if (pos.x >= WIN_WIDTH)
 		pos.x = WIN_WIDTH - 1;
-	if (pos.y < 0)
-		pos.y = 0;
-	if (pos.y >= WIN_HEIGHT)
-		pos.y = WIN_HEIGHT - 1;
 	j = -size.y / 2;
 	while (j < size.y / 2)
 	{
