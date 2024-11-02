@@ -13,9 +13,16 @@ int	segment_direction(t_line_segment line)
 	double	delta_x;
 	double	delta_y;
 
+	if (line.line.inclination == 0)
+	{
+		if (line.end.y < line.start.y)
+			return (0);
+		else
+			return (2);
+	}
 	delta_x = fabs(line.end.x - line.start.x);
 	delta_y = fabs(line.end.y - line.start.y);
-	if (delta_y < delta_x) // 水平の方が長い
+	if (delta_y <= delta_x) // 水平の方が長い
 	{
 		if (line.start.x < line.end.x) // 右向き
 			return (1);
@@ -262,7 +269,7 @@ void	draw_wall(t_game *game, int num, double angle, double distance, int color)
 	t_vector	size;
 	double		rate;
 
-	rate = 10000 / (distance * cos(angle));
+	rate = 50000 / (distance * cos(angle));
 	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	size = vector_init(1, rate);
 	start.x += num;
