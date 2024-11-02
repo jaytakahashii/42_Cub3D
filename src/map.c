@@ -192,10 +192,8 @@ int	map_spell_check(t_game *game, char **map)
 
 int	map_check(t_game *game, t_map *map_info)
 {
-	unsigned int	i;
 	int				flag;
 
-	i = 0;
 	flag = 0;
 	if (!map_info->map || !map_info->map[0])
 		return (1);
