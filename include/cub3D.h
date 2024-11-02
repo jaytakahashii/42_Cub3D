@@ -54,7 +54,7 @@
 # define WIN_WIDTH 2048
 # define WIN_HEIGHT 1024
 
-# define FOV_ANGLE M_PI * 4 / 3
+# define FOV_ANGLE M_PI / 2
 # define FOV_ANGLE_HALF FOV_ANGLE / 2
 # define NUM_RAYS WIN_WIDTH / 2
 // # define NUM_RAYS 100

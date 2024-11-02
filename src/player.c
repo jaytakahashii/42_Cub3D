@@ -35,7 +35,6 @@ void	draw_player(t_game *game, t_player *player)
 	double		angle_step;
 
 	angle_step = FOV_ANGLE / NUM_RAYS; // 視野角をレイの数で分割
-	printf("angle_step: %f\n", angle_step);
 	x = -5;
 	while (x < 6)
 	{
@@ -43,22 +42,11 @@ void	draw_player(t_game *game, t_player *player)
 		game->canvas.data[(int)(player->pos.y + x) * WIN_WIDTH + (int)player->pos.x] = MRED;
 		x++;
 	}
-	mlx_line_put(game, ray_init(player->pos, player->dir), VIEW_DISTANCE, MRED);
-	x = 1;
-	while (x <= NUM_RAYS)
-	{
-		dir = vector_rotate(player->dir, x * angle_step);
-		mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-		dir = vector_rotate(player->dir, -x * angle_step);
-		mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-		x++;
-	}
-	// 視野角のみ表示
-	// x = NUM_RAYS;
-	// dir = vector_rotate(player->dir, x * angle_step);
-	// mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-	// dir = vector_rotate(player->dir, -x * angle_step);
-	// mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	x = NUM_RAYS / 2;
+	dir = vector_rotate(player->dir, x * angle_step);
+	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	dir = vector_rotate(player->dir, -x * angle_step);
+	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 }
 
 /*

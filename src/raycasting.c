@@ -230,14 +230,14 @@ void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 void	raycasting(t_game *game, t_player *player)
 {
 	t_line_segment	ray;
-	double			angle_step;
-	t_vector		dir;
-	int				x;
+	int			x;
+	double		angle_step;
+	t_vector	dir;
 
-	x = 1;
 	angle_step = FOV_ANGLE / NUM_RAYS;
 	ray = ray_to_segment(ray_init(player->pos, player->dir), VIEW_DISTANCE);
 	check_wall(game, ray, 0, 0);
+	x = 1;
 	while (x <= NUM_RAYS / 2)
 	{
 		dir = vector_rotate(player->dir, x * angle_step);
