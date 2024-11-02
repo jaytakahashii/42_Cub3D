@@ -52,6 +52,7 @@ void	draw_player(t_game *game, t_player *player)
 	// 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 	// 	x++;
 	// }
+	// 視野角のみ表示
 	x = NUM_RAYS;
 	dir = vector_rotate(player->dir, x * angle_step);
 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
