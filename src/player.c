@@ -34,14 +34,18 @@ void	draw_player(t_game *game, t_player *player)
 	t_vector	dir;
 	double		angle_step;
 
-	angle_step = FOV_ANGLE / NUM_RAYS; // 視野角をレイの数で分割
+	angle_step = FOV_ANGLE / NUM_RAYS;
 	x = -5;
 	while (x < 6)
 	{
-		game->canvas.data[(int)player->pos.y * WIN_WIDTH + (int)player->pos.x + x] = MRED;
-		game->canvas.data[(int)(player->pos.y + x) * WIN_WIDTH + (int)player->pos.x] = MRED;
+		game->canvas.data[(int)player->pos.y
+			* WIN_WIDTH + (int)player->pos.x + x] = MRED;
+		game->canvas.data[(int)(player->pos.y + x)
+			* WIN_WIDTH + (int)player->pos.x] = MRED;
 		x++;
 	}
+	// ここから下は最後全部消す
+
 	// (void)angle_step;
 	// (void)dir;
 	// x = 0;
@@ -63,6 +67,8 @@ void	draw_player(t_game *game, t_player *player)
 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 	dir = vector_rotate(player->dir, -x * angle_step);
 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+
+	// ここまで
 }
 
 /*
@@ -70,28 +76,57 @@ void	draw_player(t_game *game, t_player *player)
 ** game: ゲーム構造体
 ** delta: プレイヤーの移動量
 */
-void	player_collision(t_game *game, t_vector delta)
+static void	player_collision(t_game *game, t_player *player, t_vector delta)
 {
-	t_player	*player;
-	double		new_x;
-	double		new_y;
-	double		margin;
+	t_vector	new;
+	t_vector	margin;
 
-	player = &game->player;
-	new_x = player->pos.x + delta.x;
+	new.x = player->pos.x + delta.x;
+	new.y = player->pos.y + delta.y;
 	if (delta.x > 0)
-		margin = 10;
+		margin.x = 10;
 	else
-		margin = -10;
-	if (game->map_info->map[(int)(player->pos.y / TILE_SIZE)][(int)((new_x + margin) / TILE_SIZE)] != '1')
-		player->pos.x = new_x;
-	new_y = player->pos.y + delta.y;
+		margin.x = -10;
 	if (delta.y > 0)
-		margin = 10;
+		margin.y = 10;
 	else
-		margin = -10;
-	if (game->map_info->map[(int)((new_y + margin) / TILE_SIZE)][(int)(player->pos.x / TILE_SIZE)] != '1')
-		player->pos.y = new_y;
+		margin.y = -10;
+	if (game->map_info->map
+		[(int)(player->pos.y / TILE_SIZE)]
+		[(int)((new.x + margin.x) / TILE_SIZE)] != '1')
+		player->pos.x = new.x;
+	if (game->map_info->map
+		[(int)((new.y + margin.y) / TILE_SIZE)]
+		[(int)(player->pos.x / TILE_SIZE)] != '1')
+		player->pos.y = new.y;
+}
+
+static bool	move_player(t_player *player, int keycode, t_vector *delta)
+{
+	bool (move) = false;
+	int (rotate) = 0;
+	if (keycode == UP)
+		*delta = vector_mul(player->dir, player->speed);
+	if (keycode == DOWN)
+		*delta = vector_mul(player->dir, -player->speed);
+	if (keycode == LEFT)
+	{
+		delta->x = player->dir.y * player->speed;
+		delta->y = -player->dir.x * player->speed;
+	}
+	if (keycode == RIGHT)
+	{
+		delta->x = -player->dir.y * player->speed;
+		delta->y = player->dir.x * player->speed;
+	}
+	if (keycode == RIGHT_ARROW)
+		rotate = 1;
+	if (keycode == LEFT_ARROW)
+		rotate = -1;
+	player->dir = vector_rotate(player->dir, rotate * 0.05);
+	if (delta->x != 0 || delta->y != 0 || rotate != 0)
+		move = true;
+	return (move);
 }
 
 /*
@@ -107,31 +142,14 @@ void	player_collision(t_game *game, t_vector delta)
 */
 int	key_hook(int keycode, t_game *game)
 {
-	t_player	*player;
 	t_vector	delta;
 
-	player = &game->player;
 	if (keycode == ESC)
 		window_exit(game);
-	if (keycode == UP)
-		delta = vector_mul(player->dir, player->speed);
-	if (keycode == DOWN)
-		delta = vector_mul(player->dir, -player->speed);
-	if (keycode == LEFT)
+	if (move_player(&game->player, keycode, &delta))
 	{
-		delta.x = player->dir.y * player->speed;
-		delta.y = -player->dir.x * player->speed;
+		player_collision(game, &game->player, delta);
+		game_update(game);
 	}
-	if (keycode == RIGHT)
-	{
-		delta.x = -player->dir.y * player->speed;
-		delta.y = player->dir.x * player->speed;
-	}
-	if (keycode == RIGHT_ARROW)
-		player->dir = vector_rotate(player->dir, 0.09);
-	if (keycode == LEFT_ARROW)
-		player->dir = vector_rotate(player->dir, -0.09);
-	player_collision(game, delta);
-	game_update(game);
 	return (0);
 }
