@@ -124,16 +124,15 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 ** angle: レイの角度
 ** distance: 壁までの距離
 */
-void	draw_wall(t_game *game, int num, double angle, double distance,
-		int color)
+void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 {
 	t_vector	start;
 	t_vector	size;
 	double		rate;
 
-	rate = 50000 / (distance * cos(angle));
+	rate = 50000 / (wall.distance * cos(ray_angle));
 	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	size = vector_init(1, rate);
-	start.x += num;
-	draw_rect(game, start, size, color);
+	start.x += ray_num;
+	draw_rect(game, start, size, wall.color);
 }

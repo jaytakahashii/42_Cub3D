@@ -136,6 +136,7 @@ typedef struct s_player
 typedef struct s_wall
 {
 	t_vector		pos;
+	double			distance;
 	int				color;
 }					t_wall;
 
@@ -217,12 +218,17 @@ int					key_hook(int keycode, t_game *game);
 void				window_init(t_game *game);
 void				window_exit(t_game *game);
 bool				out_of_window(t_vector pos);
+
+/* draw.c (描画) */
+
 void				draw_line(t_game *game, t_ray ray, double length,
 						int color);
 void				draw_circle(t_game *game, t_vector point, int radius,
 						int color);
 void				draw_rect(t_game *game, t_vector pos, t_vector size,
 						int color);
+void				draw_wall(t_game *game, t_wall wall, int ray_num,
+						double ray_angle);
 
 /* line.c (直線の計算) */
 
@@ -239,8 +245,6 @@ t_vector			line_intersection(t_line_segment line1,
 /* raycasting.c (レイキャスティング) */
 
 void				raycasting(t_game *game, t_player *player);
-void				draw_wall(t_game *game, int num, double angle,
-						double distance, int color);
 
 /* dda.c (DDAアルゴリズム) */
 
