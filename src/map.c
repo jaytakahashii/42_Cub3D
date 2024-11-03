@@ -176,9 +176,6 @@ int	map_spell_check(t_game *game, char **map)
 
 void	map_check(t_game *game, t_map *map_info)
 {
-	int				flag;
-
-	flag = 0;
 	if (!map_info->map || !map_info->map[0])
 		error_exit_free("Map is not found", NULL, game->alloc);
 	if (!map_info->no || !map_info->so || !map_info->we || !map_info->ea
