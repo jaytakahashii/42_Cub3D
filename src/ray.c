@@ -1,7 +1,5 @@
 #include "cub3D.h"
 
-// ray.c
-
 /*
 ** レイの初期化
 ** pos: レイの始点

@@ -195,8 +195,6 @@ double				vector_len(t_vector a);
 double				vector_dot(t_vector a, t_vector b);
 double				vector_cross(t_vector a, t_vector b);
 t_vector			vector_from_to(t_vector from, t_vector to);
-t_vector			vector_reflect(t_vector a, t_vector normal);
-t_vector			vector_project(t_vector a, t_vector b);
 t_vector			vector_rotate(t_vector a, double angle);
 t_vector			vector_from_angle(double angle);
 t_vector			vector_init(double x, double y);
@@ -218,6 +216,7 @@ int					key_hook(int keycode, t_game *game);
 
 void				window_init(t_game *game);
 void				window_exit(t_game *game);
+bool				out_of_window(t_vector pos);
 void				draw_line(t_game *game, t_ray ray, double length,
 						int color);
 void				draw_circle(t_game *game, t_vector point, int radius,
