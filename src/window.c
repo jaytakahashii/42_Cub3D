@@ -157,3 +157,23 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 		j++;
 	}
 }
+
+/*
+** 壁を描画する関数
+** game: ゲーム構造体
+** num: レイの番号
+** angle: レイの角度
+** distance: 壁までの距離
+*/
+void	draw_wall(t_game *game, int num, double angle, double distance, int color)
+{
+	t_vector	start;
+	t_vector	size;
+	double		rate;
+
+	rate = 50000 / (distance * cos(angle));
+	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	size = vector_init(1, rate);
+	start.x += num;
+	draw_rect(game, start, size, color);
+}
