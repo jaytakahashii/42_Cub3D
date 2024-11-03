@@ -13,13 +13,13 @@ int	segment_direction(t_line_segment line)
 	double	delta_x;
 	double	delta_y;
 
-	if (line.line.inclination == 0)
-	{
-		if (line.end.y < line.start.y)
-			return (0);
-		else
-			return (2);
-	}
+	// if (line.line.inclination == 0)
+	// {
+	// 	if (line.end.y < line.start.y)
+	// 		return (0);
+	// 	else
+	// 		return (2);
+	// }
 	delta_x = fabs(line.end.x - line.start.x);
 	delta_y = fabs(line.end.y - line.start.y);
 	if (delta_y <= delta_x) // 水平の方が長い
