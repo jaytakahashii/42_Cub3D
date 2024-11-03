@@ -2,9 +2,14 @@
 
 int	cub_check(char **argv)
 {
-	if (ft_strrchr(argv[1], '.') == 0
-		|| ft_strncmp(ft_strrchr(argv[1], '.'), ".cub", 4) != 0)
+	int	len;
+
+	len = ft_strlen(argv[1]);
+	if (len < 4 || ft_strncmp(argv[1] + len - 4, ".cub", 4))
+	{
+		ft_printf("must be a .cub file\n");
 		return (1);
+	}
 	return (0);
 }
 
