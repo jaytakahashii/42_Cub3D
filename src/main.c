@@ -1,6 +1,6 @@
 #include "cub3D.h"
 
-int cub_check(char **argv)
+int	cub_check(char **argv)
 {
 	if (ft_strrchr(argv[1], '.') == 0
 		|| ft_strncmp(ft_strrchr(argv[1], '.'), ".cub", 4) != 0)
