@@ -9,9 +9,10 @@
 void	window_init(t_game *game)
 {
 	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
+	game->win = mlx_new_window(game->mlx, WIN_WIDTH, WIN_HEIGHT, "Cub3D");
 	game->canvas.img = mlx_new_image(game->mlx, WIN_WIDTH, WIN_HEIGHT);
-	game->canvas.data = (int *)mlx_get_data_addr(game->canvas.img, &game->canvas.bpp, &game->canvas.size_line, &game->canvas.endian);
+	game->canvas.data = (int *)mlx_get_data_addr(game->canvas.img,
+			&game->canvas.bpp, &game->canvas.size_line, &game->canvas.endian);
 }
 
 /*
@@ -45,13 +46,16 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 		{
 			while (ray.pos.x < end.x)
 			{
-				if (ray.pos.x < 0 || ray.pos.x >= WIN_WIDTH || line_calc_y(line, ray.pos.x) < 0 || line_calc_y(line, ray.pos.x) >= WIN_HEIGHT)
+				if (ray.pos.x < 0 || ray.pos.x >= WIN_WIDTH || line_calc_y(line,
+						ray.pos.x) < 0 || line_calc_y(line,
+						ray.pos.x) >= WIN_HEIGHT)
 				{
 					ray.pos.x++;
 					continue ;
 				}
-				// mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y(line, ray.pos.x), color);
-				game->canvas.data[(int)line_calc_y(line, ray.pos.x) * WIN_WIDTH + (int)ray.pos.x] = color;
+				// mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y((line, ray.pos.x), color);
+				game->canvas.data[(int)line_calc_y(line, ray.pos.x) * WIN_WIDTH
+					+ (int)ray.pos.x] = color;
 				ray.pos.x++;
 			}
 		}
@@ -59,13 +63,16 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 		{
 			while (ray.pos.x > end.x)
 			{
-				if (ray.pos.x < 0 || ray.pos.x >= WIN_WIDTH || line_calc_y(line, ray.pos.x) < 0 || line_calc_y(line, ray.pos.x) >= WIN_HEIGHT)
+				if (ray.pos.x < 0 || ray.pos.x >= WIN_WIDTH || line_calc_y(line,
+						ray.pos.x) < 0 || line_calc_y(line,
+						ray.pos.x) >= WIN_HEIGHT)
 				{
 					ray.pos.x--;
 					continue ;
 				}
 				// mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y(line, ray.pos.x), color);
-				game->canvas.data[(int)line_calc_y(line, ray.pos.x) * WIN_WIDTH + (int)ray.pos.x] = color;
+				game->canvas.data[(int)line_calc_y(line, ray.pos.x) * WIN_WIDTH
+					+ (int)ray.pos.x] = color;
 				ray.pos.x--;
 			}
 		}
@@ -76,13 +83,16 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 		{
 			while (ray.pos.y < end.y)
 			{
-				if (ray.pos.y < 0 || ray.pos.y >= WIN_HEIGHT || line_calc_x(line, ray.pos.y) < 0 || line_calc_x(line, ray.pos.y) >= WIN_WIDTH)
+				if (ray.pos.y < 0 || ray.pos.y >= WIN_HEIGHT
+					|| line_calc_x(line, ray.pos.y) < 0 || line_calc_x(line,
+						ray.pos.y) >= WIN_WIDTH)
 				{
 					ray.pos.y++;
 					continue ;
 				}
 				// mlx_pixel_put(game->mlx, game->win, line_calc_x(line, ray.pos.y), ray.pos.y, color);
-				game->canvas.data[(int)ray.pos.y * WIN_WIDTH + (int)line_calc_x(line, ray.pos.y)] = color;
+				game->canvas.data[(int)ray.pos.y * WIN_WIDTH
+					+ (int)line_calc_x(line, ray.pos.y)] = color;
 				ray.pos.y++;
 			}
 		}
@@ -90,14 +100,17 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 		{
 			while (ray.pos.y > end.y)
 			{
-				if (ray.pos.y < 0 || ray.pos.y >= WIN_HEIGHT || line_calc_x(line, ray.pos.y) < 0 || line_calc_x(line, ray.pos.y) >= WIN_WIDTH)
+				if (ray.pos.y < 0 || ray.pos.y >= WIN_HEIGHT
+					|| line_calc_x(line, ray.pos.y) < 0 || line_calc_x(line,
+						ray.pos.y) >= WIN_WIDTH)
 				{
 					ray.pos.y--;
 					continue ;
 				}
 				// mlx_pixel_put(game->mlx, game->win, line_calc_x(line, ray.pos.y), ray.pos.y, color);
 				// ray.pos.yが一定のところで-1となり、セグフォが起こる
-				game->canvas.data[(int)ray.pos.y * WIN_WIDTH + (int)line_calc_x(line, ray.pos.y)] = color;
+				game->canvas.data[(int)ray.pos.y * WIN_WIDTH
+					+ (int)line_calc_x(line, ray.pos.y)] = color;
 				ray.pos.y--;
 			}
 		}
@@ -113,8 +126,8 @@ void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
 */
 void	draw_circle(t_game *game, t_vector point, int radius, int color)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = -radius;
 	while (i < radius)
@@ -123,7 +136,8 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 		while (j < radius)
 		{
 			if (i * i + j * j < radius * radius)
-				mlx_pixel_put(game->mlx, game->win, point.x + i, point.y + j, color);
+				mlx_pixel_put(game->mlx, game->win, point.x + i, point.y + j,
+					color);
 			j++;
 		}
 		i++;
@@ -139,7 +153,7 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 */
 void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 {
-	int		j;
+	int	j;
 
 	if (pos.x < 0)
 		pos.x = 0;
@@ -165,7 +179,8 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 ** angle: レイの角度
 ** distance: 壁までの距離
 */
-void	draw_wall(t_game *game, int num, double angle, double distance, int color)
+void	draw_wall(t_game *game, int num, double angle, double distance,
+		int color)
 {
 	t_vector	start;
 	t_vector	size;
