@@ -1,10 +1,12 @@
-NO ./textures/wood_vertical.xpm
-SO ./textures/brick_wall_cracked.xpm
-WE ./textures/rocky.xpm
-EA ./textures/brick_wall.xpm
+SO ./img/eagle.xpm
+NO ./img/eagle.xpm
+WE ./img/eagle.xpm
+EA ./img/eagle.xpm
 
-F 30,30,30
-C 50,50,50
+
+
+F 2,166,48
+C 10,241,245
 
         11111111111
       11100000000111

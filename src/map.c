@@ -8,13 +8,13 @@ int	check_map_spell(char **argv)
 	return (0);
 }
 
-int	set_path(char **target, char *map)
+int	set_path(char **target, char *map, t_allocations **alloc)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	pass_space(&map);
-	*target = ft_strdup(map);
+	*target = ft_strdup(map, alloc);
 	while (1)
 	{
 		if ((*target)[i] == '\n' || (*target)[i] == 0)
@@ -27,15 +27,13 @@ int	set_path(char **target, char *map)
 	return (0);
 }
 
-int	set_color(int *target, char *map)
+int	set_color(int *target, char *map, t_allocations **alloc)
 {
 	int	i;
 	int	*rgb;
 
 	i = -1;
-	rgb = (int *)malloc(sizeof(int) * 3);
-	if (!rgb)
-		return (1);
+	rgb = (int *)malloxit(sizeof(int) * 3, alloc);
 	while (*map == 32 || (*map >= 9 && *map <= 13))
 		map++;
 	while (++i < 3)
@@ -46,25 +44,17 @@ int	set_color(int *target, char *map)
 		if (*map == ',' || *map == '\n')
 			map++;
 		else
-		{
-			free(rgb);
 			return (1);
-		}
 	}
 	*target = (rgb[0] << 16) + (rgb[1] << 8) + rgb[2];
-	free(rgb);
 	return (0);
 }
 
-int	map_info_init(t_map **map_info, char *argv)
+void	map_info_init(t_map **map_info, t_allocations **alloc)
 {
-	(void)argv; // todo : 使っていない変数を強制的に使う
-	// todo : mallocのサイズを変更する
-	*map_info = (t_map *)malloc(sizeof(t_map));
-	(*map_info)->map = (char **)malloc(sizeof(char *) * OPEN_MAX);
-	(*map_info)->map_tmp = (char **)malloc(sizeof(char *) * OPEN_MAX);
-	if (!(*map_info)->map || !(*map_info)->map_tmp)
-		return (1);
+	*map_info = (t_map *)malloxit(sizeof(t_map), alloc);
+	(*map_info)->map = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
+	(*map_info)->map_tmp = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
 	(*map_info)->map[OPEN_MAX] = NULL;
 	(*map_info)->no = NULL;
 	(*map_info)->so = NULL;
@@ -72,7 +62,6 @@ int	map_info_init(t_map **map_info, char *argv)
 	(*map_info)->ea = NULL;
 	(*map_info)->f = -1;
 	(*map_info)->c = -1;
-	return (0);
 }
 
 int	wall_spell_check(char **map, int y, int x)
@@ -86,45 +75,46 @@ int	wall_spell_check(char **map, int y, int x)
 	return (0);
 }
 
-void	wall_check(char **map, int y, int x, unsigned int *i, int *flag)
-{
-	*i += 1;
-	if (*i > 10000)
-	{
-		*flag = 1;
-		return ;
-	}
-	if (!map[y] || !map[y][x] || map[y][x] == '1')
-		return ;
-	else
-	{
-		map[y][x] = '1';
-		if (wall_spell_check(map, y, x))
-		{
-			*flag = 1;
-			return ;
-		}
-		wall_check(map, y + 1, x, i, flag);
-		wall_check(map, y - 1, x, i, flag);
-		wall_check(map, y, x + 1, i, flag);
-		wall_check(map, y, x - 1, i, flag);
-	}
-}
+// いらない？
+// void	wall_check(char **map, int y, int x, unsigned int *i, int *flag)
+// {
+// 	*i += 1;
+// 	if (*i > 10000)
+// 	{
+// 		*flag = 1;
+// 		return ;
+// 	}
+// 	if (!map[y] || !map[y][x] || map[y][x] == '1')
+// 		return ;
+// 	else
+// 	{
+// 		map[y][x] = '1';
+// 		if (wall_spell_check(map, y, x))
+// 		{
+// 			*flag = 1;
+// 			return ;
+// 		}
+// 		wall_check(map, y + 1, x, i, flag);
+// 		wall_check(map, y - 1, x, i, flag);
+// 		wall_check(map, y, x + 1, i, flag);
+// 		wall_check(map, y, x - 1, i, flag);
+// 	}
+// }
 
-int	set_map_info(t_map *map_info, char *map)
+int	set_map_info(t_map *map_info, char *map, t_allocations **alloc)
 {
 	if (ft_strncmp(map, "NO", 2) == 0 && ft_isspace(*(map += 2)))
-		return (set_path(&map_info->no, map));
+		return (set_path(&map_info->no, map, alloc));
 	else if (ft_strncmp(map, "SO", 2) == 0 && ft_isspace(*(map += 2)))
-		return (set_path(&map_info->so, map));
+		return (set_path(&map_info->so, map, alloc));
 	else if (ft_strncmp(map, "WE", 2) == 0 && ft_isspace(*(map += 2)))
-		return (set_path(&map_info->we, map));
+		return (set_path(&map_info->we, map, alloc));
 	else if (ft_strncmp(map, "EA", 2) == 0 && ft_isspace(*(map += 2)))
-		return (set_path(&map_info->ea, map));
+		return (set_path(&map_info->ea, map, alloc));
 	else if (ft_strncmp(map, "F", 1) == 0 && ft_isspace(*(map += 1)))
-		return (set_color(&map_info->f, map));
+		return (set_color(&map_info->f, map, alloc));
 	else if (ft_strncmp(map, "C", 1) == 0 && ft_isspace(*(map += 1)))
-		return (set_color(&map_info->c, map));
+		return (set_color(&map_info->c, map, alloc));
 	return (2);
 }
 
@@ -134,11 +124,7 @@ void	set_player_info(t_game *game, char spell, t_vector p_pos)
 
 	p_angle = 0;
 	if (spell == 'N')
-	{
 		p_angle = NORTH;
-		// todo p_angleという変数に入れられない
-		// ft_printf("angle: %f\n", NORTH);
-	}
 	else if (spell == 'S')
 		p_angle = SOUTH;
 	else if (spell == 'W')
@@ -146,7 +132,7 @@ void	set_player_info(t_game *game, char spell, t_vector p_pos)
 	else if (spell == 'E')
 		p_angle = EAST;
 	game->player = player_init(p_pos.x * TILE_SIZE + TILE_SIZE / 2,
-		p_pos.y * TILE_SIZE + TILE_SIZE / 2, p_angle, 5);
+			p_pos.y * TILE_SIZE + TILE_SIZE / 2, p_angle, 5);
 }
 
 int	spell_check(char spell, int mode)
@@ -185,56 +171,57 @@ int	map_spell_check(t_game *game, char **map)
 				return (1);
 		}
 	}
-	// if (map_info->p_x == -1)
-	// 	return (1);
 	return (0);
 }
 
-int	map_check(t_game *game, t_map *map_info)
+void	map_check(t_game *game, t_map *map_info)
 {
 	int				flag;
 
 	flag = 0;
 	if (!map_info->map || !map_info->map[0])
-		return (1);
+		error_exit_free("Map is not found", NULL, game->alloc);
 	if (!map_info->no || !map_info->so || !map_info->we || !map_info->ea
 		|| map_info->f == -1 || map_info->c == -1)
-		return (1);
+		error_exit_free("Map information is not found", NULL, game->alloc);
 	if (map_spell_check(game, map_info->map))
-		return (1);
-	// wall_check(map_info->map_tmp, map_info->p_y, map_info->p_x, &i, &flag);
-	if (flag)
-		return (1);
-	return (0);
+		error_exit_free("Invalid map", NULL, game->alloc);
 }
 
-int	map_scan(t_game *game, char *argv)
+int	ft_open(char *argv)
 {
-	int		y;
-	int		fd;
+	int	fd;
+
+	fd = open(argv, O_RDONLY);
+	if (fd == -1)
+		error_exit("Failed to open the file", NULL);
+	return (fd);
+}
+
+void	map_scan(t_game *game, char *argv)
+{
 	char	*line;
 
-	y = 0;
-	fd = open(argv, O_RDONLY);
-	if (fd == -1 || map_info_init(&(game->map_info), argv))
-		return (1);
+	int (y) = 0;
+	int (fd) = ft_open(argv);
+	map_info_init(&game->map_info, &(game->alloc));
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (line[0] == '\n' || set_map_info(game->map_info, line) == 0)
+		if (line[0] == '\n'
+			|| !set_map_info(game->map_info, line, &(game->alloc)))
 		{
 			free(line);
 			continue ;
 		}
-		game->map_info->map[y] = ft_strdup(line);
-		game->map_info->map_tmp[y] = ft_strdup(line);
+		game->map_info->map[y] = ft_strdup(line, &(game->alloc));
+		game->map_info->map_tmp[y] = ft_strdup(line, &(game->alloc));
 		free(line);
 		y++;
 	}
 	game->map_info->map[y] = NULL;
 	game->map_info->map_tmp[y] = NULL;
 	close(fd);
-	return (map_check(game, game->map_info));
 }
