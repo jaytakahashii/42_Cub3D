@@ -1,35 +1,55 @@
 #include "cub3D.h"
 
-// raycasting.c
+/*
+** 線分の向きを4つに分類する
+** 上45度, 右45度, 下45度, 左45度
+** line: 線分
+** return: 0: 上, 1: 右, 2: 下, 3: 左
+*/
+int	segment_direction(t_line_segment line)
+{
+	double	delta_x;
+	double	delta_y;
 
+	delta_x = fabs(line.end.x - line.start.x);
+	delta_y = fabs(line.end.y - line.start.y);
+	if (delta_y <= delta_x)
+	{
+		if (line.start.x < line.end.x)
+			return (1);
+		else
+			return (3);
+	}
+	else
+	{
+		if (line.end.y < line.start.y)
+			return (0);
+		else
+			return (2);
+	}
+}
+
+/*
+** 壁との当たり判定を行う関数
+** game: ゲーム構造体
+** ray: レイ
+** num: レイの番号
+** angle: レイの角度
+*/
 void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 {
-	t_line_segment	segment_1;
-	t_line_segment	segment_2;
-	t_line_segment	segment_3;
-	t_vector		intersection;
+	t_wall	wall;
 
-	segment_1 = line_segment_init(vector_init(300, 0), vector_init(300, 300));
-	segment_2 = line_segment_init(vector_init(0, 300), vector_init(300, 300));
-	segment_3 = line_segment_init(vector_init(300, 0), vector_init(0, 300));
-	intersection = line_intersection(ray, segment_1);
-	if (intersection.x != -1 && intersection.y != -1)
-	{
-		// draw_circle(game, intersection, 3, MWHITE);
-		draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, intersection)));
-	}
-	intersection = line_intersection(ray, segment_2);
-	if (intersection.x != -1 && intersection.y != -1)
-	{
-		// draw_circle(game, intersection, 3, MWHITE);
-		draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, intersection)));
-	}
-	intersection = line_intersection(ray, segment_3);
-	if (intersection.x != -1 && intersection.y != -1)
-	{
-		// draw_circle(game, intersection, 3, MWHITE);
-		draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, intersection)));
-	}
+	if (segment_direction(ray) == 0)
+		wall = dda_up(game, ray);
+	else if (segment_direction(ray) == 1)
+		wall = dda_right(game, ray);
+	else if (segment_direction(ray) == 2)
+		wall = dda_down(game, ray);
+	else
+		wall = dda_left(game, ray);
+	wall.distance = vector_len(vector_from_to(ray.start, wall.pos));
+	draw_wall(game, wall, num, angle);
 }
 
 /*
@@ -41,40 +61,17 @@ void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 void	raycasting(t_game *game, t_player *player)
 {
 	t_line_segment	ray;
+	int				i;
 	double			angle_step;
 	t_vector		dir;
-	int				x;
 
-	x = 1;
-	angle_step = FOV_ANGLE_HALF / NUM_RAYS;
-	ray = ray_to_segment(ray_init(player->pos, player->dir), VIEW_DISTANCE);
-	check_wall(game, ray, 0, 0);
-	while (x <= NUM_RAYS)
+	angle_step = FOV_ANGLE / NUM_RAYS;
+	i = NUM_RAYS / 2;
+	while (i >= -(NUM_RAYS / 2))
 	{
-		dir = vector_rotate(player->dir, x * angle_step);
+		dir = vector_rotate(player->dir, i * angle_step);
 		ray = ray_to_segment(ray_init(player->pos, dir), VIEW_DISTANCE);
-		check_wall(game, ray, x, x * angle_step);
-		dir = vector_rotate(player->dir, -x * angle_step);
-		ray = ray_to_segment(ray_init(player->pos, dir), VIEW_DISTANCE);
-		check_wall(game, ray, x * -1, x * -angle_step);
-		x++;
+		check_wall(game, ray, i, i * angle_step);
+		i--;
 	}
-}
-
-/*
-** 壁を描画する関数
-** game: ゲーム構造体
-** num: レイの番号
-** angle: レイの角度
-** distance: 壁までの距離
-*/
-void	draw_wall(t_game *game, int num, double angle, double distance)
-{
-	t_vector	start;
-	double		rate;
-
-	rate = 10000 / (distance * cos(angle));
-	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	start.x += num;
-	draw_rect(game, start, rate, MBLUE);
 }

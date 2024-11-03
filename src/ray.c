@@ -1,7 +1,5 @@
 #include "cub3D.h"
 
-// ray.c
-
 /*
 ** レイの初期化
 ** pos: レイの始点
@@ -48,5 +46,19 @@ t_line_segment	ray_to_segment(t_ray ray, double length)
 	ret.end.x = ray.pos.x + ray.dir.x * length;
 	ret.end.y = ray.pos.y + ray.dir.y * length;
 	ret.line = ray_to_line(ray);
+	return (ret);
+}
+
+/*
+** レイの終端座標を求める関数
+** ray: レイ構造体
+** length: レイの長さ
+*/
+t_vector	ray_end(t_ray ray, double length)
+{
+	t_vector	ret;
+
+	ret.x = ray.pos.x + ray.dir.x * length;
+	ret.y = ray.pos.y + ray.dir.y * length;
 	return (ret);
 }
