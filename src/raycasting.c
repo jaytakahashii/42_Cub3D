@@ -38,6 +38,16 @@ int	segment_direction(t_line_segment line)
 	}
 }
 
+void	wall_set(t_wall *wall, double x, double y, int color)
+{
+	if (0 <= x)
+		wall->pos.x = x;
+	if (0 <= y)
+		wall->pos.y = y;
+	if (0 <= color)
+		wall->color = color;
+}
+
 /*
 ** DDAアルゴリズム 上向き
 ** レイと壁の交点を求める
@@ -46,11 +56,11 @@ int	segment_direction(t_line_segment line)
 ** num: レイの番号
 ** angle: レイの角度
 */
-void	dda_0(t_game *game, t_line_segment ray, int num, double angle)
+t_wall	dda_0(t_game *game, t_line_segment ray)
 {
-	int			map_y;
-	double		x;
-	t_vector	wall;
+	int		map_y;
+	double	x;
+	t_wall	wall;
 
 	map_y = (int)(ray.start.y / TILE_SIZE);
 	while (1)
@@ -60,27 +70,28 @@ void	dda_0(t_game *game, t_line_segment ray, int num, double angle)
 		{
 			if (ray.start.x < ray.end.x) // 西の壁
 			{
-				wall.x = (int)x * TILE_SIZE;
-				wall.y = line_calc_y(ray.line, wall.x);
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_WEST);
+				wall.pos.x = (int)x * TILE_SIZE;
+				wall.pos.y = line_calc_y(ray.line, wall.pos.x);
+				wall.color = WALL_WEST;
 			}
 			else // 東の壁
 			{
-				wall.x = ((int)x + 1) * TILE_SIZE;
-				wall.y = line_calc_y(ray.line, wall.x);
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_EAST);
+				wall.pos.x = ((int)x + 1) * TILE_SIZE;
+				wall.pos.y = line_calc_y(ray.line, wall.pos.x);
+				wall.color = WALL_EAST;
 			}
-			return;
+			break;
 		}
 		if (game->map_info->map[map_y - 1][(int)x] == '1') // 南の壁
 		{
-			wall.y = map_y * TILE_SIZE;
-			wall.x = line_calc_x(ray.line, wall.y);
-			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_SOUTH);
-			return;
+			wall.pos.y = map_y * TILE_SIZE;
+			wall.pos.x = line_calc_x(ray.line, wall.pos.y);
+			wall.color = WALL_SOUTH;
+			break;
 		}
 		map_y--;
 	}
+	return (wall);
 }
 
 /*
@@ -91,11 +102,11 @@ void	dda_0(t_game *game, t_line_segment ray, int num, double angle)
 ** num: レイの番号
 ** angle: レイの角度
 */
-void	dda_1(t_game *game, t_line_segment ray, int num, double angle)
+t_wall	dda_1(t_game *game, t_line_segment ray)
 {
-	int			map_x;
-	double		y;
-	t_vector	wall;
+	int		map_x;
+	double	y;
+	t_wall	wall;
 
 	map_x = (int)(ray.start.x / TILE_SIZE) + 1;
 	while (1)
@@ -105,27 +116,28 @@ void	dda_1(t_game *game, t_line_segment ray, int num, double angle)
 		{
 			if (ray.start.y < ray.end.y) // 北の壁
 			{
-				wall.y = (int)y * TILE_SIZE;
-				wall.x = line_calc_x(ray.line, wall.y);
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_NORTH);
+				wall.pos.y = (int)y * TILE_SIZE;
+				wall.pos.x = line_calc_x(ray.line, wall.pos.y);
+				wall.color = WALL_NORTH;
 			}
 			else // 南の壁
 			{
-				wall.y = ((int)y + 1) * TILE_SIZE;
-				wall.x = line_calc_x(ray.line, wall.y);
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_SOUTH);
+				wall.pos.y = ((int)y + 1) * TILE_SIZE;
+				wall.pos.x = line_calc_x(ray.line, wall.pos.y);
+				wall.color = WALL_SOUTH;
 			}
-			return;
+			break;
 		}
 		if (game->map_info->map[(int)y][map_x] == '1') // 西の壁
 		{
-			wall.x = (map_x) * TILE_SIZE;
-			wall.y = line_calc_y(ray.line, wall.x);
-			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_WEST);
-			return;
+			wall.pos.x = (map_x) * TILE_SIZE;
+			wall.pos.y = line_calc_y(ray.line, wall.pos.x);
+			wall.color = WALL_WEST;
+			break;
 		}
 		map_x++;
 	}
+	return (wall);
 }
 
 /*
@@ -136,11 +148,11 @@ void	dda_1(t_game *game, t_line_segment ray, int num, double angle)
 ** num: レイの番号
 ** angle: レイの角度
 */
-void	dda_2(t_game *game, t_line_segment ray, int num, double angle)
+t_wall	dda_2(t_game *game, t_line_segment ray)
 {
-	int			map_y;
-	double		x;
-	t_vector	wall;
+	int		map_y;
+	double	x;
+	t_wall	wall;
 
 	map_y = (int)(ray.start.y / TILE_SIZE);
 	while (1)
@@ -150,27 +162,28 @@ void	dda_2(t_game *game, t_line_segment ray, int num, double angle)
 		{
 			if (ray.start.x < ray.end.x) // 西の壁
 			{
-				wall.x = (int)x * TILE_SIZE;
-				wall.y = line_calc_y(ray.line, wall.x);
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_WEST);
+				wall.pos.x = (int)x * TILE_SIZE;
+				wall.pos.y = line_calc_y(ray.line, wall.pos.x);
+				wall.color = WALL_WEST;
 			}
 			else // 東の壁
 			{
-				wall.x = ((int)x + 1) * TILE_SIZE;
-				wall.y = line_calc_y(ray.line, wall.x);
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_EAST);
+				wall.pos.x = ((int)x + 1) * TILE_SIZE;
+				wall.pos.y = line_calc_y(ray.line, wall.pos.x);
+				wall.color = WALL_EAST;
 			}
-			return;
+			break;
 		}
 		if (game->map_info->map[map_y + 1][(int)x] == '1') // 北の壁
 		{
-			wall.y = (map_y + 1) * TILE_SIZE;
-			wall.x = line_calc_x(ray.line, wall.y);
-			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_NORTH);
-			return;
+			wall.pos.y = (map_y + 1) * TILE_SIZE;
+			wall.pos.x = line_calc_x(ray.line, wall.pos.y);
+			wall.color = WALL_NORTH;
+			break;
 		}
 		map_y++;
 	}
+	return (wall);
 }
 
 /*
@@ -181,11 +194,11 @@ void	dda_2(t_game *game, t_line_segment ray, int num, double angle)
 ** num: レイの番号
 ** angle: レイの角度
 */
-void	dda_3(t_game *game, t_line_segment ray, int num, double angle)
+t_wall	dda_3(t_game *game, t_line_segment ray)
 {
-	int			map_x;
-	double		y;
-	t_vector	wall;
+	int		map_x;
+	double	y;
+	t_wall	wall;
 
 	map_x = (int)(ray.start.x / TILE_SIZE);
 	while (1)
@@ -195,27 +208,28 @@ void	dda_3(t_game *game, t_line_segment ray, int num, double angle)
 		{
 			if (ray.start.y < ray.end.y) // 北の壁
 			{
-				wall.y = (int)y * TILE_SIZE;
-				wall.x = line_calc_x(ray.line, wall.y);
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_NORTH);
+				wall.pos.y = (int)y * TILE_SIZE;
+				wall.pos.x = line_calc_x(ray.line, wall.pos.y);
+				wall.color = WALL_NORTH;
 			}
 			else
 			{
-				wall.y = ((int)y + 1) * TILE_SIZE;
-				wall.x = line_calc_x(ray.line, wall.y);
-				draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_SOUTH);
+				wall.pos.y = ((int)y + 1) * TILE_SIZE;
+				wall.pos.x = line_calc_x(ray.line, wall.pos.y);
+				wall.color = WALL_SOUTH;
 			}
-			return;
+			break;
 		}
 		if (game->map_info->map[(int)y][map_x - 1] == '1') // 東の壁
 		{
-			wall.x = map_x * TILE_SIZE;
-			wall.y = line_calc_y(ray.line, wall.x);
-			draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall)), WALL_EAST);
-			return;
+			wall.pos.x = map_x * TILE_SIZE;
+			wall.pos.y = line_calc_y(ray.line, wall.pos.x);
+			wall.color = WALL_EAST;
+			break;
 		}
 		map_x--;
 	}
+	return (wall);
 }
 
 /*
@@ -227,21 +241,17 @@ void	dda_3(t_game *game, t_line_segment ray, int num, double angle)
 */
 void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 {
+	t_wall	wall;
+
 	if (segment_direction(ray) == 0)
-	{
-		dda_0(game, ray, num, angle);
-	}
+		wall = dda_0(game, ray);
 	else if (segment_direction(ray) == 1)
-	{
-		dda_1(game, ray, num, angle);
-	}
+		wall = dda_1(game, ray);
 	else if (segment_direction(ray) == 2)
-		dda_2(game, ray, num, angle);
+		wall = dda_2(game, ray);
 	else
-	{
-		// 左向き
-		dda_3(game, ray, num, angle);
-	}
+		wall = dda_3(game, ray);
+	draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall.pos)), wall.color);
 }
 
 /*

@@ -136,6 +136,12 @@ typedef struct s_player
 	double		speed;
 }	t_player;
 
+typedef struct s_wall
+{
+	t_vector	pos;
+	int			color;
+}	t_wall;
+
 typedef struct s_texture
 {
 	void	*img;
