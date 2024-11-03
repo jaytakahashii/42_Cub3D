@@ -232,4 +232,11 @@ t_vector		line_intersection(t_line_segment line1, t_line_segment line2);
 void			raycasting(t_game *game, t_player *player);
 void			draw_wall(t_game *game, int num, double angle, double distance, int color);
 
+/* dda.c (DDAアルゴリズム) */
+
+t_wall			dda_up(t_game *game, t_line_segment ray);
+t_wall			dda_down(t_game *game, t_line_segment ray);
+t_wall			dda_left(t_game *game, t_line_segment ray);
+t_wall			dda_right(t_game *game, t_line_segment ray);
+
 #endif
