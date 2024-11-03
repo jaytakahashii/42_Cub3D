@@ -52,21 +52,21 @@ void	draw_player(t_game *game, t_player *player)
 	// while (x < NUM_RAYS / 2)
 	// {
 	// 	dir = vector_rotate(player->dir, x * angle_step);
-	// 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	// 	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 	// 	if (x == 0)
 	// 	{
 	// 		x++;
 	// 		continue;
 	// 	}
 	// 	dir = vector_rotate(player->dir, -x * angle_step);
-	// 	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	// 	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 	// 	x++;
 	// }
 	x = NUM_RAYS / 2;
 	dir = vector_rotate(player->dir, x * angle_step);
-	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 	dir = vector_rotate(player->dir, -x * angle_step);
-	mlx_line_put(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 
 	// ここまで
 }

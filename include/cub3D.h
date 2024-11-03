@@ -209,7 +209,7 @@ int					key_hook(int keycode, t_game *game);
 
 void				window_init(t_game *game);
 void				window_exit(t_game *game);
-void				mlx_line_put(t_game *game, t_ray ray, double length,
+void				draw_line(t_game *game, t_ray ray, double length,
 						int color);
 void				draw_circle(t_game *game, t_vector point, int radius,
 						int color);

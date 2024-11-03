@@ -32,7 +32,7 @@ void	window_exit(t_game *game)
 ** length: 線分の長さ
 ** color: 色
 */
-void	mlx_line_put(t_game *game, t_ray ray, double length, int color)
+void	draw_line(t_game *game, t_ray ray, double length, int color)
 {
 	t_vector	end;
 	t_line		line;
