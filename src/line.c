@@ -45,3 +45,16 @@ double	line_calc_x(t_line line, double y)
 		return (line.intercept);
 	return ((y - line.intercept) / line.inclination);
 }
+
+/*
+** x(y)座標からy(x)座標を求める関数
+** line: 直線
+** x(y): x(y)座標
+** is_x: x座標からy座標を求める場合はtrue
+*/
+double	line_calc(t_line line, double x, double y, bool is_x)
+{
+	if (is_x)
+		return (line_calc_y(line, x));
+	return (line_calc_x(line, y));
+}

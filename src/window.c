@@ -25,6 +25,41 @@ void	window_exit(t_game *game)
 	exit(0);
 }
 
+bool	out_of_window(t_vector pos)
+{
+	if (pos.x < 0 || pos.x >= WIN_WIDTH || pos.y < 0 || pos.y >= WIN_HEIGHT)
+		return (true);
+	return (false);
+}
+
+void	check_condition(t_ray *ray, double length, t_line_condition *cond)
+{
+	t_vector	end;
+
+	end.x = ray->pos.x + ray->dir.x * length;
+	end.y = ray->pos.y + ray->dir.y * length;
+	if (fabs(ray->dir.x) > fabs(ray->dir.y))
+	{
+		cond->is_x_major = true;
+		cond->puls = &ray->pos.x;
+		if (ray->dir.x > 0)
+			cond->move = 1;
+		else
+			cond->move = -1;
+		cond->condition = fabs(ray->pos.x - end.x);
+	}
+	else
+	{
+		cond->is_x_major = false;
+		cond->puls = &ray->pos.y;
+		if (ray->dir.y > 0)
+			cond->move = 1;
+		else
+			cond->move = -1;
+		cond->condition = fabs(ray->pos.y - end.y);
+	}
+}
+
 /*
 ** 線分の描画
 ** game: ゲーム構造体
@@ -34,86 +69,26 @@ void	window_exit(t_game *game)
 */
 void	draw_line(t_game *game, t_ray ray, double length, int color)
 {
-	t_vector	end;
-	t_line		line;
+	t_line				line;
+	t_line_condition	cond;
+	t_vector			draw_pos;
 
-	end.x = ray.pos.x + ray.dir.x * length;
-	end.y = ray.pos.y + ray.dir.y * length;
-	line = line_from_points(ray.pos, end);
-	if (fabs(ray.dir.x) > fabs(ray.dir.y))
+	line = line_from_points(ray.pos, ray_end(ray, length));
+	check_condition(&ray, length, &cond);
+	while ((cond.condition)-- > 0)
 	{
-		if (ray.dir.x > 0)
-		{
-			while (ray.pos.x < end.x)
-			{
-				if (ray.pos.x < 0 || ray.pos.x >= WIN_WIDTH || line_calc_y(line,
-						ray.pos.x) < 0 || line_calc_y(line,
-						ray.pos.x) >= WIN_HEIGHT)
-				{
-					ray.pos.x++;
-					continue ;
-				}
-				// mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y((line, ray.pos.x), color);
-				game->canvas.data[(int)line_calc_y(line, ray.pos.x) * WIN_WIDTH
-					+ (int)ray.pos.x] = color;
-				ray.pos.x++;
-			}
-		}
+		if (cond.is_x_major)
+			draw_pos = vector_init(ray.pos.x, line_calc_y(line, ray.pos.x));
 		else
+			draw_pos = vector_init(line_calc_x(line, ray.pos.y), ray.pos.y);
+		if (out_of_window(draw_pos))
 		{
-			while (ray.pos.x > end.x)
-			{
-				if (ray.pos.x < 0 || ray.pos.x >= WIN_WIDTH || line_calc_y(line,
-						ray.pos.x) < 0 || line_calc_y(line,
-						ray.pos.x) >= WIN_HEIGHT)
-				{
-					ray.pos.x--;
-					continue ;
-				}
-				// mlx_pixel_put(game->mlx, game->win, ray.pos.x, line_calc_y(line, ray.pos.x), color);
-				game->canvas.data[(int)line_calc_y(line, ray.pos.x) * WIN_WIDTH
-					+ (int)ray.pos.x] = color;
-				ray.pos.x--;
-			}
+			*(cond.puls) += cond.move;
+			continue ;
 		}
-	}
-	else
-	{
-		if (ray.dir.y > 0)
-		{
-			while (ray.pos.y < end.y)
-			{
-				if (ray.pos.y < 0 || ray.pos.y >= WIN_HEIGHT
-					|| line_calc_x(line, ray.pos.y) < 0 || line_calc_x(line,
-						ray.pos.y) >= WIN_WIDTH)
-				{
-					ray.pos.y++;
-					continue ;
-				}
-				// mlx_pixel_put(game->mlx, game->win, line_calc_x(line, ray.pos.y), ray.pos.y, color);
-				game->canvas.data[(int)ray.pos.y * WIN_WIDTH
-					+ (int)line_calc_x(line, ray.pos.y)] = color;
-				ray.pos.y++;
-			}
-		}
-		else
-		{
-			while (ray.pos.y > end.y)
-			{
-				if (ray.pos.y < 0 || ray.pos.y >= WIN_HEIGHT
-					|| line_calc_x(line, ray.pos.y) < 0 || line_calc_x(line,
-						ray.pos.y) >= WIN_WIDTH)
-				{
-					ray.pos.y--;
-					continue ;
-				}
-				// mlx_pixel_put(game->mlx, game->win, line_calc_x(line, ray.pos.y), ray.pos.y, color);
-				// ray.pos.yが一定のところで-1となり、セグフォが起こる
-				game->canvas.data[(int)ray.pos.y * WIN_WIDTH
-					+ (int)line_calc_x(line, ray.pos.y)] = color;
-				ray.pos.y--;
-			}
-		}
+		game->canvas.data[(int)draw_pos.y * WIN_WIDTH
+			+ (int)draw_pos.x] = color;
+		*(cond.puls) += cond.move;
 	}
 }
 

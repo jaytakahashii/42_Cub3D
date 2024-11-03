@@ -139,6 +139,14 @@ typedef struct s_wall
 	int				color;
 }					t_wall;
 
+typedef struct s_line_condition
+{
+	int				move;
+	double			condition;
+	bool			is_x_major;
+	double			*puls;
+}					t_line_condition;
+
 typedef struct s_texture
 {
 	void			*img;
@@ -198,6 +206,7 @@ t_vector			vector_init(double x, double y);
 t_ray				ray_init(t_vector pos, t_vector dir);
 t_line				ray_to_line(t_ray ray);
 t_line_segment		ray_to_segment(t_ray ray, double length);
+t_vector			ray_end(t_ray ray, double length);
 
 /* player.c (プレイヤーの計算) */
 
