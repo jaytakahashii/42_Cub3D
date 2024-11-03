@@ -73,13 +73,25 @@ void	draw_player(t_game *game, t_player *player)
 void	player_collision(t_game *game, t_vector delta)
 {
 	t_player	*player;
-	t_vector	new_pos;
+	double		new_x;
+	double		new_y;
+	double		margin;
 
 	player = &game->player;
-	new_pos = vector_add(player->pos, delta);
-	if (game->map_info->map[(int)(new_pos.y / TILE_SIZE)][(int)(new_pos.x / TILE_SIZE)] == '1')
-		return ;
-	player->pos = new_pos;
+	new_x = player->pos.x + delta.x;
+	if (delta.x > 0)
+		margin = 10;
+	else
+		margin = -10;
+	if (game->map_info->map[(int)(player->pos.y / TILE_SIZE)][(int)((new_x + margin) / TILE_SIZE)] != '1')
+		player->pos.x = new_x;
+	new_y = player->pos.y + delta.y;
+	if (delta.y > 0)
+		margin = 10;
+	else
+		margin = -10;
+	if (game->map_info->map[(int)((new_y + margin) / TILE_SIZE)][(int)(player->pos.x / TILE_SIZE)] != '1')
+		player->pos.y = new_y;
 }
 
 /*
