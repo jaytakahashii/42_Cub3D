@@ -1,10 +1,14 @@
-F 250,200,150
-C 160,240,240
+SO ./img/eagle.xpm
+NO ./img/eagle.xpm
+WE ./img/eagle.xpm
+EA ./img/eagle.xpm
 
-NO ./textures/metal.xpm
-WE ./textures/glowing_square.xpm
-SO ./textures/green_rocks.xpm
-EA ./textures/vinelike.xpm
+
+
+F 2,166,48
+C 10,241,245
+
+
 
 1111111111111111111111111111111111111111111111111111111111111111111
 1000000000000000000000000000000000000000000000000000000000000000001

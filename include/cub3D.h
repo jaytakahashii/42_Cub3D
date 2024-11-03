@@ -9,6 +9,8 @@
 # include <math.h>
 # include <stdio.h>
 
+# define ERROR 1
+
 # ifdef __APPLE__
 // key code for mac
 #  define ESC 53
@@ -44,6 +46,7 @@
 # endif
 
 # define TILE_SIZE 64
+# define HALF_TILE_SIZE 32
 # define BACKGROUND_SIZE 256
 
 # define M_PI 3.14159265358979323846
@@ -58,6 +61,12 @@
 # define FOV_ANGLE M_PI_3
 # define NUM_RAYS WIN_WIDTH
 # define VIEW_DISTANCE WIN_WIDTH
+# define MOVE_SPEED 5
+# define ROTATE_SPEED 0.05
+
+# define IS_PLAYER 1
+# define IS_WALL_OR_EMPTY 2
+# define IS_ERROR 0
 
 # define NORTH M_PI_3_2
 # define SOUTH M_PI_2
@@ -173,6 +182,7 @@ typedef struct s_game
 	t_texture		canvas;
 	t_map			*map_info;
 	t_img			*img;
+	t_allocations	*alloc;
 }					t_game;
 
 /* main.c (メイン関数) */
@@ -182,7 +192,8 @@ int					game_update(t_game *game);
 /* map.c (マップの計算) */
 
 int					check_map_spell(char **argv);
-int					map_scan(t_game *game, char *argv);
+void				map_scan(t_game *game, char *argv);
+void				map_check(t_game *game, t_map *map_info);
 
 /* img.c (画像の計算) */
 int					set_img(t_game *game);

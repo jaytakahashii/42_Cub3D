@@ -1,16 +1,12 @@
 #include "cub3D.h"
 
-int	cub_check(char **argv)
+void	cub_check(char **argv)
 {
 	int	len;
 
 	len = ft_strlen(argv[1]);
 	if (len < 4 || ft_strncmp(argv[1] + len - 4, ".cub", 4))
-	{
-		ft_printf("must be a .cub file\n");
-		return (1);
-	}
-	return (0);
+		error_exit("Must be a .cub file", NULL);
 }
 
 /*
@@ -75,15 +71,16 @@ int	game_update(t_game *game)
 
 int	main(int argc, char **argv)
 {
-	t_game	game;
+	t_game			game;
 
-	if (argc != 2 || cub_check(argv) || map_scan(&game, argv[1]))
-		exit(0);
+	game.alloc = NULL;
+	if (argc != 2)
+		error_exit("Invalid arguments", NULL);
+	cub_check(argv);
+	map_scan(&game, argv[1]);
+	map_check(&game, (&game)->map_info);
 	if (set_img(&game))
-	{
-		ft_printf("Error\n");
-		exit(0);
-	}
+		error_exit("Failed to set image", NULL);
 	game_init(&game);
 	game_loop(&game);
 	return (0);

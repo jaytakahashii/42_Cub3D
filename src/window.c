@@ -19,6 +19,7 @@ void	window_init(t_game *game)
 */
 void	window_exit(t_game *game)
 {
+	free_allocations(&(game->alloc));
 	mlx_destroy_window(game->mlx, game->win);
 	exit(0);
 }
