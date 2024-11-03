@@ -188,14 +188,22 @@ void	map_check(t_game *game, t_map *map_info)
 		error_exit_free("Invalid map", NULL, game->alloc);
 }
 
+int	ft_open(char *argv)
+{
+	int	fd;
+
+	fd = open(argv, O_RDONLY);
+	if (fd == -1)
+		error_exit("Failed to open the file", NULL);
+	return (fd);
+}
+
 void	map_scan(t_game *game, char *argv)
 {
 	char	*line;
 
 	int (y) = 0;
-	int (fd) = open(argv, O_RDONLY);
-	if (fd == -1)
-		error_exit("Failed to open the file", NULL);
+	int (fd) = ft_open(argv);
 	map_info_init(&game->map_info, &(game->alloc));
 	while (1)
 	{
@@ -203,7 +211,7 @@ void	map_scan(t_game *game, char *argv)
 		if (!line)
 			break ;
 		if (line[0] == '\n'
-			|| set_map_info(game->map_info, line, &(game->alloc)) == 0)
+			|| !set_map_info(game->map_info, line, &(game->alloc)))
 		{
 			free(line);
 			continue ;
