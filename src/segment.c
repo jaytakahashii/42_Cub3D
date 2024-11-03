@@ -1,7 +1,5 @@
 #include "cub3D.h"
 
-// segment.c
-
 /*
 ** t_line_segmentを作成する関数
 ** start: 始点

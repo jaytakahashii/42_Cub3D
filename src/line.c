@@ -1,7 +1,5 @@
 #include "cub3D.h"
 
-// line.c
-
 /*
 ** 2点間の直線を求める関数
 ** vec1: 点1

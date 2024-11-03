@@ -1,7 +1,5 @@
 #include "cub3D.h"
 
-// dda.c
-
 static void	wall_set(t_wall *wall, double x, double y, int color)
 {
 	if (0 <= x)

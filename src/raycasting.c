@@ -48,8 +48,8 @@ void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 		wall = dda_down(game, ray);
 	else
 		wall = dda_left(game, ray);
-	draw_wall(game, num, angle, vector_len(vector_from_to(ray.start, wall.pos)),
-		wall.color);
+	wall.distance = vector_len(vector_from_to(ray.start, wall.pos));
+	draw_wall(game, wall, num, angle);
 }
 
 /*
