@@ -50,9 +50,9 @@ void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 		wall = dda_left(game, ray);
 	wall.distance = vector_len(vector_from_to(ray.start, wall.pos));
 	if (wall.color == WALL_EAST || wall.color == WALL_WEST)
-		wall.pos_x = (int)wall.pos.y % TILE_SIZE;
-	if (wall.color == WALL_NORTH || wall.color == WALL_SOUTH)
-		wall.pos_x = (int)wall.pos.x % TILE_SIZE;
+		wall.x_pos = (int)wall.pos.y % TILE_SIZE;
+	else
+		wall.x_pos = (int)wall.pos.x % TILE_SIZE;
 	draw_wall(game, wall, num, angle);
 }
 

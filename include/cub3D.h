@@ -140,14 +140,14 @@ typedef struct s_player
 {
 	t_vector	pos;
 	t_vector	dir;
-	double		angle; // radian
+	double		angle;
 	double		speed;
 	int			up;
 	int			back;
 	int			left;
 	int			right;
-	int		turn_left;
-	int		turn_right;
+	int			turn_left;
+	int			turn_right;
 }					t_player;
 
 typedef struct s_wall
@@ -155,7 +155,7 @@ typedef struct s_wall
 	t_vector		pos;
 	double			distance;
 	int				color;
-	int				pos_x;
+	int				x_pos;
 }					t_wall;
 
 typedef struct s_line_condition

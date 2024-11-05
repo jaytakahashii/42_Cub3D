@@ -140,7 +140,6 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, t_wall wall)
 	if (pos.x >= WIN_WIDTH)
 		pos.x = WIN_WIDTH - 1;
 	j = -size.y / 2;
-	i = 0;
 	double scale_y = (double)size.y / TILE_SIZE;
 	while (j < size.y / 2)
 	{
@@ -152,7 +151,7 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, t_wall wall)
 		int src_y = (int)(j / scale_y);
 		if (src_y < 0)
 			src_y *= -1;
-		int color = game->north.data[(src_y) * (game->north.width) + wall.pos_x];
+		int color = game->north.data[(src_y) * (game->north.width) + wall.x_pos];
 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
 		j++;
 	}
@@ -175,6 +174,5 @@ void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	size = vector_init(1, rate);
 	start.x += ray_num;
-
 	draw_rect(game, start, size, wall);
 }
