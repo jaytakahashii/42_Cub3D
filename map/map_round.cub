@@ -1,10 +1,12 @@
-NO ./textures/wood_vertical.xpm
-SO ./textures/glowing_square.xpm
-WE ./textures/rocky.xpm
-EA ./textures/brick_wall.xpm
+SO ./img/eagle.xpm
+NO ./img/eagle.xpm
+WE ./img/eagle.xpm
+EA ./img/eagle.xpm
 
-F 160,110,80
-C 120,60,60
+
+
+F 2,166,48
+C 10,241,245
 
          111111111111
        1110000000000111
@@ -22,10 +24,3 @@ C 120,60,60
      11100001111110000111
        1100000000000011
         11111111111111
-
-
-
-
-
-
-

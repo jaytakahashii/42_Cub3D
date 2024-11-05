@@ -1,7 +1,5 @@
 #include "cub3D.h"
 
-// segment.c
-
 /*
 ** t_line_segmentを作成する関数
 ** start: 始点
@@ -49,9 +47,11 @@ t_vector	line_intersection(t_line_segment line1, t_line_segment line2)
 	det = (line1.end.x - line1.start.x) * (line2.end.y - line2.start.y)
 		- (line1.end.y - line1.start.y) * (line2.end.x - line2.start.x);
 	t = ((line2.start.x - line1.start.x) * (line2.end.y - line2.start.y)
-		- (line2.start.y - line1.start.y) * (line2.end.x - line2.start.x)) / det;
+			- (line2.start.y - line1.start.y) * (line2.end.x - line2.start.x))
+		/ det;
 	s = ((line2.start.x - line1.start.x) * (line1.end.y - line1.start.y)
-		- (line2.start.y - line1.start.y) * (line1.end.x - line1.start.x)) / det;
+			- (line2.start.y - line1.start.y) * (line1.end.x - line1.start.x))
+		/ det;
 	ret.x = line1.start.x + t * (line1.end.x - line1.start.x);
 	ret.y = line1.start.y + t * (line1.end.y - line1.start.y);
 	if (t < 0 || t > 1 || s < 0 || s > 1)
