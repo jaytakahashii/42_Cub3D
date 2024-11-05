@@ -143,6 +143,7 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 	j = -size.y / 2;
 	i = 0;
 	double scale_y = (double)size.y / TILE_SIZE;
+	// ft_printf("src_y: %d\n", src_y);
 	while (j < size.y / 2)
 	{
 		if (pos.y + j < 0 || pos.y + j >= WIN_HEIGHT)
@@ -150,11 +151,11 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 			j++;
 			continue ;
 		}
-		// int src_y = (int)(j / scale_y);
-		// if (src_y < 0)
-		// 	src_y *= -1;
-		int src_y = (int)(i / scale_y);
-		ft_printf("src_y: %d\n", src_y);
+		int src_y = (int)(j / scale_y);
+		// ft_printf("src_y: %d\n", src_y);
+		if (src_y < 0)
+			src_y *= -1;
+		// int src_y = (int)(i / scale_y);
 		color = game->north.data[(src_y) * (game->north.width) + game->x];
 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
 		j++;

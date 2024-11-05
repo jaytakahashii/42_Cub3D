@@ -61,8 +61,8 @@
 # define FOV_ANGLE M_PI_3
 # define NUM_RAYS WIN_WIDTH
 # define VIEW_DISTANCE WIN_WIDTH
-# define MOVE_SPEED 5
-# define ROTATE_SPEED 0.05
+# define MOVE_SPEED 1
+# define ROTATE_SPEED 0.008
 
 # define IS_PLAYER 1
 # define IS_WALL_OR_EMPTY 2
@@ -229,7 +229,7 @@ t_vector			ray_end(t_ray ray, double length);
 
 /* player.c (プレイヤーの計算) */
 
-t_player			player_init(double x, double y, double angle, double speed);
+t_player			player_init(double x, double y, double angle);
 void				draw_player(t_game *game, t_player *player);
 int					key_hook(t_game *game);
 int					key_press(int keycode, t_game *game);
