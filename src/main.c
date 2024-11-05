@@ -84,6 +84,12 @@ int	main(int argc, char **argv)
 	map_check(&game, (&game)->map_info);
 	if (set_img(&game))
 		error_exit("Failed to set image", NULL);
+	game.player.up = 0;
+	game.player.back = 0;
+	game.player.left = 0;
+	game.player.right = 0;
+	game.player.turn_left = 0;
+	game.player.turn_right = 0;
 	game_init(&game);
 	game_loop(&game);
 	return (0);

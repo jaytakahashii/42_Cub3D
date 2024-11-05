@@ -96,15 +96,54 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 ** size: 長方形の大きさ (t_vector.x: 幅, t_vector.y: 高さ)
 ** color: 色
 */
+
+// void	draw_rect(t_game *game, t_vector pos, t_vector size, int kolor, int y)
+// {
+// 	int		j;
+
+// 	kolor = 0x00FF0000;
+// 	if (pos.x < 0)
+// 		pos.x = 0;
+// 	if (pos.x >= WIN_WIDTH)
+// 		pos.x = WIN_WIDTH - 1;
+// 	if (pos.y < 0)
+// 		pos.y = 0;
+// 	if (pos.y >= WIN_HEIGHT)
+// 		pos.y = WIN_HEIGHT - 1;
+// 	j = -size.y / 2;
+// 	double scale_x = (double)size.y / TILE_SIZE;
+// 	// double scale_y = (double)size / TILE_SIZE;
+// 	// ft_printf("scale_x: %d\n", (int)scale_x);
+// 	while (j < size.y / 2)
+// 	{
+// 		if (pos.y + j < 0 || pos.y + j >= WIN_HEIGHT)
+// 		{
+// 			j++;
+// 			continue ;
+// 		}
+// 		int src_x = (int)(j / scale_x);
+// 		// int src_y = (int)(y / scale_y);
+// 		// ft_printf("src_x: %d\n", src_x);
+// 		// ft_printf("src_x * game->north.width + y: %d\n", src_x * game->north.width + y);
+// 		int color = game->north.data[src_x + y* (game->north.width)];
+// 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
+// 		j++;
+// 	}
+// }
+
 void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 {
 	int	j;
+	int i;
 
 	if (pos.x < 0)
 		pos.x = 0;
 	if (pos.x >= WIN_WIDTH)
 		pos.x = WIN_WIDTH - 1;
 	j = -size.y / 2;
+	i = 0;
+	double scale_y = (double)size.y / TILE_SIZE;
+	// ft_printf("src_y: %d\n", src_y);
 	while (j < size.y / 2)
 	{
 		if (pos.y + j < 0 || pos.y + j >= WIN_HEIGHT)
@@ -112,8 +151,15 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 			j++;
 			continue ;
 		}
+		int src_y = (int)(j / scale_y);
+		// ft_printf("src_y: %d\n", src_y);
+		if (src_y < 0)
+			src_y *= -1;
+		// int src_y = (int)(i / scale_y);
+		color = game->north.data[(src_y) * (game->north.width) + game->x];
 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
 		j++;
+		i++;
 	}
 }
 

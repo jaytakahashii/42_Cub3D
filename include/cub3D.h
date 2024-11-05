@@ -55,7 +55,7 @@
 # define M_PI_3 1.04719755119659774615
 # define M_PI_3_2 4.71238898038468985769
 
-# define WIN_WIDTH 1280
+# define WIN_WIDTH 1024
 # define WIN_HEIGHT 1024
 
 # define FOV_ANGLE M_PI_3
@@ -180,6 +180,7 @@ typedef struct s_game
 {
 	void			*mlx;
 	void			*win;
+	int			x;
 	t_player		player;
 	t_texture		north;
 	t_texture		south;
