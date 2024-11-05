@@ -67,12 +67,15 @@ void	raycasting(t_game *game, t_player *player)
 
 	angle_step = FOV_ANGLE / NUM_RAYS;
 	i = NUM_RAYS / 2;
-	game->y = 0;
+	game->x = 64;
 	while (i >= -(NUM_RAYS / 2))
 	{
+		if (game->x < 0)
+			game->x = 64;
 		dir = vector_rotate(player->dir, i * angle_step);
 		ray = ray_to_segment(ray_init(player->pos, dir), VIEW_DISTANCE);
 		check_wall(game, ray, i, i * angle_step);
 		i--;
+		game->x--;
 	}
 }
