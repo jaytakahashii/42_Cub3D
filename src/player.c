@@ -121,7 +121,7 @@ static bool	move_player(t_player *player, t_vector *delta)
 		rotate = 1;
 	if (player->turn_left)
 		rotate = -1;
-	player->dir = vector_rotate(player->dir, rotate * 0.05);
+	player->dir = vector_rotate(player->dir, rotate * 0.01);
 	if (delta->x != 0 || delta->y != 0 || rotate != 0)
 		move = true;
 	return (move);

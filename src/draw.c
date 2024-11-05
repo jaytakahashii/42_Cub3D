@@ -150,7 +150,11 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 			j++;
 			continue ;
 		}
+		// int src_y = (int)(j / scale_y);
+		// if (src_y < 0)
+		// 	src_y *= -1;
 		int src_y = (int)(i / scale_y);
+		ft_printf("src_y: %d\n", src_y);
 		color = game->north.data[(src_y) * (game->north.width) + game->x];
 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
 		j++;
