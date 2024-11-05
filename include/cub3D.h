@@ -180,6 +180,7 @@ typedef struct s_game
 {
 	void			*mlx;
 	void			*win;
+	int			y;
 	t_player		player;
 	t_texture		north;
 	t_texture		south;

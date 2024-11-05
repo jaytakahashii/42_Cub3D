@@ -67,6 +67,7 @@ void	raycasting(t_game *game, t_player *player)
 
 	angle_step = FOV_ANGLE / NUM_RAYS;
 	i = NUM_RAYS / 2;
+	game->y = 0;
 	while (i >= -(NUM_RAYS / 2))
 	{
 		dir = vector_rotate(player->dir, i * angle_step);
