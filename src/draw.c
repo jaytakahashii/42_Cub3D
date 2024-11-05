@@ -131,7 +131,7 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 // 	}
 // }
 
-void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
+void	draw_rect(t_game *game, t_vector pos, t_vector size, t_wall wall)
 {
 	int	j;
 	int i;
@@ -156,7 +156,7 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 		if (src_y < 0)
 			src_y *= -1;
 		// int src_y = (int)(i / scale_y);
-		color = game->north.data[(src_y) * (game->north.width) + game->x];
+		int color = game->north.data[(src_y) * (game->north.width) + wall.x_pos];
 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
 		j++;
 		i++;
@@ -180,5 +180,5 @@ void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	size = vector_init(1, rate);
 	start.x += ray_num;
-	draw_rect(game, start, size, wall.color);
+	draw_rect(game, start, size, wall);
 }
