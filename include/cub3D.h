@@ -155,6 +155,7 @@ typedef struct s_wall
 	t_vector		pos;
 	double			distance;
 	int				color;
+	int				pos_x;
 }					t_wall;
 
 typedef struct s_line_condition
@@ -180,7 +181,6 @@ typedef struct s_game
 {
 	void			*mlx;
 	void			*win;
-	int			x;
 	t_player		player;
 	t_texture		north;
 	t_texture		south;
@@ -248,7 +248,7 @@ void				draw_line(t_game *game, t_ray ray, double length,
 void				draw_circle(t_game *game, t_vector point, int radius,
 						int color);
 void				draw_rect(t_game *game, t_vector pos, t_vector size,
-						int color);
+						t_wall wall);
 void				draw_wall(t_game *game, t_wall wall, int ray_num,
 						double ray_angle);
 
