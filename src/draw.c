@@ -134,12 +134,14 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 {
 	int	j;
+	int i;
 
 	if (pos.x < 0)
 		pos.x = 0;
 	if (pos.x >= WIN_WIDTH)
 		pos.x = WIN_WIDTH - 1;
 	j = -size.y / 2;
+	i = 0;
 	double scale_y = (double)size.y / TILE_SIZE;
 	while (j < size.y / 2)
 	{
@@ -148,13 +150,11 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, int color)
 			j++;
 			continue ;
 		}
-		int src_y = (int)(j / scale_y);
-		if (src_y < 0)
-			src_y *= -1;
-		// ft_printf("j: %d\n", j);
+		int src_y = (int)(i / scale_y);
 		color = game->north.data[(src_y) * (game->north.width) + game->x];
 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
 		j++;
+		i++;
 	}
 }
 

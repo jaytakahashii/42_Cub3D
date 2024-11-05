@@ -177,6 +177,7 @@ int	key_hook(t_game *game)
 {
 	t_vector	delta;
 
+	delta = vector_init(0, 0);
 	if (move_player(&game->player, &delta))
 	{
 		player_collision(game, &game->player, delta);
