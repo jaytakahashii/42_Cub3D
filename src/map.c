@@ -132,7 +132,7 @@ void	set_player_info(t_game *game, char spell, t_vector p_pos)
 	else if (spell == 'E')
 		p_angle = EAST;
 	game->player = player_init(p_pos.x * TILE_SIZE + TILE_SIZE / 2,
-			p_pos.y * TILE_SIZE + TILE_SIZE / 2, p_angle, 5);
+			p_pos.y * TILE_SIZE + TILE_SIZE / 2, p_angle);
 }
 
 int	spell_check(char spell, int mode)

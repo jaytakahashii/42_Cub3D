@@ -6,7 +6,7 @@
 ** angle: プレイヤーの初期角度
 ** speed: プレイヤーの移動速度
 */
-t_player	player_init(double x, double y, double angle, double speed)
+t_player	player_init(double x, double y, double angle)
 {
 	t_player	ret;
 
@@ -14,7 +14,13 @@ t_player	player_init(double x, double y, double angle, double speed)
 	ret.pos.y = y;
 	ret.dir = vector_from_angle(angle);
 	ret.angle = angle;
-	ret.speed = speed;
+	ret.speed = MOVE_SPEED;
+	ret.up = 0;
+	ret.back = 0;
+	ret.left = 0;
+	ret.right = 0;
+	ret.turn_left = 0;
+	ret.turn_right = 0;
 	return (ret);
 }
 
@@ -121,7 +127,7 @@ static bool	move_player(t_player *player, t_vector *delta)
 		rotate = 1;
 	if (player->turn_left)
 		rotate = -1;
-	player->dir = vector_rotate(player->dir, rotate * 0.05);
+	player->dir = vector_rotate(player->dir, rotate * ROTATE_SPEED);
 	if (delta->x != 0 || delta->y != 0 || rotate != 0)
 		move = true;
 	return (move);
@@ -177,6 +183,7 @@ int	key_hook(t_game *game)
 {
 	t_vector	delta;
 
+	delta = vector_init(0, 0);
 	if (move_player(&game->player, &delta))
 	{
 		player_collision(game, &game->player, delta);

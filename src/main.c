@@ -24,12 +24,6 @@ void	game_init(t_game *game)
 	// draw_line(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
 	// draw_line(game, ray_init(vector_init(300, 0), vector_init(-1, 1)), 500, MGREEN);
 	x = -1;
-	game->player.up = 0;
-	game->player.back = 0;
-	game->player.left = 0;
-	game->player.right = 0;
-	game->player.turn_left = 0;
-	game->player.turn_right = 0;
 	while (++x < (WIN_WIDTH * (WIN_HEIGHT / 2)))
 		game->canvas.data[x] = game->map_info->c;
 	while (x < WIN_WIDTH * WIN_HEIGHT)
