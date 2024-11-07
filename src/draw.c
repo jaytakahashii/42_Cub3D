@@ -97,67 +97,6 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 ** color: 色
 */
 
-// void	draw_rect(t_game *game, t_vector pos, t_vector size, int kolor, int y)
-// {
-// 	int		j;
-
-// 	kolor = 0x00FF0000;
-// 	if (pos.x < 0)
-// 		pos.x = 0;
-// 	if (pos.x >= WIN_WIDTH)
-// 		pos.x = WIN_WIDTH - 1;
-// 	if (pos.y < 0)
-// 		pos.y = 0;
-// 	if (pos.y >= WIN_HEIGHT)
-// 		pos.y = WIN_HEIGHT - 1;
-// 	j = -size.y / 2;
-// 	double scale_x = (double)size.y / TILE_SIZE;
-// 	// double scale_y = (double)size / TILE_SIZE;
-// 	// ft_printf("scale_x: %d\n", (int)scale_x);
-// 	while (j < size.y / 2)
-// 	{
-// 		if (pos.y + j < 0 || pos.y + j >= WIN_HEIGHT)
-// 		{
-// 			j++;
-// 			continue ;
-// 		}
-// 		int src_x = (int)(j / scale_x);
-// 		// int src_y = (int)(y / scale_y);
-// 		// ft_printf("src_x: %d\n", src_x);
-// 		// ft_printf("src_x * game->north.width + y: %d\n", src_x * game->north.width + y);
-// 		int color = game->north.data[src_x + y* (game->north.width)];
-// 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
-// 		j++;
-// 	}
-// }
-
-// void	draw_rect(t_game *game, t_vector pos, t_vector size, t_wall wall, t_texture texture)
-// {
-// 	int i;
-// 	double	scale_y;
-// 	int src_y;
-// 	int color;
-
-// 	i = 0;
-// 	scale_y = (double)size.y / TILE_SIZE;
-// 	if (pos.x < 0)
-// 		pos.x = 0;
-// 	if (pos.x >= WIN_WIDTH)
-// 		pos.x = WIN_WIDTH - 1;
-// 	while (i < size.y)
-// 	{
-// 		if (pos.y + i < 0 || WIN_HEIGHT <= pos.y + i)
-// 		{
-// 			i++;
-// 			continue ;
-// 		}
-// 		src_y = (int)(i / scale_y);
-// 		color = texture.data[(src_y) * (texture.width) + wall.x_pos];
-// 		game->canvas.data[(int)(pos.y + i) * WIN_WIDTH + (int)(pos.x)] = color;
-// 		i++;
-// 	}
-// }
-
 void	draw_rect(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 {
 	int i;

@@ -247,8 +247,8 @@ void				draw_line(t_game *game, t_ray ray, double length,
 						int color);
 void				draw_circle(t_game *game, t_vector point, int radius,
 						int color);
-// void				draw_rect(t_game *game, t_vector pos, t_vector size,
-// 						t_wall wall, t_texture texture);
+void				draw_rect(t_game *game, t_ray ray, t_wall wall,
+						t_texture texture);
 void				draw_wall(t_game *game, t_wall wall, int ray_num,
 						double ray_angle);
 
