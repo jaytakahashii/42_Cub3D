@@ -1,7 +1,7 @@
 SO ./img/eagle.xpm
-NO ./img/eagle.xpm
-WE ./img/eagle.xpm
-EA ./img/eagle.xpm
+NO ./img/dirt.xpm
+WE ./img/magma.xpm
+EA ./img/greystone.xpm
 
 
 
