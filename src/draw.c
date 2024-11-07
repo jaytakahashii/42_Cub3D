@@ -99,10 +99,10 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 
 void	draw_rect(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 {
-	int i;
+	int 	i;
+	int 	src_y;
+	int 	color;
 	double	scale_y;
-	int src_y;
-	int color;
 
 	i = 0;
 	scale_y = (double)ray.dir.y / TILE_SIZE;
