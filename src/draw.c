@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:28:15 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 14:03:20 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:37:58 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 	t_ray		ray;
 	double		wall_height;
 
-	// todo :50000マジックナンバー
 	wall_height = 50000 / (wall.distance * cos(ray_angle));
 	ray.pos = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	ray.dir = vector_init(1, wall_height);

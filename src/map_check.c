@@ -6,11 +6,21 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:29:22 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 13:34:55 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:41:34 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+int	ft_open(char *argv)
+{
+	int	fd;
+
+	fd = open(argv, O_RDONLY);
+	if (fd == -1)
+		error_exit("Failed to open the file", NULL);
+	return (fd);
+}
 
 void	set_player_info(t_game *game, char spell, t_vector p_pos)
 {
