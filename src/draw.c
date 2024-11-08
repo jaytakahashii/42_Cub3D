@@ -136,7 +136,7 @@ void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 {
 	t_ray		ray;
 	double		wall_height;
-	int			i = 0;
+	// int			i = 0;
 
 	// todo :50000マジックナンバー
 	wall_height = 50000 / (wall.distance * cos(ray_angle));
@@ -152,16 +152,16 @@ void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 		draw_rect(game, ray, wall, game->east);
 	else
 		draw_rect(game, ray, wall, game->west);
-	while (i < (WIN_HEIGHT - wall_height) / 2 )
-	{
-		game->canvas.data[i * WIN_WIDTH + (int)(ray.pos.x)] = game->map_info->c;
-		i++;
-	}
-	i = WIN_HEIGHT - 1;
-	while (i > (WIN_HEIGHT + wall_height) / 2 )
-	{
-		game->canvas.data[i * WIN_WIDTH + (int)(ray.pos.x)] = game->map_info->f;
-		i--;
-	}
+	// while (i < (WIN_HEIGHT - wall_height) / 2 )
+	// {
+	// 	game->canvas.data[i * WIN_WIDTH + (int)(ray.pos.x)] = game->map_info->c;
+	// 	i++;
+	// }
+	// i = WIN_HEIGHT - 1;
+	// while (i > (WIN_HEIGHT + wall_height) / 2 )
+	// {
+	// 	game->canvas.data[i * WIN_WIDTH + (int)(ray.pos.x)] = game->map_info->f;
+	// 	i--;
+	// }
 }
 
