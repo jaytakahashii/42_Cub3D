@@ -23,28 +23,29 @@ int	wall_spell_check(char **map, int y, int x)
 	return (0);
 }
 
-void	wall_check(char **map, int y, int x, unsigned int *count, int *flag)
+void	wall_check(t_map *map_info, int y, int x)
 {
-	*count += 1;
+	map_info->count += 1;
 	// todo: ほんとに一萬でいいか議論
-	if (*count > 10000)
+	if (map_info->count > 10000)
 	{
-		*flag = 1;
+		map_info->flag = 1;
 		return ;
 	}
-	if (!map || !map[y] || !map[y][x] || map[y][x] == '1')
+	if (!map_info->map_tmp || !map_info->map_tmp[y]
+		|| !map_info->map_tmp[y][x] || map_info->map_tmp[y][x] == '1')
 		return ;
 	else
 	{
-		map[y][x] = '1';
-		if (wall_spell_check(map, y, x))
+		map_info->map_tmp[y][x] = '1';
+		if (wall_spell_check(map_info->map_tmp, y, x))
 		{
-			*flag = 1;
+			map_info->flag = 1;
 			return ;
 		}
-		wall_check(map, y + 1, x, count, flag);
-		wall_check(map, y - 1, x, count, flag);
-		wall_check(map, y, x + 1, count, flag);
-		wall_check(map, y, x - 1, count, flag);
+		wall_check(map_info, y + 1, x);
+		wall_check(map_info, y - 1, x);
+		wall_check(map_info, y, x + 1);
+		wall_check(map_info, y, x - 1);
 	}
 }
