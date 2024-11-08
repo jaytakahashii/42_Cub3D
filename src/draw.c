@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:28:15 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 13:33:50 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:03:20 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	draw_rect(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 		}
 		src_y = (int)(i / scale_y);
 		color = texture.data[(src_y) * (texture.width) + wall.x_pos];
-		game->canvas.data[(int)(ray.pos.y + i) * WIN_WIDTH + (int)(ray.pos.x)] = color;
+		game->canvas.data[(int)(ray.pos.y + i)
+			*WIN_WIDTH + (int)(ray.pos.x)] = color;
 		i++;
 	}
 }
@@ -132,4 +133,3 @@ void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 	else
 		draw_rect(game, ray, wall, game->west);
 }
-

@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 13:58:34 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:00:06 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@
 #  define DOWN_ARROW 65364
 #  define LEFT_ARROW 65361
 #  define RIGHT_ARROW 65363
-#  define DESTROYNOTIFY DestroyNotify
-#  define STRUCTURENOTIFYMASK StructureNotifyMask
+// #  define DESTROYNOTIFY DestroyNotify
+// #  define STRUCTURENOTIFYMASK StructureNotifyMask
 # endif
 
 # define TILE_SIZE 64
@@ -289,7 +289,7 @@ t_wall				dda_left(t_game *game, t_line_segment ray);
 t_wall				dda_right(t_game *game, t_line_segment ray);
 
 /* wall.c (壁のエラーチェック) */
-void	wall_check(t_map *map_info, int y, int x);
+void				wall_check(t_map *map_info, int y, int x);
 
 /* map_check.c (マップのエラーチェック) */
 void				map_check(t_game *game, t_map *map_info);

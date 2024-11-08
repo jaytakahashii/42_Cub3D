@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:29:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 13:29:29 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/11/08 14:05:46 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	set_map_info(t_map *map_info, char *map, t_allocations **alloc)
 		return (set_color(&map_info->f, map, alloc));
 	else if (ft_strncmp(map, "C", 1) == 0 && ft_isspace(*(map += 1)))
 		return (set_color(&map_info->c, map, alloc));
-	return (2);
+	return (1);
 }
 
 void	map_scan(t_game *game, char *argv)
