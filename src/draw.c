@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:28:15 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 14:37:58 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/11/08 15:58:34 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	draw_rect(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 	double	scale_y;
 
 	i = 0;
-	scale_y = (double)ray.dir.y / TILE_SIZE;
+	scale_y = (double)ray.dir.y / TEXTURE_SIZE;
 	if (ray.pos.x < 0)
 		ray.pos.x = 0;
 	if (ray.pos.x >= WIN_WIDTH)

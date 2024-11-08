@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 14:41:47 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/11/08 15:58:34 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@
 // #  define STRUCTURENOTIFYMASK StructureNotifyMask
 # endif
 
-# define TILE_SIZE 64
-# define HALF_TILE_SIZE 32
+# define TEXTURE_SIZE 64
+# define HALF_TEXTURE_SIZE 32
 # define BACKGROUND_SIZE 256
 
 # define M_PI 3.14159265358979323846

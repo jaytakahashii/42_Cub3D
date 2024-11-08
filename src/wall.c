@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:32:15 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 14:38:02 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/11/08 16:03:50 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	wall_spell_check(char **map, int y, int x)
 void	wall_check(t_map *map_info, int y, int x)
 {
 	map_info->count += 1;
-	if (map_info->count > 10000)
+	if (map_info->count > 1000000)
 	{
 		map_info->flag = 1;
 		return ;

@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:30:57 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 13:30:58 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/11/08 15:58:34 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 		wall = dda_left(game, ray);
 	wall.distance = vector_len(vector_from_to(ray.start, wall.pos));
 	if (wall.color == WALL_EAST || wall.color == WALL_WEST)
-		wall.x_pos = (int)wall.pos.y % TILE_SIZE;
+		wall.x_pos = (int)wall.pos.y % TEXTURE_SIZE;
 	else
-		wall.x_pos = (int)wall.pos.x % TILE_SIZE;
+		wall.x_pos = (int)wall.pos.x % TEXTURE_SIZE;
 	draw_wall(game, wall, num, angle);
 }
 
