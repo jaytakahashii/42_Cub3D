@@ -17,19 +17,16 @@ void	set_player_info(t_game *game, char spell, t_vector p_pos)
 			p_pos.y * TILE_SIZE + TILE_SIZE / 2, p_angle);
 }
 
-int	spell_check(char spell, int mode)
+int	spell_check(char spell)
 {
-	if (mode == 1)
+	if (spell == '0' || spell == '1' || spell == '\n'
+		|| spell == ' ' || spell == 'N' || spell == 'S'
+		|| spell == 'W' || spell == 'E')
 	{
-		if (spell == '0' || spell == '1' || spell == '\n'
-			|| spell == ' ' || spell == 'N' || spell == 'S'
+		if (spell == 'N' || spell == 'S'
 			|| spell == 'W' || spell == 'E')
-		{
-			if (spell == 'N' || spell == 'S'
-				|| spell == 'W' || spell == 'E')
-				return (1);
-			return (2);
-		}
+			return (1);
+		return (2);
 	}
 	return (0);
 }
@@ -38,16 +35,23 @@ int	map_spell_check(t_game *game, char **map)
 {
 	int	y;
 	int	x;
+	int	flag;
 
 	y = -1;
+	flag = 0;
 	while (map[++y])
 	{
 		x = -1;
 		while (map[y] && map[y][++x])
 		{
-			if (spell_check(map[y][x], 1) == 1)
+			if (spell_check(map[y][x]) == 1)
+			{
+				if (flag)
+					return (1);
+				flag = 1;
 				set_player_info(game, map[y][x], vector_init(x, y));
-			else if (spell_check(map[y][x], 1) == 0)
+			}
+			else if (spell_check(map[y][x]) == 0)
 				return (1);
 		}
 	}

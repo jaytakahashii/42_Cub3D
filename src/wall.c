@@ -15,7 +15,7 @@ void	wall_check(t_map *map_info, int y, int x)
 {
 	map_info->count += 1;
 	// todo: ほんとに一萬でいいか議論
-	if (map_info->count > 10000)
+	if (map_info->count > 100000)
 	{
 		map_info->flag = 1;
 		return ;
