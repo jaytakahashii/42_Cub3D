@@ -1,10 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:29:16 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/11/08 13:29:18 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-/*
-** 2点間の直線を求める関数
-** vec1: 点1
-** vec2: 点2
-*/
 t_line	line_from_points(t_vector vec1, t_vector vec2)
 {
 	t_line	ret;
@@ -20,11 +27,6 @@ t_line	line_from_points(t_vector vec1, t_vector vec2)
 	return (ret);
 }
 
-/*
-** ｘ座標からy座標を求める関数
-** line: 直線
-** x: x座標
-*/
 double	line_calc_y(t_line line, double x)
 {
 	if (line.inclination == 0)
@@ -32,11 +34,6 @@ double	line_calc_y(t_line line, double x)
 	return (line.inclination * x + line.intercept);
 }
 
-/*
-** y座標からx座標を求める関数
-** line: 直線
-** y: y座標
-*/
 double	line_calc_x(t_line line, double y)
 {
 	if (line.inclination == 0)
@@ -44,12 +41,6 @@ double	line_calc_x(t_line line, double y)
 	return ((y - line.intercept) / line.inclination);
 }
 
-/*
-** x(y)座標からy(x)座標を求める関数
-** line: 直線
-** x(y): x(y)座標
-** is_x: x座標からy座標を求める場合はtrue
-*/
 double	line_calc(t_line line, double x, double y, bool is_x)
 {
 	if (is_x)

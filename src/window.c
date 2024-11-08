@@ -1,9 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   window.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:32:24 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/11/08 13:32:26 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-/*
-** ウィンドウの初期化
-** game: ゲーム構造体
-*/
 void	window_init(t_game *game)
 {
 	game->mlx = mlx_init();
@@ -13,10 +21,6 @@ void	window_init(t_game *game)
 			&game->canvas.bpp, &game->canvas.size_line, &game->canvas.endian);
 }
 
-/*
-** ウィンドウの削除
-** game: ゲーム構造体
-*/
 int	window_exit(t_game *game)
 {
 	free_allocations(&(game->alloc));

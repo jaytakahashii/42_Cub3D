@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dda.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:27:47 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/11/08 13:27:50 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 static void	wall_set(t_wall *wall, double x, double y, int color)
@@ -10,14 +22,6 @@ static void	wall_set(t_wall *wall, double x, double y, int color)
 		wall->color = color;
 }
 
-/*
-** DDAアルゴリズム 上向き
-** レイと壁の交点を求める
-** game: ゲーム構造体
-** ray: レイ
-** num: レイの番号
-** angle: レイの角度
-*/
 t_wall	dda_up(t_game *game, t_line_segment ray)
 {
 	double	x;
@@ -47,14 +51,6 @@ t_wall	dda_up(t_game *game, t_line_segment ray)
 	return (wall);
 }
 
-/*
-** DDAアルゴリズム 右向き
-** レイと壁の交点を求める
-** game: ゲーム構造体
-** ray: レイ
-** num: レイの番号
-** angle: レイの角度
-*/
 t_wall	dda_right(t_game *game, t_line_segment ray)
 {
 	double	y;
@@ -84,14 +80,6 @@ t_wall	dda_right(t_game *game, t_line_segment ray)
 	return (wall);
 }
 
-/*
-** DDAアルゴリズム 下向き
-** レイと壁の交点を求める
-** game: ゲーム構造体
-** ray: レイ
-** num: レイの番号
-** angle: レイの角度
-*/
 t_wall	dda_down(t_game *game, t_line_segment ray)
 {
 	double	x;
@@ -121,14 +109,6 @@ t_wall	dda_down(t_game *game, t_line_segment ray)
 	return (wall);
 }
 
-/*
-** DDAアルゴリズム 左向き
-** レイと壁の交点を求める
-** game: ゲーム構造体
-** ray: レイ
-** num: レイの番号
-** angle: レイの角度
-*/
 t_wall	dda_left(t_game *game, t_line_segment ray)
 {
 	double	y;

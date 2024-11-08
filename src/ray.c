@@ -1,10 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:30:41 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/11/08 13:30:43 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-/*
-** レイの初期化
-** pos: レイの始点
-** dir: レイの方向
-*/
 t_ray	ray_init(t_vector pos, t_vector dir)
 {
 	t_ray	ret;
@@ -14,10 +21,6 @@ t_ray	ray_init(t_vector pos, t_vector dir)
 	return (ret);
 }
 
-/*
-** レイの直線を求める関数
-** ray: レイ構造体
-*/
 t_line	ray_to_line(t_ray ray)
 {
 	t_line	ret;
@@ -33,11 +36,6 @@ t_line	ray_to_line(t_ray ray)
 	return (ret);
 }
 
-/*
-** レイから線分を求める関数
-** ray: レイ構造体
-** length: 線分の長さ
-*/
 t_line_segment	ray_to_segment(t_ray ray, double length)
 {
 	t_line_segment	ret;
@@ -49,11 +47,6 @@ t_line_segment	ray_to_segment(t_ray ray, double length)
 	return (ret);
 }
 
-/*
-** レイの終端座標を求める関数
-** ray: レイ構造体
-** length: レイの長さ
-*/
 t_vector	ray_end(t_ray ray, double length)
 {
 	t_vector	ret;

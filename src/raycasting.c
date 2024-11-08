@@ -1,11 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:30:57 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/11/08 13:30:58 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-/*
-** 線分の向きを4つに分類する
-** 上45度, 右45度, 下45度, 左45度
-** line: 線分
-** return: 0: 上, 1: 右, 2: 下, 3: 左
-*/
 int	segment_direction(t_line_segment line)
 {
 	double	delta_x;
@@ -29,13 +35,6 @@ int	segment_direction(t_line_segment line)
 	}
 }
 
-/*
-** 壁との当たり判定を行う関数
-** game: ゲーム構造体
-** ray: レイ
-** num: レイの番号
-** angle: レイの角度
-*/
 void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 {
 	t_wall	wall;
@@ -56,12 +55,6 @@ void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 	draw_wall(game, wall, num, angle);
 }
 
-/*
-** レイキャスティング
-** プレイヤーの視界に沿ってレイを飛ばし、壁との交点を求める
-** game: ゲーム構造体
-** player: プレイヤー構造体
-*/
 void	raycasting(t_game *game, t_player *player)
 {
 	t_line_segment	ray;

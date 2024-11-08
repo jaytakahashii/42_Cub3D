@@ -1,7 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:28:15 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/11/08 13:33:50 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-/*
-*/
 static void	check_condition(t_ray *ray, double length, t_line_condition *cond)
 {
 	t_vector	end;
@@ -30,13 +40,6 @@ static void	check_condition(t_ray *ray, double length, t_line_condition *cond)
 	}
 }
 
-/*
-** 線分の描画
-** game: ゲーム構造体
-** t_ray: レイ構造体 (始点と方向)
-** length: 線分の長さ
-** color: 色
-*/
 void	draw_line(t_game *game, t_ray ray, double length, int color)
 {
 	t_line				line;
@@ -62,13 +65,6 @@ void	draw_line(t_game *game, t_ray ray, double length, int color)
 	}
 }
 
-/*
-** 円の描画
-** game: ゲーム構造体
-** point: 円の中心座標(t_vector.x: x座標, t_vector.y: y座標)
-** radius: 半径
-** color: 色
-*/
 void	draw_circle(t_game *game, t_vector point, int radius, int color)
 {
 	int	i;
@@ -89,19 +85,11 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 	}
 }
 
-/*
-** 長方形の描画（塗りつぶし）
-** game: ゲーム構造体
-** pos: 長方形の真ん中の座標
-** size: 長方形の大きさ (t_vector.x: 幅, t_vector.y: 高さ)
-** color: 色
-*/
-
 void	draw_rect(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 {
-	int 	i;
-	int 	src_y;
-	int 	color;
+	int		i;
+	int		src_y;
+	int		color;
 	double	scale_y;
 
 	i = 0;
@@ -124,19 +112,10 @@ void	draw_rect(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 	}
 }
 
-/*
-** 壁を描画する関数
-** game: ゲーム構造体
-** num: レイの番号
-** angle: レイの角度
-** distance: 壁までの距離
-*/
-
 void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 {
 	t_ray		ray;
 	double		wall_height;
-	// int			i = 0;
 
 	// todo :50000マジックナンバー
 	wall_height = 50000 / (wall.distance * cos(ray_angle));
@@ -152,16 +131,5 @@ void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 		draw_rect(game, ray, wall, game->east);
 	else
 		draw_rect(game, ray, wall, game->west);
-	// while (i < (WIN_HEIGHT - wall_height) / 2 )
-	// {
-	// 	game->canvas.data[i * WIN_WIDTH + (int)(ray.pos.x)] = game->map_info->c;
-	// 	i++;
-	// }
-	// i = WIN_HEIGHT - 1;
-	// while (i > (WIN_HEIGHT + wall_height) / 2 )
-	// {
-	// 	game->canvas.data[i * WIN_WIDTH + (int)(ray.pos.x)] = game->map_info->f;
-	// 	i--;
-	// }
 }
 

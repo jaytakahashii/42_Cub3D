@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:27:21 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/11/08 13:34:14 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 void	cub_check(char **argv)
@@ -9,35 +21,19 @@ void	cub_check(char **argv)
 		error_exit("Must be a .cub file", NULL);
 }
 
-/*
-** ゲームの初期化
-** mlxの初期化
-** ウィンドウの作成
-** プレイヤーの初期化
-*/
 void	game_init(t_game *game)
 {
 	int	x;
-	// window_init(game);<---set_imgに移しました。
-	// 疑似的な壁
-	// draw_line(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
-	// draw_line(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
-	// draw_line(game, ray_init(vector_init(300, 0), vector_init(-1, 1)), 500, MGREEN);
+
 	x = -1;
 	while (++x < (WIN_WIDTH * (WIN_HEIGHT / 2)))
 		game->canvas.data[x] = game->map_info->c;
 	while (x < WIN_WIDTH * WIN_HEIGHT)
 		game->canvas.data[x++] = game->map_info->f;
-	// draw_player(game, &game->player);
 	raycasting(game, &game->player);
 	mlx_put_image_to_window(game->mlx, game->win, game->canvas.img, 0, 0);
 }
 
-/*
-** ゲームのループ
-** イベントの受け取り
-** 描画
-*/
 void	game_loop(t_game *game)
 {
 	mlx_hook(game->win, 17, 0, (void *)window_exit, game);
@@ -47,11 +43,6 @@ void	game_loop(t_game *game)
 	mlx_loop(game->mlx);
 }
 
-/*
-** ゲームの更新
-** プレイヤーの移動
-** プレイヤーの描画
-*/
 int	game_update(t_game *game)
 {
 	int	x;
@@ -62,11 +53,6 @@ int	game_update(t_game *game)
 	while (x < WIN_WIDTH * WIN_HEIGHT)
 		game->canvas.data[x++] = game->map_info->f;
 	x = -1;
-	// 疑似的な壁
-	// draw_line(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
-	// draw_line(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
-	// draw_line(game, ray_init(vector_init(300, 0), vector_init(-1, 1)), 500, MGREEN);
-	// draw_player(game, &game->player);
 	mlx_put_image_to_window(game->mlx, game->win, game->canvas.img, 0, 0);
 	raycasting(game, &game->player);
 	return (0);

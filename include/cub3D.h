@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/11/08 13:37:10 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -31,7 +43,6 @@
 // include for linux miniLibX
 #  include <X11/X.h>
 #  include <X11/keysym.h>
-// key code for linux
 #  define ESC 65307
 #  define UP 119
 #  define DOWN 115
@@ -276,9 +287,9 @@ t_wall				dda_left(t_game *game, t_line_segment ray);
 t_wall				dda_right(t_game *game, t_line_segment ray);
 
 /* wall.c (壁のエラーチェック) */
-void	wall_check(char **map, int y, int x, unsigned int *count, int *flag);
+void				wall_check(char **map, int y, int x, unsigned int *count, int *flag);
 
 /* map_check.c (マップのエラーチェック) */
-void	map_check(t_game *game, t_map *map_info);
+void				map_check(t_game *game, t_map *map_info);
 
 #endif
