@@ -29,6 +29,9 @@ int	set_path(char **target, char *map, t_allocations **alloc)
 	int	i;
 
 	i = 0;
+	map += 2;
+	if (!ft_isspace(*map))
+		return (1);
 	pass_space(&map);
 	*target = ft_strdup(map, alloc);
 	while (1)
@@ -49,6 +52,9 @@ int	set_color(int *target, char *map, t_allocations **alloc)
 	int	*rgb;
 
 	i = -1;
+	map += 1;
+	if (!ft_isspace(*map))
+		return (1);
 	rgb = (int *)malloxit(sizeof(int) * 3, alloc);
 	pass_space(&map);
 	while (++i < 3)
@@ -67,19 +73,19 @@ int	set_color(int *target, char *map, t_allocations **alloc)
 
 int	set_map_info(t_map *map_info, char *map, t_allocations **alloc)
 {
-	if (ft_strncmp(map, "NO", 2) == 0 && ft_isspace(*(map += 2)))
+	if (ft_strncmp(map, "NO", 2) == 0)
 		return (set_path(&map_info->no, map, alloc));
-	else if (ft_strncmp(map, "SO", 2) == 0 && ft_isspace(*(map += 2)))
+	else if (ft_strncmp(map, "SO", 2) == 0)
 		return (set_path(&map_info->so, map, alloc));
-	else if (ft_strncmp(map, "WE", 2) == 0 && ft_isspace(*(map += 2)))
+	else if (ft_strncmp(map, "WE", 2) == 0)
 		return (set_path(&map_info->we, map, alloc));
-	else if (ft_strncmp(map, "EA", 2) == 0 && ft_isspace(*(map += 2)))
+	else if (ft_strncmp(map, "EA", 2) == 0)
 		return (set_path(&map_info->ea, map, alloc));
-	else if (ft_strncmp(map, "F", 1) == 0 && ft_isspace(*(map += 1)))
+	else if (ft_strncmp(map, "F", 1) == 0)
 		return (set_color(&map_info->f, map, alloc));
-	else if (ft_strncmp(map, "C", 1) == 0 && ft_isspace(*(map += 1)))
+	else if (ft_strncmp(map, "C", 1) == 0)
 		return (set_color(&map_info->c, map, alloc));
-	return (2);
+	return (1);
 }
 
 void	map_scan(t_game *game, char *argv)
