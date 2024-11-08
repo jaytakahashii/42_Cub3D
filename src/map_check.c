@@ -77,6 +77,8 @@ int	map_spell_check(t_game *game, char **map)
 				return (1);
 		}
 	}
+	if (!flag)
+		return (1);
 	return (0);
 }
 
