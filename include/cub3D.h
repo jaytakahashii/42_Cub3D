@@ -95,6 +95,8 @@ typedef struct s_map
 	int				c;
 	char			**map;
 	char			**map_tmp;
+	int				count;
+	int				flag;
 }					t_map;
 
 typedef struct s_img
@@ -276,9 +278,9 @@ t_wall				dda_left(t_game *game, t_line_segment ray);
 t_wall				dda_right(t_game *game, t_line_segment ray);
 
 /* wall.c (壁のエラーチェック) */
-void	wall_check(char **map, int y, int x, unsigned int *count, int *flag);
+void	wall_check(t_map *map_info, int y, int x);
 
 /* map_check.c (マップのエラーチェック) */
-void	map_check(t_game *game, t_map *map_info);
+void				map_check(t_game *game, t_map *map_info);
 
 #endif
