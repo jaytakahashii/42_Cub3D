@@ -98,6 +98,7 @@ fclean:
 re: fclean all
 
 leak: CFLAGS += -g
+# leak: CFLAGS += -O3
 leak: LFLAGS += -fsanitize=address
 leak: re
 
