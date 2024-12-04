@@ -88,24 +88,43 @@ int	set_map_info(t_map *map_info, char *map, t_allocations **alloc)
 	return (1);
 }
 
+bool	end_map_info(char *line)
+{
+	if (!line || *line == '\0')
+		return (false);
+	pass_space(&line);
+	if (*line == '0' || *line == '1')
+		return (true);
+	return (false);
+}
+
 void	map_scan(t_game *game, char *argv)
 {
-	char	*line;
+	char *line;
 
-	int (y) = 0;
-	int (fd) = ft_open(argv);
+	int(y) = 1;
+	int(fd) = ft_open(argv);
 	map_info_init(&game->map_info, &(game->alloc));
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (end_map_info(line))
+		{
+			game->map_info->map[0] = ft_strdup(line, &(game->alloc));
+			game->map_info->map_tmp[0] = ft_strdup(line, &(game->alloc));
+			free(line);
+			break ;
+		}
+		set_map_info(game->map_info, line, &(game->alloc));
+		free(line);
+	}
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (line[0] == '\n'
-			|| !set_map_info(game->map_info, line, &(game->alloc)))
-		{
-			free(line);
-			continue ;
-		}
+		if (line[0] == '\n' || !end_map_info(line))
+			error_exit_free("Invqweralid map", NULL, game->alloc);
 		game->map_info->map[y] = ft_strdup(line, &(game->alloc));
 		game->map_info->map_tmp[y] = ft_strdup(line, &(game->alloc));
 		free(line);

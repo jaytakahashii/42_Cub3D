@@ -76,3 +76,4 @@ void	map_check(t_game *game, t_map *map_info)
 	if (map_info->flag)
 		error_exit_free("Invalid map", NULL, game->alloc);
 }
+
