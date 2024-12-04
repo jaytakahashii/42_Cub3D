@@ -97,60 +97,29 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 ** color: 色
 */
 
-// void	draw_rect(t_game *game, t_vector pos, t_vector size, int kolor, int y)
-// {
-// 	int		j;
-
-// 	kolor = 0x00FF0000;
-// 	if (pos.x < 0)
-// 		pos.x = 0;
-// 	if (pos.x >= WIN_WIDTH)
-// 		pos.x = WIN_WIDTH - 1;
-// 	if (pos.y < 0)
-// 		pos.y = 0;
-// 	if (pos.y >= WIN_HEIGHT)
-// 		pos.y = WIN_HEIGHT - 1;
-// 	j = -size.y / 2;
-// 	double scale_x = (double)size.y / TILE_SIZE;
-// 	// double scale_y = (double)size / TILE_SIZE;
-// 	// ft_printf("scale_x: %d\n", (int)scale_x);
-// 	while (j < size.y / 2)
-// 	{
-// 		if (pos.y + j < 0 || pos.y + j >= WIN_HEIGHT)
-// 		{
-// 			j++;
-// 			continue ;
-// 		}
-// 		int src_x = (int)(j / scale_x);
-// 		// int src_y = (int)(y / scale_y);
-// 		// ft_printf("src_x: %d\n", src_x);
-// 		// ft_printf("src_x * game->north.width + y: %d\n", src_x * game->north.width + y);
-// 		int color = game->north.data[src_x + y* (game->north.width)];
-// 		game->canvas.data[(int)(pos.y + j) * WIN_WIDTH + (int)(pos.x)] = color;
-// 		j++;
-// 	}
-// }
-
-void	draw_rect(t_game *game, t_vector pos, t_vector size, t_wall wall)
+void	draw_rect(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 {
-	int i;
+	int 	i;
+	int 	src_y;
+	int 	color;
+	double	scale_y;
 
-	if (pos.x < 0)
-		pos.x = 0;
-	if (pos.x >= WIN_WIDTH)
-		pos.x = WIN_WIDTH - 1;
 	i = 0;
-	double scale_y = (double)size.y / TILE_SIZE;
-	while (i < size.y)
+	scale_y = (double)ray.dir.y / TILE_SIZE;
+	if (ray.pos.x < 0)
+		ray.pos.x = 0;
+	if (ray.pos.x >= WIN_WIDTH)
+		ray.pos.x = WIN_WIDTH - 1;
+	while (i < ray.dir.y)
 	{
-		if (pos.y + i < 0 || WIN_HEIGHT <= pos.y + i)
+		if (ray.pos.y + i < 0 || WIN_HEIGHT <= ray.pos.y + i)
 		{
 			i++;
 			continue ;
 		}
-		int src_y = (int)(i / scale_y);
-		int color = game->north.data[(src_y) * (game->north.width) + wall.x_pos];
-		game->canvas.data[(int)(pos.y + i) * WIN_WIDTH + (int)(pos.x)] = color;
+		src_y = (int)(i / scale_y);
+		color = texture.data[(src_y) * (texture.width) + wall.x_pos];
+		game->canvas.data[(int)(ray.pos.y + i) * WIN_WIDTH + (int)(ray.pos.x)] = color;
 		i++;
 	}
 }
@@ -162,16 +131,25 @@ void	draw_rect(t_game *game, t_vector pos, t_vector size, t_wall wall)
 ** angle: レイの角度
 ** distance: 壁までの距離
 */
+
 void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 {
-	t_vector	start;
-	t_vector	size;
-	double		rate;
+	t_ray		ray;
+	double		wall_height;
 
-	rate = 50000 / (wall.distance * cos(ray_angle));
-	start = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	size = vector_init(1, rate);
-	start.x += ray_num;
-	start.y -= size.y / 2;
-	draw_rect(game, start, size, wall);
+	// todo :50000マジックナンバー
+	wall_height = 50000 / (wall.distance * cos(ray_angle));
+	ray.pos = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	ray.dir = vector_init(1, wall_height);
+	ray.pos.x += ray_num;
+	ray.pos.y -= ray.dir.y / 2;
+	if (wall.color == WALL_NORTH)
+		draw_rect(game, ray, wall, game->north);
+	else if (wall.color == WALL_SOUTH)
+		draw_rect(game, ray, wall, game->south);
+	else if (wall.color == WALL_EAST)
+		draw_rect(game, ray, wall, game->east);
+	else
+		draw_rect(game, ray, wall, game->west);
 }
+

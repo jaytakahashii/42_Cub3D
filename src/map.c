@@ -75,32 +75,6 @@ int	wall_spell_check(char **map, int y, int x)
 	return (0);
 }
 
-// いらない？
-// void	wall_check(char **map, int y, int x, unsigned int *i, int *flag)
-// {
-// 	*i += 1;
-// 	if (*i > 10000)
-// 	{
-// 		*flag = 1;
-// 		return ;
-// 	}
-// 	if (!map[y] || !map[y][x] || map[y][x] == '1')
-// 		return ;
-// 	else
-// 	{
-// 		map[y][x] = '1';
-// 		if (wall_spell_check(map, y, x))
-// 		{
-// 			*flag = 1;
-// 			return ;
-// 		}
-// 		wall_check(map, y + 1, x, i, flag);
-// 		wall_check(map, y - 1, x, i, flag);
-// 		wall_check(map, y, x + 1, i, flag);
-// 		wall_check(map, y, x - 1, i, flag);
-// 	}
-// }
-
 int	set_map_info(t_map *map_info, char *map, t_allocations **alloc)
 {
 	if (ft_strncmp(map, "NO", 2) == 0 && ft_isspace(*(map += 2)))
@@ -174,14 +148,49 @@ int	map_spell_check(t_game *game, char **map)
 	return (0);
 }
 
+void	wall_check(char **map, int y, int x, unsigned int *count, int *flag)
+{
+	*count += 1;
+	// todo: ほんとに一萬でいいか議論
+	if (*count > 10000)
+	{
+		*flag = 1;
+		return ;
+	}
+	if (!map || !map[y] || !map[y][x] || map[y][x] == '1')
+		return ;
+	else
+	{
+		map[y][x] = '1';
+		if (wall_spell_check(map, y, x))
+		{
+			*flag = 1;
+			return ;
+		}
+		wall_check(map, y + 1, x, count, flag);
+		wall_check(map, y - 1, x, count, flag);
+		wall_check(map, y, x + 1, count, flag);
+		wall_check(map, y, x - 1, count, flag);
+	}
+}
+
 void	map_check(t_game *game, t_map *map_info)
 {
+	int				flag;
+	unsigned int	count;
+
+	flag = 0;
+	count = 0;
 	if (!map_info->map || !map_info->map[0])
 		error_exit_free("Map is not found", NULL, game->alloc);
 	if (!map_info->no || !map_info->so || !map_info->we || !map_info->ea
 		|| map_info->f == -1 || map_info->c == -1)
 		error_exit_free("Map information is not found", NULL, game->alloc);
 	if (map_spell_check(game, map_info->map))
+		error_exit_free("Invalid map", NULL, game->alloc);
+	wall_check(map_info->map_tmp, (int)game->player.pos.y / TILE_SIZE,
+		(int)game->player.pos.x / TILE_SIZE, &count, &flag);
+	if (flag)
 		error_exit_free("Invalid map", NULL, game->alloc);
 }
 

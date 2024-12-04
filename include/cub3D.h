@@ -55,8 +55,8 @@
 # define M_PI_3 1.04719755119659774615
 # define M_PI_3_2 4.71238898038468985769
 
-# define WIN_WIDTH 1024
-# define WIN_HEIGHT 1024
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 
 # define FOV_ANGLE M_PI_3
 # define NUM_RAYS WIN_WIDTH
@@ -80,10 +80,10 @@
 # define MWHITE 0x00FFFFFF
 # define MBLACK 0x00000000
 
-# define WALL_EAST MGREEN
-# define WALL_NORTH MYELLOW
-# define WALL_WEST MRED
-# define WALL_SOUTH MBLUE
+# define WALL_EAST 1
+# define WALL_NORTH 2
+# define WALL_WEST 3
+# define WALL_SOUTH 4
 
 typedef struct s_map
 {
@@ -181,7 +181,6 @@ typedef struct s_game
 {
 	void			*mlx;
 	void			*win;
-	int			x;
 	t_player		player;
 	t_texture		north;
 	t_texture		south;
@@ -248,8 +247,8 @@ void				draw_line(t_game *game, t_ray ray, double length,
 						int color);
 void				draw_circle(t_game *game, t_vector point, int radius,
 						int color);
-void				draw_rect(t_game *game, t_vector pos, t_vector size,
-						t_wall wall);
+void				draw_rect(t_game *game, t_ray ray, t_wall wall,
+						t_texture texture);
 void				draw_wall(t_game *game, t_wall wall, int ray_num,
 						double ray_angle);
 

@@ -28,7 +28,7 @@ void	game_init(t_game *game)
 		game->canvas.data[x] = game->map_info->c;
 	while (x < WIN_WIDTH * WIN_HEIGHT)
 		game->canvas.data[x++] = game->map_info->f;
-	draw_player(game, &game->player);
+	// draw_player(game, &game->player);
 	raycasting(game, &game->player);
 	mlx_put_image_to_window(game->mlx, game->win, game->canvas.img, 0, 0);
 }
@@ -66,7 +66,7 @@ int	game_update(t_game *game)
 	// draw_line(game, ray_init(vector_init(300, 0), vector_init(0, 1)), 300, MGREEN);
 	// draw_line(game, ray_init(vector_init(0, 300), vector_init(1, 0)), 300, MGREEN);
 	// draw_line(game, ray_init(vector_init(300, 0), vector_init(-1, 1)), 500, MGREEN);
-	draw_player(game, &game->player);
+	// draw_player(game, &game->player);
 	mlx_put_image_to_window(game->mlx, game->win, game->canvas.img, 0, 0);
 	raycasting(game, &game->player);
 	return (0);
@@ -84,12 +84,6 @@ int	main(int argc, char **argv)
 	map_check(&game, (&game)->map_info);
 	if (set_img(&game))
 		error_exit("Failed to set image", NULL);
-	game.player.up = 0;
-	game.player.back = 0;
-	game.player.left = 0;
-	game.player.right = 0;
-	game.player.turn_left = 0;
-	game.player.turn_right = 0;
 	game_init(&game);
 	game_loop(&game);
 	return (0);
