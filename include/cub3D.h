@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 15:58:34 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:02:51 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@
 # define BACKGROUND_SIZE 256
 # define MAP_SIZE 10000
 # define RATE 55000
-
 
 # define M_PI 3.14159265358979323846
 # define M_PI_2 1.57079632679489661923
