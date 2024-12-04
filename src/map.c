@@ -13,19 +13,18 @@ int	ft_open(char *argv)
 void	map_info_init(t_map **map_info, t_allocations **alloc)
 {
 	*map_info = (t_map *)malloxit(sizeof(t_map), alloc);
-	(*map_info)->map = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
-	(*map_info)->map_tmp = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
-	for (int(i) = 0; i < OPEN_MAX; i++)
+	(*map_info)->map = (char **)malloxit(sizeof(char *) * MAP_MAX + 2, alloc);
+	(*map_info)->map_tmp = (char **)malloxit(sizeof(char *) * MAP_MAX + 2, alloc);
+	for (int(i) = 0; i < MAP_MAX + 2; i++)
 	{
-		(*map_info)->map[i] = (char *)malloxit(sizeof(char) * OPEN_MAX, alloc);
-		(*map_info)->map_tmp[i] = (char *)malloxit(sizeof(char) * OPEN_MAX, alloc);
-		for (int(j) = 0; j < OPEN_MAX; j++)
+		(*map_info)->map[i] = (char *)malloxit(sizeof(char) * MAP_MAX + 2, alloc);
+		(*map_info)->map_tmp[i] = (char *)malloxit(sizeof(char) * MAP_MAX + 2, alloc);
+		for (int(j) = 0; j < MAP_MAX + 2; j++)
 		{
 			(*map_info)->map[i][j] = '\0';
 			(*map_info)->map_tmp[i][j] = '\0';
 		}
 	}
-	(*map_info)->map[OPEN_MAX] = NULL;
 	(*map_info)->no = NULL;
 	(*map_info)->so = NULL;
 	(*map_info)->we = NULL;
@@ -108,11 +107,32 @@ bool	end_map_info(char *line)
 	return (false);
 }
 
+void	*ft_cub_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t		index;
+	char		*dst_byte;
+	const char	*src_byte;
+
+	if (!dst && !src)
+		return (NULL);
+	dst_byte = (char *)dst;
+	src_byte = (const char *)src;
+	index = 0;
+	while (index < n)
+	{
+		dst_byte[index + 1] = src_byte[index];
+		index++;
+	}
+	return (dst);
+}
+
+
 void	map_scan(t_game *game, char *argv)
 {
-	char *line;
+	char	*line;
+	int		i;
 
-	int(y) = 2;
+	i = 0;
 	int(fd) = ft_open(argv);
 	map_info_init(&game->map_info, &(game->alloc));
 	while (1)
@@ -122,26 +142,30 @@ void	map_scan(t_game *game, char *argv)
 			error_exit_free("Map is empty", NULL, game->alloc);
 		if (end_map_info(line))
 		{
-			if (ft_strlen(line) < OPEN_MAX)
-			game->map_info->map[1] = ft_memcpy(game->map_info->map[1]+1, line, ft_strlen(line));
-			game->map_info->map_tmp[1] = ft_memcpy(game->map_info->map_tmp[1]+1, line, ft_strlen(line));
+			if (ft_strlen(line) > MAP_MAX)
+				error_exit_free("Invalid map", NULL, game->alloc);
+			game->map_info->map[i + 1] = ft_cub_memcpy(game->map_info->map[i + 1], line, ft_strlen(line));
+			game->map_info->map_tmp[i + 1] = ft_cub_memcpy(game->map_info->map_tmp[i + 1], line, ft_strlen(line));
 			free(line);
 			break ;
 		}
 		set_map_info(game->map_info, line, &(game->alloc));
 		free(line);
 	}
-	while (y < OPEN_MAX)
+	i++;
+	while (i <= MAP_MAX)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
 		if (line[0] == '\n' || !end_map_info(line))
 			error_exit_free("Invqweralid map", NULL, game->alloc);
-		game->map_info->map[y] = ft_memcpy(game->map_info->map[y], line, ft_strlen(line));
-		game->map_info->map_tmp[y] = ft_memcpy(game->map_info->map_tmp[y], line, ft_strlen(line));
+		if (ft_strlen(line) > MAP_MAX)
+			error_exit_free("Invalid map", NULL, game->alloc);
+		game->map_info->map[i + 1] = ft_cub_memcpy(game->map_info->map[i + 1], line, ft_strlen(line));
+		game->map_info->map_tmp[i + 1] = ft_cub_memcpy(game->map_info->map_tmp[i + 1], line, ft_strlen(line));
 		free(line);
-		y++;
+		i++;
 	}
 	close(fd);
 }

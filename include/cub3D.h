@@ -48,7 +48,7 @@
 # define TILE_SIZE 64
 # define HALF_TILE_SIZE 32
 # define BACKGROUND_SIZE 256
-# define MAP_SIZE 10000
+# define MAP_MAX 1024
 # define RATE 55000
 
 

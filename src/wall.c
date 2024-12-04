@@ -14,12 +14,6 @@ int	wall_spell_check(char **map, int y, int x)
 void	wall_check(t_map *map_info, int y, int x)
 {
 	map_info->count += 1;
-	// todo: ほんとに一萬でいいか議論
-	if (map_info->count > MAP_SIZE)
-	{
-		map_info->flag = 1;
-		return ;
-	}
 	if (!map_info->map_tmp || !map_info->map_tmp[y]
 		|| !map_info->map_tmp[y][x] || map_info->map_tmp[y][x] == '1')
 		return ;
