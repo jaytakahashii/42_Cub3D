@@ -48,6 +48,9 @@
 # define TILE_SIZE 64
 # define HALF_TILE_SIZE 32
 # define BACKGROUND_SIZE 256
+# define MAP_SIZE 10000
+# define RATE 55000
+
 
 # define M_PI 3.14159265358979323846
 # define M_PI_2 1.57079632679489661923
@@ -95,6 +98,8 @@ typedef struct s_map
 	int				c;
 	char			**map;
 	char			**map_tmp;
+	int				count;
+	int				flag;
 }					t_map;
 
 typedef struct s_img
@@ -243,11 +248,11 @@ bool				out_of_window(t_vector pos);
 
 /* draw.c (描画) */
 
-void				draw_line(t_game *game, t_ray ray, double length,
-						int color);
+// void				draw_line(t_game *game, t_ray ray, double length,
+// 						int color);
 void				draw_circle(t_game *game, t_vector point, int radius,
 						int color);
-void				draw_rect(t_game *game, t_ray ray, t_wall wall,
+void				draw_line(t_game *game, t_ray ray, t_wall wall,
 						t_texture texture);
 void				draw_wall(t_game *game, t_wall wall, int ray_num,
 						double ray_angle);
@@ -274,5 +279,11 @@ t_wall				dda_up(t_game *game, t_line_segment ray);
 t_wall				dda_down(t_game *game, t_line_segment ray);
 t_wall				dda_left(t_game *game, t_line_segment ray);
 t_wall				dda_right(t_game *game, t_line_segment ray);
+
+/* wall.c (壁のエラーチェック) */
+void	wall_check(t_map *map_info, int y, int x);
+
+/* map_check.c (マップのエラーチェック) */
+void				map_check(t_game *game, t_map *map_info);
 
 #endif
