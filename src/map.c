@@ -15,6 +15,13 @@ void	map_info_init(t_map **map_info, t_allocations **alloc)
 	*map_info = (t_map *)malloxit(sizeof(t_map), alloc);
 	(*map_info)->map = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
 	(*map_info)->map_tmp = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
+	(*map_info)->map[0] = (char *)malloxit(sizeof(char) * OPEN_MAX, alloc);
+	(*map_info)->map_tmp[0] = (char *)malloxit(sizeof(char) * OPEN_MAX, alloc);
+	for (int(i) = 0; i < OPEN_MAX; i++)
+	{
+		(*map_info)->map[0][i] = '\0';
+		(*map_info)->map_tmp[0][i] = '\0';
+	}
 	(*map_info)->map[OPEN_MAX] = NULL;
 	(*map_info)->no = NULL;
 	(*map_info)->so = NULL;
@@ -102,7 +109,7 @@ void	map_scan(t_game *game, char *argv)
 {
 	char *line;
 
-	int(y) = 1;
+	int(y) = 2;
 	int(fd) = ft_open(argv);
 	map_info_init(&game->map_info, &(game->alloc));
 	while (1)
@@ -110,8 +117,8 @@ void	map_scan(t_game *game, char *argv)
 		line = get_next_line(fd);
 		if (end_map_info(line))
 		{
-			game->map_info->map[0] = ft_strdup(line, &(game->alloc));
-			game->map_info->map_tmp[0] = ft_strdup(line, &(game->alloc));
+			game->map_info->map[1] = ft_strdup(line, &(game->alloc));
+			game->map_info->map_tmp[1] = ft_strdup(line, &(game->alloc));
 			free(line);
 			break ;
 		}
@@ -130,7 +137,14 @@ void	map_scan(t_game *game, char *argv)
 		free(line);
 		y++;
 	}
-	game->map_info->map[y] = NULL;
-	game->map_info->map_tmp[y] = NULL;
+	game->map_info->map[y] = (char *)malloxit(sizeof(char) * OPEN_MAX, &(game->alloc));
+	game->map_info->map_tmp[y] = (char *)malloxit(sizeof(char) * OPEN_MAX, &(game->alloc));
+	for (int(i) = 0; i < OPEN_MAX; i++)
+	{
+		game->map_info->map[y][i] = '\0';
+		game->map_info->map_tmp[y][i] = '\0';
+	}
+	game->map_info->map[y + 1] = NULL;
+	game->map_info->map_tmp[y + 1] = NULL;
 	close(fd);
 }
