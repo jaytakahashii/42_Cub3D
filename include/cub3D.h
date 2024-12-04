@@ -59,6 +59,9 @@
 # define TEXTURE_SIZE 64
 # define HALF_TEXTURE_SIZE 32
 # define BACKGROUND_SIZE 256
+# define MAP_SIZE 10000
+# define RATE 55000
+
 
 # define M_PI 3.14159265358979323846
 # define M_PI_2 1.57079632679489661923
@@ -256,11 +259,11 @@ bool				out_of_window(t_vector pos);
 
 /* draw.c (描画) */
 
-void				draw_line(t_game *game, t_ray ray, double length,
-						int color);
+// void				draw_line(t_game *game, t_ray ray, double length,
+// 						int color);
 void				draw_circle(t_game *game, t_vector point, int radius,
 						int color);
-void				draw_rect(t_game *game, t_ray ray, t_wall wall,
+void				draw_line(t_game *game, t_ray ray, t_wall wall,
 						t_texture texture);
 void				draw_wall(t_game *game, t_wall wall, int ray_num,
 						double ray_angle);
