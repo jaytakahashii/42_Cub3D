@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:30:57 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 15:58:34 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:30:31 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 		wall.x_pos = (int)wall.pos.y % TEXTURE_SIZE;
 	else
 		wall.x_pos = (int)wall.pos.x % TEXTURE_SIZE;
+	if (wall.color == WALL_NORTH || wall.color == WALL_EAST)
+		wall.x_pos = TEXTURE_SIZE - wall.x_pos;
 	draw_wall(game, wall, num, angle);
 }
 
