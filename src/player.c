@@ -96,12 +96,12 @@ static void	player_collision(t_game *game, t_player *player, t_vector delta)
 	else
 		margin.y = -10;
 	if (game->map_info->map
-		[(int)(player->pos.y / TILE_SIZE)]
-		[(int)((new.x + margin.x) / TILE_SIZE)] != '1')
+		[(int)(player->pos.y / TEXTURE_SIZE)]
+		[(int)((new.x + margin.x) / TEXTURE_SIZE)] != '1')
 		player->pos.x = new.x;
 	if (game->map_info->map
-		[(int)((new.y + margin.y) / TILE_SIZE)]
-		[(int)(player->pos.x / TILE_SIZE)] != '1')
+		[(int)((new.y + margin.y) / TEXTURE_SIZE)]
+		[(int)(player->pos.x / TEXTURE_SIZE)] != '1')
 		player->pos.y = new.y;
 }
 

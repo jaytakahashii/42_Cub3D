@@ -13,8 +13,8 @@ void	set_player_info(t_game *game, char spell, t_vector p_pos)
 		p_angle = WEST;
 	else if (spell == 'E')
 		p_angle = EAST;
-	game->player = player_init(p_pos.x * TILE_SIZE + TILE_SIZE / 2,
-			p_pos.y * TILE_SIZE + TILE_SIZE / 2, p_angle);
+	game->player = player_init(p_pos.x * TEXTURE_SIZE + TEXTURE_SIZE / 2,
+			p_pos.y * TEXTURE_SIZE + TEXTURE_SIZE / 2, p_angle);
 }
 
 int	spell_check(char spell)
@@ -71,8 +71,8 @@ void	map_check(t_game *game, t_map *map_info)
 		error_exit_free("Map information is not found", NULL, game->alloc);
 	if (map_spell_check(game, map_info->map))
 		error_exit_free("Invalid map", NULL, game->alloc);
-	wall_check(map_info, (int)game->player.pos.y / TILE_SIZE,
-		(int)game->player.pos.x / TILE_SIZE);
+	wall_check(map_info, (int)game->player.pos.y / TEXTURE_SIZE,
+		(int)game->player.pos.x / TEXTURE_SIZE);
 	if (map_info->flag)
 		error_exit_free("Invalid map", NULL, game->alloc);
 }

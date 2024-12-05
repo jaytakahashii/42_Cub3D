@@ -104,7 +104,7 @@ void	draw_line(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 	double	scale_y;
 
 	i = 0;
-	scale_y = (double)ray.dir.y / TILE_SIZE;
+	scale_y = (double)ray.dir.y / TEXTURE_SIZE;
 	if (ray.pos.x < 0)
 		ray.pos.x = 0;
 	if (ray.pos.x >= WIN_WIDTH)

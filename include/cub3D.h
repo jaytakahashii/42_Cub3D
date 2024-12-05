@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/12/05 14:23:25 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -31,7 +43,6 @@
 // include for linux miniLibX
 #  include <X11/X.h>
 #  include <X11/keysym.h>
-// key code for linux
 #  define ESC 65307
 #  define UP 119
 #  define DOWN 115
@@ -41,16 +52,15 @@
 #  define DOWN_ARROW 65364
 #  define LEFT_ARROW 65361
 #  define RIGHT_ARROW 65363
-#  define DESTROYNOTIFY DestroyNotify
-#  define STRUCTURENOTIFYMASK StructureNotifyMask
+// #  define DESTROYNOTIFY DestroyNotify
+// #  define STRUCTURENOTIFYMASK StructureNotifyMask
 # endif
 
-# define TILE_SIZE 64
-# define HALF_TILE_SIZE 32
+# define TEXTURE_SIZE 64
+# define HALF_TEXTURE_SIZE 32
 # define BACKGROUND_SIZE 256
-# define MAP_MAX 1024
+# define MAP_SIZE 10000
 # define RATE 55000
-
 
 # define M_PI 3.14159265358979323846
 # define M_PI_2 1.57079632679489661923
@@ -100,6 +110,7 @@ typedef struct s_map
 	char			**map_tmp;
 	int				count;
 	int				flag;
+	int				height;
 }					t_map;
 
 typedef struct s_img
@@ -281,9 +292,14 @@ t_wall				dda_left(t_game *game, t_line_segment ray);
 t_wall				dda_right(t_game *game, t_line_segment ray);
 
 /* wall.c (壁のエラーチェック) */
-void	wall_check(t_map *map_info, int y, int x);
+void				wall_check(t_map *map_info, int y, int x);
 
 /* map_check.c (マップのエラーチェック) */
+int					ft_open(char *argv);
 void				map_check(t_game *game, t_map *map_info);
+
+/* map_info.c (マップ情報の取得) */
+void				read_map_info(int fd, t_game *game);
+bool				end_map_info(char *line);
 
 #endif
