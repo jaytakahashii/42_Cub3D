@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_info.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/05 16:10:30 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/12/05 16:10:57 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3D.h"
 
@@ -77,7 +88,7 @@ bool	end_map_info(char *line)
 
 void	read_map_info(int fd, t_game *game)
 {
-	char *line;
+	char	*line;
 
 	while (1)
 	{
@@ -88,8 +99,10 @@ void	read_map_info(int fd, t_game *game)
 		{
 			if (ft_strlen(line) < OPEN_MAX)
 				error_exit_free("Invalid map", NULL, game->alloc);
-			game->map_info->map[1] = ft_memcpy(game->map_info->map[1]+1, line, ft_strlen(line));
-			game->map_info->map_tmp[1] = ft_memcpy(game->map_info->map_tmp[1]+1, line, ft_strlen(line));
+			game->map_info->map[1] = ft_memcpy(game->map_info->map[1] + 1,
+					line, ft_strlen(line));
+			game->map_info->map_tmp[1] = ft_memcpy(
+					game->map_info->map_tmp[1] + 1, line, ft_strlen(line));
 			free(line);
 			break ;
 		}
