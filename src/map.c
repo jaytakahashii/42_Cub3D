@@ -1,25 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:29:28 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/12/05 16:08:44 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	ft_open(char *argv)
-{
-	int	fd;
-
-	fd = open(argv, O_RDONLY);
-	if (fd == -1)
-		error_exit("Failed to open the file", NULL);
-	return (fd);
-}
-
 void	map_info_init(t_map **map_info, t_allocations **alloc)
 {
+	int	j;
+
 	int (i) = -1;
 	*map_info = (t_map *)malloxit(sizeof(t_map), alloc);
 	(*map_info)->map = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
 	(*map_info)->map_tmp = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
 	while (++i < OPEN_MAX)
 	{
-		int (j) = -1;
+		j = -1;
 		(*map_info)->map[i] = (char *)malloxit(sizeof(char) * OPEN_MAX, alloc);
 		(*map_info)->map_tmp[i] = (char *)malloxit(sizeof(char)
 				* OPEN_MAX, alloc);
