@@ -1,26 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map_check.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/08 13:29:22 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/05 14:21:31 by kosnakam         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3D.h"
-
-int	ft_open(char *argv)
-{
-	int	fd;
-
-	fd = open(argv, O_RDONLY);
-	if (fd == -1)
-		error_exit("Failed to open the file", NULL);
-	return (fd);
-}
 
 void	set_player_info(t_game *game, char spell, t_vector p_pos)
 {
@@ -63,8 +41,8 @@ int	map_spell_check(t_game *game, char **map)
 	flag = 0;
 	while (map[++y])
 	{
-		x = -1;
-		while (y < game->map_info->height - 1 && map[y][++x])
+		x = 0;
+		while (map[y] && map[y][++x])
 		{
 			if (spell_check(map[y][x]) == 1)
 			{
