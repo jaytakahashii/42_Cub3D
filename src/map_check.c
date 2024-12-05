@@ -41,7 +41,7 @@ int	map_spell_check(t_game *game, char **map)
 	flag = 0;
 	while (map[++y])
 	{
-		x = 0;
+		x = -1;
 		while (map[y] && map[y][++x])
 		{
 			if (spell_check(map[y][x]) == 1)
@@ -76,3 +76,4 @@ void	map_check(t_game *game, t_map *map_info)
 	if (map_info->flag)
 		error_exit_free("Invalid map", NULL, game->alloc);
 }
+
