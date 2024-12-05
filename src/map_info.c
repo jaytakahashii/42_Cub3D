@@ -87,6 +87,7 @@ void	read_map_info(int fd, t_game *game)
 		if (end_map_info(line))
 		{
 			if (ft_strlen(line) < OPEN_MAX)
+				error_exit_free("Invalid map", NULL, game->alloc);
 			game->map_info->map[1] = ft_memcpy(game->map_info->map[1]+1, line, ft_strlen(line));
 			game->map_info->map_tmp[1] = ft_memcpy(game->map_info->map_tmp[1]+1, line, ft_strlen(line));
 			free(line);
