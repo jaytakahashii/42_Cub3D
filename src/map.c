@@ -14,12 +14,12 @@ int	ft_open(char *argv)
 void	map_info_init(t_map **map_info, t_allocations **alloc)
 {
 	int (i) = -1;
-	int (j) = -1;
 	*map_info = (t_map *)malloxit(sizeof(t_map), alloc);
 	(*map_info)->map = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
 	(*map_info)->map_tmp = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
 	while (++i < OPEN_MAX)
 	{
+		int (j) = -1;
 		(*map_info)->map[i] = (char *)malloxit(sizeof(char) * OPEN_MAX, alloc);
 		(*map_info)->map_tmp[i] = (char *)malloxit(sizeof(char)
 				* OPEN_MAX, alloc);
