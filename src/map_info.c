@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:10:30 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 14:01:11 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:12:10 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,21 @@ int	set_path(char **target, char *map, t_allocations **alloc)
 	return (0);
 }
 
-int	set_color(int *target, char *map, t_allocations **alloc)
+int	set_color(int *target, char *map)
 {
 	int	i;
-	int	*rgb;
+	int	rgb[3];
 
 	i = -1;
 	map += 1;
 	if (!ft_isspace(*map))
 		return (1);
-	rgb = (int *)malloxit(sizeof(int) * 3, alloc);
 	pass_space(&map);
 	while (++i < 3)
 	{
 		rgb[i] = ft_atoi(map);
+		if (rgb[i] < 0 || rgb[i] > 255)
+			return (1);
 		while (ft_isdigit(*map))
 			map++;
 		if (*map == ',' || *map == '\n')
@@ -70,9 +71,9 @@ int	set_map_info(t_map *map_info, char *map, t_allocations **alloc)
 	else if (ft_strncmp(map, "EA", 2) == 0)
 		return (set_path(&map_info->ea, map, alloc));
 	else if (ft_strncmp(map, "F", 1) == 0)
-		return (set_color(&map_info->f, map, alloc));
+		return (set_color(&map_info->f, map));
 	else if (ft_strncmp(map, "C", 1) == 0)
-		return (set_color(&map_info->c, map, alloc));
+		return (set_color(&map_info->c, map));
 	return (1);
 }
 
