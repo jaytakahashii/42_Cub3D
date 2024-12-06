@@ -61,7 +61,7 @@ void	map_scan(t_game *game, char *argv)
 		free(line);
 		y++;
 	}
-	if (y > MAP_SIZE)
+	if (y > OPEN_MAX)
 		error_exit_free("Invalid map", NULL, game->alloc);
 	game->map_info->height = y;
 	close(fd);
