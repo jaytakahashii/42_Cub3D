@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:10:30 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 15:00:41 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:12:51 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	set_color(int *target, char *map)
 	pass_space(&map);
 	while (++i < 3)
 	{
+		if (!ft_isdigit(*map))
+			return (1);
 		rgb[i] = ft_atoi(map);
 		if (rgb[i] < 0 || rgb[i] > 255)
 			return (1);

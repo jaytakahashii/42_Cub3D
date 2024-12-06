@@ -2,8 +2,8 @@ SO ./img/pillar.xpm
 NO ./img/pillar.xpm
 WE ./img/pillar.xpm
 EA ./img/pillar.xpm
-C 255,21,1
-F 2,166,4
+C 255,255,255
+F 0,0,0
 
    1111111111111111111111111
    1000000000000000000100001
