@@ -36,6 +36,15 @@ void	map_info_init(t_map **map_info, t_allocations **alloc)
 	(*map_info)->height = 0;
 }
 
+void	copy_map(t_map *map_info, t_allocations **alloc)
+{
+	int	i;
+
+	i = -1;
+	while (++i < OPEN_MAX)
+		map_info->map_tmp[i] = ft_strdup(map_info->map[i], alloc);
+}
+
 void	map_scan(t_game *game, char *argv)
 {
 	char	*line;
@@ -56,8 +65,7 @@ void	map_scan(t_game *game, char *argv)
 		free(line);
 		y++;
 	}
-	for (int i = 0; i < OPEN_MAX; i++)
-		game->map_info->map_tmp[i] = ft_strdup(game->map_info->map[i], &(game->alloc));
+	copy_map(game->map_info, &(game->alloc));
 	if (y > OPEN_MAX)
 		error_exit_free("Invalid map", NULL, game->alloc);
 	game->map_info->height = y;
