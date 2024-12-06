@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:29:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 13:56:11 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/06 15:00:08 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,29 @@ void	map_info_init(t_map **map_info, t_allocations **alloc)
 	{
 		j = -1;
 		(*map_info)->map[i] = (char *)malloxit(sizeof(char) * OPEN_MAX, alloc);
-		(*map_info)->map_tmp[i] = (char *)malloxit(sizeof(char)
-				* OPEN_MAX, alloc);
 		while (++j < OPEN_MAX)
-		{
-			(*map_info)->map[i][j] = '\0';
-			(*map_info)->map_tmp[i][j] = '\0';
-		}
+			(*map_info)->map[i][j] = ' ';
 	}
 	(*map_info)->map[OPEN_MAX] = NULL;
+	(*map_info)->map_tmp[OPEN_MAX] = NULL;
 	(*map_info)->no = NULL;
 	(*map_info)->so = NULL;
 	(*map_info)->we = NULL;
 	(*map_info)->ea = NULL;
 	(*map_info)->f = -1;
 	(*map_info)->c = -1;
+	(*map_info)->count = 0;
+	(*map_info)->flag = 0;
+	(*map_info)->height = 0;
+}
+
+void	copy_map(t_map *map_info, t_allocations **alloc)
+{
+	int	i;
+
+	i = -1;
+	while (++i < OPEN_MAX)
+		map_info->map_tmp[i] = ft_strdup(map_info->map[i], alloc);
 }
 
 void	map_scan(t_game *game, char *argv)
@@ -68,11 +76,12 @@ void	map_scan(t_game *game, char *argv)
 			error_exit_free("Invalid map", NULL, game->alloc);
 		game->map_info->map[y] = ft_memcpy(game->map_info->map[y],
 				line, ft_strlen(line));
-		game->map_info->map_tmp[y] = ft_memcpy(game->map_info->map_tmp[y],
-				line, ft_strlen(line));
 		free(line);
 		y++;
 	}
+	copy_map(game->map_info, &(game->alloc));
+	if (y > OPEN_MAX)
+		error_exit_free("Invalid map", NULL, game->alloc);
 	game->map_info->height = y;
 	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 13:56:14 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:59:54 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,11 +214,11 @@ int					game_update(t_game *game);
 
 /* map.c (マップの計算) */
 
-int					check_map_spell(char **argv);
 void				map_scan(t_game *game, char *argv);
 void				map_check(t_game *game, t_map *map_info);
 
 /* img.c (画像の計算) */
+
 int					set_img(t_game *game);
 
 /* vector.c (ベクトルの計算) */
