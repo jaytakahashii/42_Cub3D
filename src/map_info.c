@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:10:30 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/05 16:10:57 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/06 14:01:11 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	read_map_info(int fd, t_game *game)
 			error_exit_free("Map is empty", NULL, game->alloc);
 		if (end_map_info(line))
 		{
-			if (ft_strlen(line) < OPEN_MAX)
+			if (ft_strlen(line) > MAP_SIZE)
 				error_exit_free("Invalid map", NULL, game->alloc);
 			game->map_info->map[1] = ft_memcpy(game->map_info->map[1] + 1,
 					line, ft_strlen(line));
