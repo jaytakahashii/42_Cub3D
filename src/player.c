@@ -32,48 +32,47 @@ t_player	player_init(double x, double y, double angle)
 ** game: ゲーム構造体
 ** player: プレイヤー構造体
 */
-void	draw_player(t_game *game, t_player *player)
-{
-	int			x;
-	t_vector	dir;
-	double		angle_step;
+// void	draw_player(t_game *game, t_player *player)
+// {
+// 	int			x;
+// 	double		angle_step;
 
-	angle_step = FOV_ANGLE / NUM_RAYS;
-	x = -5;
-	while (x < 6)
-	{
-		game->canvas.data[(int)player->pos.y
-			* WIN_WIDTH + (int)player->pos.x + x] = MRED;
-		game->canvas.data[(int)(player->pos.y + x)
-			* WIN_WIDTH + (int)player->pos.x] = MRED;
-		x++;
-	}
-	// ここから下は最後全部消す
+// 	angle_step = FOV_ANGLE / NUM_RAYS;
+// 	x = -5;
+// 	while (x < 6)
+// 	{
+// 		game->canvas.data[(int)player->pos.y
+// 			* WIN_WIDTH + (int)player->pos.x + x] = MRED;
+// 		game->canvas.data[(int)(player->pos.y + x)
+// 			* WIN_WIDTH + (int)player->pos.x] = MRED;
+// 		x++;
+// 	}
+// 	// ここから下は最後全部消す
 
-	// (void)angle_step;
-	// (void)dir;
-	// x = 0;
-	// while (x < NUM_RAYS / 2)
-	// {
-	// 	dir = vector_rotate(player->dir, x * angle_step);
-	// 	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-	// 	if (x == 0)
-	// 	{
-	// 		x++;
-	// 		continue;
-	// 	}
-	// 	dir = vector_rotate(player->dir, -x * angle_step);
-	// 	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-	// 	x++;
-	// }
-	x = NUM_RAYS / 2;
-	dir = vector_rotate(player->dir, x * angle_step);
-	// draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-	dir = vector_rotate(player->dir, -x * angle_step);
-	// draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+// 	// (void)angle_step;
+// 	// (void)dir;
+// 	// x = 0;
+// 	// while (x < NUM_RAYS / 2)
+// 	// {
+// 	// 	dir = vector_rotate(player->dir, x * angle_step);
+// 	// 	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+// 	// 	if (x == 0)
+// 	// 	{
+// 	// 		x++;
+// 	// 		continue;
+// 	// 	}
+// 	// 	dir = vector_rotate(player->dir, -x * angle_step);
+// 	// 	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+// 	// 	x++;
+// 	// }
+// 	x = NUM_RAYS / 2;
+// 	dir = vector_rotate(player->dir, x * angle_step);
+// 	// draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
+// 	dir = vector_rotate(player->dir, -x * angle_step);
+// 	// draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
 
-	// ここまで
-}
+// 	// ここまで
+// }
 
 /*
 ** プレイヤーと壁の衝突判定
