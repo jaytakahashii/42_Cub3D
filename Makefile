@@ -32,7 +32,7 @@ DEPS			= $(HEADERS) $(MAKEFILE)
 
 # コンパイル設定
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -O3
 # MacOSの場合
 ifeq ($(shell uname), Darwin)
 	LFLAGS		= -framework OpenGL -framework AppKit
