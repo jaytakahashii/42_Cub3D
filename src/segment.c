@@ -1,10 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   segment.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:31:09 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/11/08 13:31:11 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-/*
-** t_line_segmentを作成する関数
-** start: 始点
-** end: 終点
-*/
 t_line_segment	line_segment_init(t_vector start, t_vector end)
 {
 	t_line_segment	ret;
@@ -15,11 +22,6 @@ t_line_segment	line_segment_init(t_vector start, t_vector end)
 	return (ret);
 }
 
-/*
-** 線分が交差しているかどうかを判定する関数
-** line1: 線分1
-** line2: 線分2
-*/
 bool	is_intersect(t_line_segment line1, t_line_segment line2)
 {
 	if ((line1.start.x <= line2.start.x && line2.start.x <= line1.end.x)
@@ -32,11 +34,6 @@ bool	is_intersect(t_line_segment line1, t_line_segment line2)
 	return (false);
 }
 
-/*
-** 2つの線分の交点を求める関数
-** line1: 線分1
-** line2: 線分2
-*/
 t_vector	line_intersection(t_line_segment line1, t_line_segment line2)
 {
 	double		det;

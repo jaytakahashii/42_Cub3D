@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/12/06 15:12:41 by kosnakam         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -283,7 +295,6 @@ t_wall				dda_right(t_game *game, t_line_segment ray);
 void				wall_check(t_map *map_info, int y, int x);
 
 /* map_check.c (マップのエラーチェック) */
-int					ft_open(char *argv);
 void				map_check(t_game *game, t_map *map_info);
 
 /* map_info.c (マップ情報の取得) */

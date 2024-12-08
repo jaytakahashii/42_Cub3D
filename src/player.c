@@ -1,11 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jay <jay@student.42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/08 13:30:19 by kosnakam          #+#    #+#             */
+/*   Updated: 2024/12/08 22:11:15 by jay              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
-/*
-** プレイヤーの初期化
-** x, y: プレイヤーの初期位置
-** angle: プレイヤーの初期角度
-** speed: プレイヤーの移動速度
-*/
 t_player	player_init(double x, double y, double angle)
 {
 	t_player	ret;
@@ -24,34 +30,6 @@ t_player	player_init(double x, double y, double angle)
 	return (ret);
 }
 
-/*
-** プレイヤーを描画する関数
-** 半径5の円を描画
-** プレイヤーの視界は3radianごとに線を引く (60度)
-** プレイヤーの向きは赤い線で表示
-** game: ゲーム構造体
-** player: プレイヤー構造体
-*/
-void	draw_player(t_game *game, t_player *player)
-{
-	int		x;
-
-	x = -5;
-	while (x < 6)
-	{
-		game->canvas.data[(int)player->pos.y
-			* WIN_WIDTH + (int)player->pos.x + x] = MRED;
-		game->canvas.data[(int)(player->pos.y + x)
-			* WIN_WIDTH + (int)player->pos.x] = MRED;
-		x++;
-	}
-}
-
-/*
-** プレイヤーと壁の衝突判定
-** game: ゲーム構造体
-** delta: プレイヤーの移動量
-*/
 static void	player_collision(t_game *game, t_player *player, t_vector delta)
 {
 	t_vector	new;

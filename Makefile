@@ -98,6 +98,7 @@ fclean:
 re: fclean all
 
 leak: CFLAGS += -g
+# leak: CFLAGS += -O3
 leak: LFLAGS += -fsanitize=address
 leak: re
 
@@ -105,5 +106,6 @@ norm:
 	@echo $(R) "<<< $(NAME) error count >>>" $(X)
 	@norminette $(SRC_DIR) $(INCLUDE_DIR) | grep Error | grep -v Error! | wc -l
 	@norminette $(SRC_DIR) $(INCLUDE_DIR) | grep Error || true
+	@make -C $(LIBFT_DIR) norm
 
 .PHONY: all clean fclean re leak norm
