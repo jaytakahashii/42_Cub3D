@@ -12,13 +12,15 @@ int	ft_open(char *argv)
 
 void	map_info_init(t_map **map_info, t_allocations **alloc)
 {
+	int	j;
+
 	int (i) = -1;
 	*map_info = (t_map *)malloxit(sizeof(t_map), alloc);
 	(*map_info)->map = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
 	(*map_info)->map_tmp = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
 	while (++i < OPEN_MAX)
 	{
-		int (j) = -1;
+		j = -1;
 		(*map_info)->map[i] = (char *)malloxit(sizeof(char) * OPEN_MAX, alloc);
 		while (++j < OPEN_MAX)
 			(*map_info)->map[i][j] = ' ';
@@ -60,8 +62,8 @@ void	map_scan(t_game *game, char *argv)
 			break ;
 		if (line[0] == '\n' || !end_map_info(line))
 			error_exit_free("Invalid map", NULL, game->alloc);
-		game->map_info->map[y] = ft_memcpy(game->map_info->map[y],
-				line, ft_strlen(line));
+		game->map_info->map[y] = ft_memcpy(game->map_info->map[y], line,
+				ft_strlen(line));
 		free(line);
 		y++;
 	}

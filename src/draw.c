@@ -1,8 +1,7 @@
 #include "cub3D.h"
 
-/*
-*/
-// static void	check_condition(t_ray *ray, double length, t_line_condition *cond)
+// static void	check_condition(t_ray *ray, double length,
+		// t_line_condition *cond)
 // {
 // 	t_vector	end;
 
@@ -81,8 +80,8 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 		while (j < radius)
 		{
 			if (i * i + j * j < radius * radius)
-				mlx_pixel_put(game->mlx, game->win, point.x + i, point.y + j,
-					color);
+				mlx_pixel_put(game->mlx, game->win, point.x + i, point.y
+					+ j, color);
 			j++;
 		}
 		i++;
@@ -98,9 +97,9 @@ void	draw_circle(t_game *game, t_vector point, int radius, int color)
 */
 void	draw_line(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 {
-	int 	i;
-	int 	src_y;
-	int 	color;
+	int		i;
+	int		src_y;
+	int		color;
 	double	scale_y;
 
 	i = 0;
@@ -118,7 +117,8 @@ void	draw_line(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 		}
 		src_y = (int)(i / scale_y);
 		color = texture.data[(src_y) * (texture.width) + wall.x_pos];
-		game->canvas.data[(int)(ray.pos.y + i) * WIN_WIDTH + (int)(ray.pos.x)] = color;
+		game->canvas.data[(int)(ray.pos.y + i) *WIN_WIDTH
+			+ (int)(ray.pos.x)] = color;
 		i++;
 	}
 }
@@ -132,11 +132,9 @@ void	draw_line(t_game *game, t_ray ray, t_wall wall, t_texture texture)
 */
 void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 {
-	t_ray		ray;
-	double		wall_height;
-	// int			i = 0;
+	t_ray	ray;
+	double	wall_height;
 
-	// todo :50000マジックナンバー
 	wall_height = RATE / (wall.distance * cos(ray_angle));
 	ray.pos = vector_init(WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	ray.dir = vector_init(1, wall_height);
@@ -150,16 +148,4 @@ void	draw_wall(t_game *game, t_wall wall, int ray_num, double ray_angle)
 		draw_line(game, ray, wall, game->east);
 	else
 		draw_line(game, ray, wall, game->west);
-	// while (i < (WIN_HEIGHT - wall_height) / 2 )
-	// {
-	// 	game->canvas.data[i * WIN_WIDTH + (int)(ray.pos.x)] = game->map_info->c;
-	// 	i++;
-	// }
-	// i = WIN_HEIGHT - 1;
-	// while (i > (WIN_HEIGHT + wall_height) / 2 )
-	// {
-	// 	game->canvas.data[i * WIN_WIDTH + (int)(ray.pos.x)] = game->map_info->f;
-	// 	i--;
-	// }
 }
-

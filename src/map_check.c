@@ -19,12 +19,10 @@ void	set_player_info(t_game *game, char spell, t_vector p_pos)
 
 int	spell_check(char spell)
 {
-	if (spell == '0' || spell == '1' || spell == '\n'
-		|| spell == ' ' || spell == 'N' || spell == 'S'
-		|| spell == 'W' || spell == 'E')
+	if (spell == '0' || spell == '1' || spell == '\n' || spell == ' '
+		|| spell == 'N' || spell == 'S' || spell == 'W' || spell == 'E')
 	{
-		if (spell == 'N' || spell == 'S'
-			|| spell == 'W' || spell == 'E')
+		if (spell == 'N' || spell == 'S' || spell == 'W' || spell == 'E')
 			return (1);
 		return (2);
 	}

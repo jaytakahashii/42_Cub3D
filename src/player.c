@@ -32,47 +32,20 @@ t_player	player_init(double x, double y, double angle)
 ** game: ゲーム構造体
 ** player: プレイヤー構造体
 */
-// void	draw_player(t_game *game, t_player *player)
-// {
-// 	int			x;
-// 	double		angle_step;
+void	draw_player(t_game *game, t_player *player)
+{
+	int		x;
 
-// 	angle_step = FOV_ANGLE / NUM_RAYS;
-// 	x = -5;
-// 	while (x < 6)
-// 	{
-// 		game->canvas.data[(int)player->pos.y
-// 			* WIN_WIDTH + (int)player->pos.x + x] = MRED;
-// 		game->canvas.data[(int)(player->pos.y + x)
-// 			* WIN_WIDTH + (int)player->pos.x] = MRED;
-// 		x++;
-// 	}
-// 	// ここから下は最後全部消す
-
-// 	// (void)angle_step;
-// 	// (void)dir;
-// 	// x = 0;
-// 	// while (x < NUM_RAYS / 2)
-// 	// {
-// 	// 	dir = vector_rotate(player->dir, x * angle_step);
-// 	// 	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-// 	// 	if (x == 0)
-// 	// 	{
-// 	// 		x++;
-// 	// 		continue;
-// 	// 	}
-// 	// 	dir = vector_rotate(player->dir, -x * angle_step);
-// 	// 	draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-// 	// 	x++;
-// 	// }
-// 	x = NUM_RAYS / 2;
-// 	dir = vector_rotate(player->dir, x * angle_step);
-// 	// draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-// 	dir = vector_rotate(player->dir, -x * angle_step);
-// 	// draw_line(game, ray_init(player->pos, dir), VIEW_DISTANCE, MRED);
-
-// 	// ここまで
-// }
+	x = -5;
+	while (x < 6)
+	{
+		game->canvas.data[(int)player->pos.y
+			* WIN_WIDTH + (int)player->pos.x + x] = MRED;
+		game->canvas.data[(int)(player->pos.y + x)
+			* WIN_WIDTH + (int)player->pos.x] = MRED;
+		x++;
+	}
+}
 
 /*
 ** プレイヤーと壁の衝突判定
@@ -94,13 +67,11 @@ static void	player_collision(t_game *game, t_player *player, t_vector delta)
 		margin.y = 10;
 	else
 		margin.y = -10;
-	if (game->map_info->map
-		[(int)(player->pos.y / TEXTURE_SIZE)]
-		[(int)((new.x + margin.x) / TEXTURE_SIZE)] != '1')
+	if (game->map_info->map[(int)(player->pos.y / TEXTURE_SIZE)][(int)((new.x
+				+ margin.x) / TEXTURE_SIZE)] != '1')
 		player->pos.x = new.x;
-	if (game->map_info->map
-		[(int)((new.y + margin.y) / TEXTURE_SIZE)]
-		[(int)(player->pos.x / TEXTURE_SIZE)] != '1')
+	if (game->map_info->map[(int)((new.y + margin.y)
+			/ TEXTURE_SIZE)][(int)(player->pos.x / TEXTURE_SIZE)] != '1')
 		player->pos.y = new.y;
 }
 
@@ -131,52 +102,6 @@ static bool	move_player(t_player *player, t_vector *delta)
 		move = true;
 	return (move);
 }
-
-/*
-** プレイヤーを動かす関数
-** UP: プレイヤーを前進させる
-** DOWN: プレイヤーを後退させる
-** LEFT: プレイヤーを左に移動させる
-** RIGHT: プレイヤーを右に移動させる
-** UP_ARROW: プレイヤーを右に回転させる
-** DOWN_ARROW: プレイヤーを左に回転させる
-** player: プレイヤー構造体
-** keycode: キーコード
-*/
-// int	key_hook(int keycode, t_game *game)
-// {
-// 	t_player	*player;
-
-// 	player = &game->player;
-// 	if (keycode == ESC)
-// 		window_exit(game);
-// 	if (keycode == UP)
-// 	{
-// 		player->pos.x += player->dir.x * player->speed;
-// 		player->pos.y += player->dir.y * player->speed;
-// 	}
-// 	if (keycode == DOWN)
-// 	{
-// 		player->pos.x -= player->dir.x * player->speed;
-// 		player->pos.y -= player->dir.y * player->speed;
-// 	}
-// 	if (keycode == LEFT)
-// 	{
-// 		player->pos.x += player->dir.y * player->speed;
-// 		player->pos.y -= player->dir.x * player->speed;
-// 	}
-// 	if (keycode == RIGHT)
-// 	{
-// 		player->pos.x -= player->dir.y * player->speed;
-// 		player->pos.y += player->dir.x * player->speed;
-// 	}
-// 	if (keycode == RIGHT_ARROW)
-// 		player->dir = vector_rotate(player->dir, 0.09);
-// 	if (keycode == LEFT_ARROW)
-// 		player->dir = vector_rotate(player->dir, -0.09);
-// 	game_update(game);
-// 	return (0);
-// }
 
 int	key_hook(t_game *game)
 {
