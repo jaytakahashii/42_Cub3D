@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 15:12:41 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 11:59:01 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define ERROR 1
 
 # ifdef __APPLE__
-// key code for mac
 #  define ESC 53
 #  define UP 13
 #  define DOWN 1
@@ -35,12 +34,10 @@
 #  define LEFT_ARROW 123
 #  define RIGHT_ARROW 124
 #  define DESTROYNOTIFY 17
-// 1L << 17
 #  define STRUCTURENOTIFYMASK 131072
 # endif
 
 # ifdef __linux__
-// include for linux miniLibX
 #  include <X11/X.h>
 #  include <X11/keysym.h>
 #  define ESC 65307
@@ -52,8 +49,8 @@
 #  define DOWN_ARROW 65364
 #  define LEFT_ARROW 65361
 #  define RIGHT_ARROW 65363
-// #  define DESTROYNOTIFY DestroyNotify
-// #  define STRUCTURENOTIFYMASK StructureNotifyMask
+#  define DESTROYNOTIFY DestroyNotify
+#  define STRUCTURENOTIFYMASK StructureNotifyMask
 # endif
 
 # define TEXTURE_SIZE 64
