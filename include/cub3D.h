@@ -40,8 +40,8 @@
 #  define DOWN_ARROW 65364
 #  define LEFT_ARROW 65361
 #  define RIGHT_ARROW 65363
-// #  define DESTROYNOTIFY DestroyNotify
-// #  define STRUCTURENOTIFYMASK StructureNotifyMask
+#  define DESTROYNOTIFY DestroyNotify
+#  define STRUCTURENOTIFYMASK StructureNotifyMask
 # endif
 
 # define TEXTURE_SIZE 64
