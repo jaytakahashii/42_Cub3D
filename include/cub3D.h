@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/11 13:21:36 by jtakahas         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:27:18 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@
 # define FALSE 0
 # define TRUE 1
 # define PLAYER 2
-
 
 # define TEXTURE_SIZE 64
 # define HALF_TEXTURE_SIZE 32
