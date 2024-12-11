@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:30:57 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/05 15:30:31 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:15:09 by jtakahas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	segment_direction(t_line_segment line)
+static int	segment_direction(t_line_segment line)
 {
 	double	delta_x;
 	double	delta_y;
@@ -35,7 +35,7 @@ int	segment_direction(t_line_segment line)
 	}
 }
 
-void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
+static void	check_wall(t_game *game, t_line_segment ray, int num, double angle)
 {
 	t_wall	wall;
 

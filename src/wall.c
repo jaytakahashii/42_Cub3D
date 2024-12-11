@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   wall.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:32:15 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/04 15:01:57 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:10:07 by jtakahas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	wall_spell_check(char **map, int y, int x, int height)
+static int	wall_spell_check(char **map, int y, int x, int height)
 {
 	if (y + 1 >= height || y - 1 < 0 || x + 1 > (int)ft_strlen(map[y]) || x
 		- 1 < 0)

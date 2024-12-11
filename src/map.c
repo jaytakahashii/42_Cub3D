@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:29:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 15:00:08 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:00:11 by jtakahas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	ft_open(char *argv)
+static int	ft_open(char *argv)
 {
 	int	fd;
 
@@ -22,7 +22,7 @@ int	ft_open(char *argv)
 	return (fd);
 }
 
-void	map_info_init(t_map **map_info, t_allocations **alloc)
+static void	map_info_init(t_map **map_info, t_allocations **alloc)
 {
 	int	j;
 
@@ -50,7 +50,7 @@ void	map_info_init(t_map **map_info, t_allocations **alloc)
 	(*map_info)->height = 0;
 }
 
-void	copy_map(t_map *map_info, t_allocations **alloc)
+static void	copy_map(t_map *map_info, t_allocations **alloc)
 {
 	int	i;
 

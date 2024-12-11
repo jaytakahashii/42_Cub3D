@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:27:21 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/11 12:00:21 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:12:21 by jtakahas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	cub_check(char **argv)
+static void	extensions_check(char **argv)
 {
 	int	len;
 
@@ -21,7 +21,7 @@ void	cub_check(char **argv)
 		error_exit("Must be a .cub file", NULL);
 }
 
-void	game_init(t_game *game)
+static void	game_init(t_game *game)
 {
 	int	x;
 
@@ -34,7 +34,7 @@ void	game_init(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->canvas.img, 0, 0);
 }
 
-void	game_loop(t_game *game)
+static void	game_loop(t_game *game)
 {
 	mlx_hook(game->win, DESTROYNOTIFY, STRUCTURENOTIFYMASK,
 		(void *)window_exit, game);
@@ -66,7 +66,7 @@ int	main(int argc, char **argv)
 	game.alloc = NULL;
 	if (argc != 2)
 		error_exit("Invalid arguments", NULL);
-	cub_check(argv);
+	extensions_check(argv);
 	map_scan(&game, argv[1]);
 	map_check(&game, (&game)->map_info);
 	if (set_img(&game))

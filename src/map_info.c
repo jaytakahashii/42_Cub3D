@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 16:10:30 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 15:12:51 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:17:35 by jtakahas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	set_path(char **target, char *map, t_allocations **alloc)
+static int	set_path(char **target, char *map, t_allocations **alloc)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ int	set_path(char **target, char *map, t_allocations **alloc)
 	return (0);
 }
 
-int	set_color(int *target, char *map)
+static int	set_color(int *target, char *map)
 {
 	int	i;
 	int	rgb[3];
@@ -62,7 +62,7 @@ int	set_color(int *target, char *map)
 	return (0);
 }
 
-int	set_map_info(t_map *map_info, char *map, t_allocations **alloc)
+static int	set_map_info(t_map *map_info, char *map, t_allocations **alloc)
 {
 	if (ft_strncmp(map, "NO", 2) == 0)
 		return (set_path(&map_info->no, map, alloc));

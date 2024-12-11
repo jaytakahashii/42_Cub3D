@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:35:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/11 11:59:01 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:18:21 by jtakahas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,6 @@ t_vector			ray_end(t_ray ray, double length);
 /* player.c (プレイヤーの計算) */
 
 t_player			player_init(double x, double y, double angle);
-void				draw_player(t_game *game, t_player *player);
 int					key_hook(t_game *game);
 int					key_press(int keycode, t_game *game);
 int					key_release(int keycode, t_game *game);

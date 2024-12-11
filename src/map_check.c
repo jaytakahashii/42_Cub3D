@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:29:22 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 13:56:04 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:05:33 by jtakahas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	set_player_info(t_game *game, char spell, t_vector p_pos)
+static void	set_player_info(t_game *game, char spell, t_vector p_pos)
 {
 	double	p_angle;
 
@@ -29,7 +29,7 @@ void	set_player_info(t_game *game, char spell, t_vector p_pos)
 			p_pos.y * TEXTURE_SIZE + TEXTURE_SIZE / 2, p_angle);
 }
 
-int	spell_check(char spell)
+static int	spell_check(char spell)
 {
 	if (spell == '0' || spell == '1' || spell == '\n' || spell == ' '
 		|| spell == 'N' || spell == 'S' || spell == 'W' || spell == 'E')
@@ -41,7 +41,7 @@ int	spell_check(char spell)
 	return (0);
 }
 
-int	map_spell_check(t_game *game, char **map)
+static int	map_spell_check(t_game *game, char **map)
 {
 	int	y;
 	int	x;
