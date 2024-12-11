@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/19 11:59:48 by kosnakam          #+#    #+#              #
-#    Updated: 2024/09/28 18:57:53 by jtakahas         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 # Makefile
 MAKEFILE 		= Makefile
 
@@ -24,7 +12,6 @@ OBJ_DIR			= .obj/
 LIBFT_DIR		= libft/
 LIBFT_NAME		= libft.a
 MLX_DIR			= mlx/
-MXL_NAME		= libmlx.a
 # MacOSの場合
 ifeq ($(shell uname), Darwin)
 	MLX_NAME	= libmlx.a
@@ -41,17 +28,17 @@ MLX_INCLUDE		= -I$(MLX_DIR)$(INCLUDE_DIR)
 HEADERS			= $(shell find $(INCLUDE_DIR) $(LIBFT_DIR)$(INCLUDE_DIR) $(MLX_DIR)$(INCLUDE_DIR) -name "*.h")
 
 # 依存ファイル
-DEPS			= $(HEADERS) $(MAKEFILE) $(LIBFT_DIR)$(LIBFT_NAME) $(MLX_DIR)$(MLX_NAME)
+DEPS			= $(HEADERS) $(MAKEFILE)
 
 # コンパイル設定
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -O3
 # MacOSの場合
 ifeq ($(shell uname), Darwin)
 	LFLAGS		= -framework OpenGL -framework AppKit
 # Linuxの場合
 else
-	LFLAGS		= -lXext -lX11
+	LFLAGS		= -lXext -lX11 -lm
 endif
 
 # コマンド
@@ -76,7 +63,7 @@ CUT				= "\033[K"
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJS)
+$(NAME): $(OBJ_DIR) $(OBJS) $(DEPS)
 	@echo $(Y) "$(NAME) src files successfully compiled\n" $(X)
 	@echo $(B) "--> Into $(LIBFT_DIR)" $(X)
 	@$(MAKE) -C $(LIBFT_DIR)

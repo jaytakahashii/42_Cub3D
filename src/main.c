@@ -5,33 +5,89 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 19:09:37 by jtakahas          #+#    #+#             */
-/*   Updated: 2024/09/28 19:14:13 by jtakahas         ###   ########.fr       */
+/*   Created: 2024/12/11 13:40:06 by jtakahas          #+#    #+#             */
+/*   Updated: 2024/12/11 13:40:07 by jtakahas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	main(void)
+void	cub_check(char **argv)
 {
-	void	*mlx;
-	void	*win;
-	int		x;
-	int		y;
+	int	len;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 800, 600, "Hello world!");
-	y = 0;
-	while (y < 600)
-	{
-		x = 0;
-		while (x < 800)
-		{
-			mlx_pixel_put(mlx, win, x, y, 0x00FF0000);
-			x++;
-		}
-		y++;
-	}
-	mlx_loop(mlx);
+	len = ft_strlen(argv[1]);
+	if (len < 4 || ft_strncmp(argv[1] + len - 4, ".cub", 4))
+		error_exit("Must be a .cub file", NULL);
+}
+
+/*
+** ゲームの初期化
+** mlxの初期化
+** ウィンドウの作成
+** プレイヤーの初期化
+*/
+void	game_init(t_game *game)
+{
+	int	x;
+
+	x = -1;
+	while (++x < (WIN_WIDTH * (WIN_HEIGHT / 2)))
+		game->canvas.data[x] = game->map_info->c;
+	while (x < WIN_WIDTH * WIN_HEIGHT)
+		game->canvas.data[x++] = game->map_info->f;
+	raycasting(game, &game->player);
+	mlx_put_image_to_window(game->mlx, game->win, game->canvas.img, 0, 0);
+}
+
+/*
+** ゲームのループ
+** イベントの受け取り
+** 描画
+*/
+void	game_loop(t_game *game)
+{
+	mlx_hook(game->win, DESTROYNOTIFY, STRUCTURENOTIFYMASK,
+		(void *)window_exit, game);
+	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
+	mlx_loop_hook(game->mlx, key_hook, game);
+	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_release, game);
+	mlx_loop(game->mlx);
+}
+
+/*
+** ゲームの更新
+** プレイヤーの移動
+** プレイヤーの描画
+*/
+int	game_update(t_game *game)
+{
+	int	x;
+
+	x = -1;
+	while (++x < (WIN_WIDTH * (WIN_HEIGHT / 2)))
+		game->canvas.data[x] = game->map_info->c;
+	while (x < WIN_WIDTH * WIN_HEIGHT)
+		game->canvas.data[x++] = game->map_info->f;
+	x = -1;
+	mlx_put_image_to_window(game->mlx, game->win, game->canvas.img, 0, 0);
+	raycasting(game, &game->player);
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	t_game	game;
+
+	game.alloc = NULL;
+	if (argc != 2)
+		error_exit("Invalid arguments", NULL);
+	cub_check(argv);
+	map_scan(&game, argv[1]);
+	map_check(&game, (&game)->map_info);
+	if (set_img(&game))
+		error_exit("Failed to set image", NULL);
+	game_init(&game);
+	game_loop(&game);
 	return (0);
 }
