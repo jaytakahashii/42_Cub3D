@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:29:22 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 13:56:04 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:03:15 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ int	map_spell_check(t_game *game, char **map)
 
 void	map_check(t_game *game, t_map *map_info)
 {
-	map_info->flag = 0;
-	map_info->flag = 0;
 	if (!map_info->map || !map_info->map[0])
 		error_exit_free("Map is not found", NULL, game->alloc);
 	if (!map_info->no || !map_info->so || !map_info->we || !map_info->ea

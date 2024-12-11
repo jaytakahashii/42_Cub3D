@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:29:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/06 15:00:08 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 12:59:15 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ void	map_scan(t_game *game, char *argv)
 	int (fd) = ft_open(argv);
 	map_info_init(&game->map_info, &(game->alloc));
 	read_map_info(fd, game);
-	while (y < OPEN_MAX)
+	while (1)
 	{
+		if (y > OPEN_MAX)
+			error_exit_free("Invalid map", NULL, game->alloc);
 		line = get_next_line(fd);
 		if (!line)
 			break ;
@@ -80,8 +82,6 @@ void	map_scan(t_game *game, char *argv)
 		y++;
 	}
 	copy_map(game->map_info, &(game->alloc));
-	if (y > OPEN_MAX)
-		error_exit_free("Invalid map", NULL, game->alloc);
 	game->map_info->height = y;
 	close(fd);
 }
