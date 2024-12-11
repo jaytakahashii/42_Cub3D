@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:29:28 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/12/11 12:59:15 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 13:05:45 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ void	map_info_init(t_map **map_info, t_allocations **alloc)
 
 	int (i) = -1;
 	*map_info = (t_map *)malloxit(sizeof(t_map), alloc);
-	(*map_info)->map = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
-	(*map_info)->map_tmp = (char **)malloxit(sizeof(char *) * OPEN_MAX, alloc);
-	while (++i < OPEN_MAX)
+	(*map_info)->map = (char **)malloxit(sizeof(char *) * LINE_MAX, alloc);
+	(*map_info)->map_tmp = (char **)malloxit(sizeof(char *) * LINE_MAX, alloc);
+	while (++i < LINE_MAX)
 	{
 		j = -1;
-		(*map_info)->map[i] = (char *)malloxit(sizeof(char) * OPEN_MAX, alloc);
-		while (++j < OPEN_MAX)
+		(*map_info)->map[i] = (char *)malloxit(sizeof(char) * LINE_MAX, alloc);
+		while (++j < LINE_MAX)
 			(*map_info)->map[i][j] = ' ';
 	}
-	(*map_info)->map[OPEN_MAX] = NULL;
-	(*map_info)->map_tmp[OPEN_MAX] = NULL;
+	(*map_info)->map[LINE_MAX] = NULL;
+	(*map_info)->map_tmp[LINE_MAX] = NULL;
 	(*map_info)->no = NULL;
 	(*map_info)->so = NULL;
 	(*map_info)->we = NULL;
@@ -55,7 +55,7 @@ void	copy_map(t_map *map_info, t_allocations **alloc)
 	int	i;
 
 	i = -1;
-	while (++i < OPEN_MAX)
+	while (++i < LINE_MAX)
 		map_info->map_tmp[i] = ft_strdup(map_info->map[i], alloc);
 }
 
@@ -69,7 +69,7 @@ void	map_scan(t_game *game, char *argv)
 	read_map_info(fd, game);
 	while (1)
 	{
-		if (y > OPEN_MAX)
+		if (y > LINE_MAX)
 			error_exit_free("Invalid map", NULL, game->alloc);
 		line = get_next_line(fd);
 		if (!line)
