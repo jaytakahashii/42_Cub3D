@@ -1,54 +1,52 @@
-# Makefile
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/12/11 11:43:37 by kosnakam          #+#    #+#              #
+#    Updated: 2024/12/11 11:43:58 by kosnakam         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 MAKEFILE 		= Makefile
 
-# プロジェクト名
 NAME			= cub3D
 
-# ソースファイルとオブジェクトファイルのディレクトリ
 SRC_DIR			= src/
 OBJ_DIR			= .obj/
 
-# ライブラリ
 LIBFT_DIR		= libft/
 LIBFT_NAME		= libft.a
 MLX_DIR			= mlx/
-# MacOSの場合
 ifeq ($(shell uname), Darwin)
 	MLX_NAME	= libmlx.a
-# Linuxの場合
 else
 	MLX_NAME	= libmlx_Linux.a
 endif
 
-# インクルード
 INCLUDE_DIR		= include/
 INCLUDE			= -I$(INCLUDE_DIR)
 LIBFT_INCLUDE	= -I$(LIBFT_DIR)$(INCLUDE_DIR)
 MLX_INCLUDE		= -I$(MLX_DIR)$(INCLUDE_DIR)
 HEADERS			= $(shell find $(INCLUDE_DIR) $(LIBFT_DIR)$(INCLUDE_DIR) $(MLX_DIR)$(INCLUDE_DIR) -name "*.h")
 
-# 依存ファイル
 DEPS			= $(HEADERS) $(MAKEFILE)
 
-# コンパイル設定
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -O3
-# MacOSの場合
+CFLAGS			= -Wall -Wextra -Werror
 ifeq ($(shell uname), Darwin)
 	LFLAGS		= -framework OpenGL -framework AppKit
-# Linuxの場合
 else
 	LFLAGS		= -lXext -lX11 -lm
 endif
 
-# コマンド
 RM				= rm -rf
 NORM			= norminette
 
-# ソースファイルをまとめる
 SRC_FILES		= $(shell find $(SRC_DIR) -name "*.c" | sed "s/.*\///")
 
-# オブジェクトファイルをまとめる
 OBJS			= $(addprefix $(OBJ_DIR), $(SRC_FILES:.c=.o))
 
 # color ***********************
@@ -98,7 +96,6 @@ fclean:
 re: fclean all
 
 leak: CFLAGS += -g
-# leak: CFLAGS += -O3
 leak: LFLAGS += -fsanitize=address
 leak: re
 
