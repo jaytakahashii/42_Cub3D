@@ -6,7 +6,7 @@
 /*   By: kosnakam <kosnakam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 13:27:21 by kosnakam          #+#    #+#             */
-/*   Updated: 2024/11/08 13:34:14 by kosnakam         ###   ########.fr       */
+/*   Updated: 2024/12/11 12:00:21 by kosnakam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ void	game_init(t_game *game)
 
 void	game_loop(t_game *game)
 {
-	mlx_hook(game->win, 17, 0, (void *)window_exit, game);
-	mlx_hook(game->win, 2, 1L << 0, key_press, game);
+	mlx_hook(game->win, DESTROYNOTIFY, STRUCTURENOTIFYMASK,
+		(void *)window_exit, game);
+	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
 	mlx_loop_hook(game->mlx, key_hook, game);
-	mlx_hook(game->win, 3, 1L << 1, key_release, game);
+	mlx_hook(game->win, KeyRelease, KeyReleaseMask, key_release, game);
 	mlx_loop(game->mlx);
 }
 
