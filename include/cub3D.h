@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtakahas <jtakahas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jay <jay@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 13:41:13 by jtakahas          #+#    #+#             */
-/*   Updated: 2024/12/11 13:41:14 by jtakahas         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:14:40 by jay              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,39 @@
 #  define STRUCTURENOTIFYMASK StructureNotifyMask
 # endif
 
+# ifndef KeyPress
+#  define KeyPress 2
+# endif
+
+# ifndef KeyRelease
+#  define KeyRelease 3
+# endif
+
+# ifndef KeyPressMask
+#  define KeyPressMask (1L<<0)
+# endif
+# ifndef KeyReleaseMask
+#  define KeyReleaseMask (1L<<1)
+# endif
+
 # define TEXTURE_SIZE 64
 # define HALF_TEXTURE_SIZE 32
 # define BACKGROUND_SIZE 256
 # define MAP_SIZE 10000
 # define RATE 55000
 
-# define M_PI 3.14159265358979323846
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
+
+# ifndef M_PI_2
 # define M_PI_2 1.57079632679489661923
+# endif
+
+# ifndef M_PI_4
 # define M_PI_4 0.78539816339744830962
+# endif
+
 # define M_PI_3 1.04719755119659774615
 # define M_PI_3_2 4.71238898038468985769
 
