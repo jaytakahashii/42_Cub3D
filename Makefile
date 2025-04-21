@@ -64,35 +64,26 @@ CUT				= "\033[K"
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS) $(DEPS)
-	@echo $(Y) "$(NAME) src files successfully compiled\n" $(X)
-	@echo $(B) "--> Into $(LIBFT_DIR)" $(X)
+	@echo $(Y) "src files successfully compiled!!" $(X)
 	@$(MAKE) -C $(LIBFT_DIR)
-	@printf $(UP)$(CUT)
-	@echo $(B) "<-- Out of $(LIBFT_DIR)\n" $(X)
-	@echo $(B) "$(NAME) creating" $(X)
-	@printf $(UP)$(CUT)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_DIR)$(LIBFT_NAME) $(MLX_DIR)$(MLX_NAME) $(LFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_DIR)$(LIBFT_NAME) $(MLX_DIR)$(MLX_NAME) $(LFLAGS) -o $(NAME)
 	@echo $(G) "!! $(NAME) created !!\n" $(X)
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@echo $(Y) "Compiling $<" $(X)
-	@$(CC) $(CFLAGS) $(INCLUDE) $(LIBFT_INCLUDE) $(MLX_INCLUDE) -c $< -o $@
-	@printf $(UP)$(CUT)
+	$(CC) $(CFLAGS) $(INCLUDE) $(LIBFT_INCLUDE) $(MLX_INCLUDE) -c $< -o $@
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	@printf $(UP)$(CUT)
-	@$(RM) $(OBJ_DIR)
+	$(RM) $(OBJ_DIR)
 	@echo $(R) "$(OBJ_DIR) has been removed!!" $(X)
 
 fclean:
 	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@printf $(UP)$(CUT)
-	@$(RM) $(OBJ_DIR)
-	@$(RM) $(NAME)
+	$(RM) $(OBJ_DIR)
+	$(RM) $(NAME)
 	@echo $(R) "$(NAME) $(OBJ_DIR) has been removed!!" $(X)
 
 re: fclean all
